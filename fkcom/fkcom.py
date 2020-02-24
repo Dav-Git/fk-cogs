@@ -14,3 +14,22 @@ class FKCom(commands.Cog):
             )
         )
 
+    @commands.command()
+    async def claw(self, ctx, user: discord.Member):
+        roles = {
+            "fireteam": ctx.guild.get_role(634692203582717990),
+            "burning": ctx.guild.get_role(489455280266936321),
+            "contact": ctx.guild.get_role(483212257237401621),
+        }
+        try:
+            if roles["fireteam"] in user.roles:
+                await user.remove_roles(roles["fireteam"], reason="Contact claws assigned.")
+            elif roles["burning"] in user.roles:
+                await user.remove_roles(roles["burning"], reason="Contact claws assigned.")
+            await user.add_roles(roles["contact"], reason="Contact claws assigned.")
+            await ctx.guild.get_channel(350726339327950859).send(
+                f"{user.name} has been put into {ctx.guild.get_channel(350726339327950859).mention}."
+            )
+        except:
+            await ctx.send("An error occured.")
+

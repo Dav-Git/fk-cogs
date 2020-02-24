@@ -16,6 +16,7 @@ class FKCom(commands.Cog):
         )
 
     @commands.command()
+    @checks.mod()
     async def claw(self, ctx, user: discord.Member):
         """``[Member]`` | Puts a member into #contact-claws."""
         roles = {
@@ -36,6 +37,7 @@ class FKCom(commands.Cog):
             await ctx.send("An error occured.")
 
     @commands.group(name="return")
+    @checks.mod()
     async def return_member(self, ctx):
         """Return a member out of #contact-claws. Use ``fireteam`` or ``burning`` to decide at which level they re-join the conversation."""
         pass
@@ -67,3 +69,11 @@ class FKCom(commands.Cog):
             await ctx.guild.get_channel(350726339327950859).send(
                 f"{user.name} has been returned from {ctx.guild.get_channel(483213085293936640).mention}."
             )
+
+    @commands.command()
+    @checks.mod()
+    async def bot(self, ctx):
+        """If someone requests a bot is put in... run this."""
+        await ctx.send(
+            f"In an effort to keep confusion and management requirements at a minimum we have opted to be a one-bot-server. This means that we will not be adding any other bot besides {ctx.bot.user.mention}. If you would like to request some sort of functionality please describe exactly what you want to see in {ctx.guild.get_channel(340124332111953942)} and we will check if it something we can implement."
+        )

@@ -17,9 +17,7 @@ class FKCom(commands.Cog):
 
     @commands.command()
     async def claw(self, ctx, user: discord.Member):
-        """``[Member]`` | Puts a member into {}.""".format(
-            ctx.guild.get_channel(483213085293936640).mention
-        )
+        """``[Member]`` | Puts a member into #contact-claws."""
         roles = {
             "fireteam": ctx.guild.get_role(634692203582717990),
             "burning": ctx.guild.get_role(489455280266936321),
@@ -39,5 +37,5 @@ class FKCom(commands.Cog):
 
     @commands.group(name="return")
     async def return_member(self, ctx):
-        """Return a member out of {}""".format(ctx.guild.get_channel(483213085293936640).mention)
+        """Return a member out of #contact-claws. Use ``fireteam`` or ``burning`` to decide at which level they re-join the conversation."""
         pass

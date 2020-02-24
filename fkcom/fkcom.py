@@ -77,5 +77,5 @@ class FKCom(commands.Cog):
         await ctx.send(
             f"""In an effort to keep confusion and management requirements at a minimum we have opted to be a one-bot-server.
 This means that we will not be adding any other bot besides {ctx.bot.user.mention}.
-If you would like to request some sort of functionality please describe exactly what you want to see in {ctx.guild.get_channel(340124332111953942).mention} and we will check if it something we can implement."""
+If you would like to request some sort of functionality please describe exactly what you want to see in {ctx.guild.get_channel(340124332111953942).mention} and we will check if it is something we can implement."""
         )

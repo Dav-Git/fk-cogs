@@ -39,3 +39,31 @@ class FKCom(commands.Cog):
     async def return_member(self, ctx):
         """Return a member out of #contact-claws. Use ``fireteam`` or ``burning`` to decide at which level they re-join the conversation."""
         pass
+
+    @return_member.command()
+    async def fireteam(self, ctx, user: discord.Member):
+        """Return them as a member of the Fireteam"""
+        if ctx.guild.get_role(483212257237401621) in user.roles:
+            await user.remove_roles(
+                ctx.guild.get_role(483212257237401621), reason="Returned from Contact claws."
+            )
+            await user.add_roles(
+                ctx.guild.get_role(634692203582717990), reason="Returned from Contact claws."
+            )
+            await ctx.guild.get_channel(350726339327950859).send(
+                f"{user.name} has been returned from {ctx.guild.get_channel(483213085293936640).mention}."
+            )
+
+    @return_member.command()
+    async def burning(self, ctx, user: discord.Member):
+        """Return them as a Burning Bright"""
+        if ctx.guild.get_role(483212257237401621) in user.roles:
+            await user.remove_roles(
+                ctx.guild.get_role(483212257237401621), reason="Returned from Contact claws."
+            )
+            await user.add_roles(
+                ctx.guild.get_role(489455280266936321), reason="Returned from Contact claws."
+            )
+            await ctx.guild.get_channel(350726339327950859).send(
+                f"{user.name} has been returned from {ctx.guild.get_channel(483213085293936640).mention}."
+            )

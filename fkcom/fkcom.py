@@ -90,3 +90,12 @@ If you would like to request some sort of functionality please describe exactly 
         await ctx.guild.get_channel(339741123406725121).send(
             "A {} has been requested in {}.".format(modrolestr, ctx.channel.mention)
         )
+
+    @commands.command(name="admin")
+    async def get_admin_attention(self, ctx):
+        """Get an admin to help you."""
+        adminrolestr = ctx.guild.get_role(332834961407213568).mention
+        await ctx.send("An {} has been requested.".format(adminrolestr))
+        await ctx.guild.get_channel(360478963115491328).send(
+            "An {} has been requested in {}.".format(adminrolestr, ctx.channel.mention)
+        )

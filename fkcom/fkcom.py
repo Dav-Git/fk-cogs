@@ -117,3 +117,8 @@ If you would like to request some sort of functionality please describe exactly 
             await ctx.send(
                 "I could not send you a DM. Make sure I can send you a direct message due to the confidentiality of your issue."
             )
+
+    @commands.command(name="commands")
+    async def user_helper(self, ctx):
+        """See all bot commands using -help"""
+        await ctx.send("Use ``-help`` to see all bot commands.")

@@ -4,17 +4,8 @@ from typing import Optional
 
 
 class FKCom(commands.Cog):
-    @commands.command()
-    @checks.mod()
-    async def rp(self, ctx, user: Optional[discord.User]):
-        """Blanket warn message for rp questions"""
-        await ctx.send(
-            "Hey{}, it seems like you have asked a question about ARP (Aspirant Gaming). We are not affiliated with ARP at all and sadly can not provide any information to you. To receive an answer to your question, try {} or the Aspirant Gaming discord server.".format(
-                " " + user.mention if user != None else "\u200b",
-                ctx.guild.get_channel(478917077705555970).mention,
-            )
-        )
 
+    # Mod-tools
     @commands.command()
     @checks.mod()
     async def claw(self, ctx, user: discord.Member):
@@ -70,12 +61,32 @@ class FKCom(commands.Cog):
                 f"{user.name} has been returned from {ctx.guild.get_channel(483213085293936640).mention}."
             )
 
+    # Member executable
+
     @commands.command()
-    @checks.mod()
     async def bot(self, ctx):
         """If someone requests a bot is put in... run this."""
         await ctx.send(
             f"""In an effort to keep confusion and management requirements at a minimum we have opted to be a one-bot-server.
 This means that we will not be adding any other bot besides {ctx.bot.user.mention}.
 If you would like to request some sort of functionality please describe exactly what you want to see in {ctx.guild.get_channel(340124332111953942).mention} and we will check if it is something we can implement."""
+        )
+
+    @commands.command()
+    async def rp(self, ctx, user: Optional[discord.User]):
+        """Blanket warn message for rp questions"""
+        await ctx.send(
+            "Hey{}, it seems like you have asked a question about ARP (Aspirant Gaming). We are not affiliated with ARP at all and sadly can not provide any information to you. To receive an answer to your question, try {} or the Aspirant Gaming discord server.".format(
+                " " + user.mention if user != None else "\u200b",
+                ctx.guild.get_channel(478917077705555970).mention,
+            )
+        )
+
+    @commands.command(name="mod")
+    async def get_mod_attention(self, ctx):
+        """Get a moderator to help you."""
+        modrolestr = ctx.guild.get_role(332835206493110272).mention
+        await ctx.send("A {} has been requested.".format(modrolestr))
+        await ctx.guild.get_channel(339741123406725121).send(
+            "A {} has been requested in {}.".format(modrolestr, ctx.channel.mention)
         )

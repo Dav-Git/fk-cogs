@@ -1,6 +1,7 @@
 from redbot.core import checks, commands
 import discord
 from typing import Optional
+from sys import stderr
 
 
 class FKCom(commands.Cog):
@@ -24,8 +25,15 @@ class FKCom(commands.Cog):
             await ctx.guild.get_channel(350726339327950859).send(
                 f"{user.name} has been put into {ctx.guild.get_channel(483213085293936640).mention}."
             )
+            print(
+                f"{ctx.author.name}({ctx.author.id}) clawed {user.name}({user.id}).", file=stderr
+            )
         except:
             await ctx.send("An error occured.")
+            print(
+                f"{ctx.author.name}({ctx.author.id}) tried to claw {user.name}({user.id}) but something went wrong.",
+                file=stderr,
+            )
 
     @commands.group(name="return")
     @checks.mod()

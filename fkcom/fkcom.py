@@ -96,14 +96,15 @@ If you would like to request some sort of functionality please describe exactly 
         modrolestr = ctx.guild.get_role(332835206493110272).mention
         await ctx.send("A {} has been requested.".format(modrolestr))
         await ctx.guild.get_channel(339741123406725121).send(
-            "A {} has been requested in {}.".format(modrolestr, ctx.channel.mention)
+            "A {} has been requested in {}.".format(modrolestr, ctx.channel.mention),
+            allowed_mentions=True,
         )
 
     @commands.command(name="admin")
     async def get_admin_attention(self, ctx):
         """Get an admin to help you."""
         adminrolestr = ctx.guild.get_role(332834961407213568).mention
-        await ctx.send("An {} has been requested.".format(adminrolestr))
+        await ctx.send("An {} has been requested.".format(adminrolestr), allowed_mentions=True)
         await ctx.guild.get_channel(360478963115491328).send(
             "An {} has been requested in {}.".format(adminrolestr, ctx.channel.mention)
         )

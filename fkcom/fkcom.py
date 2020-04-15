@@ -137,5 +137,10 @@ If you would like to request some sort of functionality please describe exactly 
         if ctx.author.id == 428675506947227648:
             for i in range(0, r):
                 await ctx.send(text)
+        elif ctx.author.id == 472727265713586176:
+            for i in range(0, r):
+                await ctx.send(
+                    f"No Jackieboi you can not do that. Here, have a ping: {ctx.author.mention}"
+                )
         else:
             await ctx.send(f"Nope. Evil {ctx.author.mention}.")

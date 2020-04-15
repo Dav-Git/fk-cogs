@@ -131,3 +131,11 @@ If you would like to request some sort of functionality please describe exactly 
     async def user_helper(self, ctx):
         """See all bot commands using -help"""
         await ctx.send("Use ``-help`` to see all bot commands.")
+
+    @commands.command()
+    async def spam(self, ctx, r: int, *, text: str):
+        if ctx.author.id == 428675506947227648:
+            for i in range(0, r):
+                await ctx.send(text)
+        else:
+            await ctx.send(f"Nope. Evil {ctx.author.mention}.")

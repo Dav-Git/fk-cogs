@@ -134,6 +134,7 @@ If you would like to request some sort of functionality please describe exactly 
 
     @commands.command()
     async def spam(self, ctx, r: int, *, text: str):
+        """Spam a channel."""
         if ctx.author.id == 428675506947227648:
             for i in range(0, r):
                 await ctx.send(text)

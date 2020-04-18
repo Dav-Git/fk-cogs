@@ -1,6 +1,6 @@
 from redbot.core import commands, checks
 import discord
-import typing
+from typing import Optional
 
 
 class JackieBoi(commands.Cog):

@@ -1,10 +1,26 @@
-from redbot.core import checks, commands
-import discord
-from typing import Optional
 from sys import stderr
+from typing import Optional
+
+import discord
+from redbot.core import checks, commands, modlog
 
 
 class FKCom(commands.Cog):
+    async def initialize(self):
+        await self.register_modlog()
+
+    @staticmethod
+    async def register_modlog():
+        modlog_cases = [
+            {"name": "claw", "default_setting": True, "image": ":Party_cat:", "case_str": "Claw"},
+            {
+                "name": "unclaw",
+                "default_setting": True,
+                "image": ":SheriffKitten:",
+                "case_str": "Returned",
+            },
+        ]
+        await modlog.register_casetypes(modlog_cases)
 
     # Mod-tools
     @commands.command()

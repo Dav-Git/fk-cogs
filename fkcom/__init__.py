@@ -1,5 +1,7 @@
 from .fkcom import FKCom
 
 
-def setup(bot):
-    bot.add_cog(FKCom())
+async def setup(bot):
+    cog = FKCom()
+    await cog.initialize()
+    bot.add_cog(cog)

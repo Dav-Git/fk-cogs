@@ -137,6 +137,28 @@ If you would like to request some sort of functionality please describe exactly 
         """Spam a channel."""
         if ctx.author.id == 428675506947227648:
             for i in range(0, r):
+                i  # Stop screaming at me for not using the variable VSCode!!!!
                 await ctx.send(text)
+        elif ctx.author.id == 472727265713586176:
+            for i in range(0, r):
+                await ctx.send(
+                    f"No Jackieboi you can not do that. Here, have a ping: {ctx.author.mention}"
+                )
         else:
             await ctx.send(f"Nope. Evil {ctx.author.mention}.")
+
+    @commands.command()
+    @checks.mod()
+    async def moderation(self, ctx):
+        """Quick reference to moderation commands."""
+        text = """```AsciiDoc
+[Moderation commands]\n
+-check [User]                      | Check flags, warnings and userinfo for a user.
+-flag [User] [Reason]              | Flag a user (staff notes)
+-warn [User] [Reason]              | Warn a user
+-tm [User] [Reason] --for [time]   | -tm [User] [Reason] --for 12 hours | Tempmute a user.
+-mute                              | See all muting options including voice or channel mutes.
+-claw [User]                       | Put a user into the #contact-claws channel.
+-release [fireteam/burning] [User] | Return a user from the #conatct-claws channel.
+```"""
+        await ctx.send(text)

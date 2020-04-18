@@ -7,7 +7,7 @@ from datetime import datetime
 class JackieBoi(commands.Cog):
     """JackieCog"""
 
-    async def __init__(self, bot):
+    def __init__(self, bot):
         self.bot = bot
 
     async def initialize(self):

@@ -10,7 +10,7 @@ class JackieBoi(commands.Cog):
     async def __init__(self, bot):
         self.bot = bot
 
-    async def intialize(self):
+    async def initialize(self):
         await self.register_casetypes()
 
     @staticmethod

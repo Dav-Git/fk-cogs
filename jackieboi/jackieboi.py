@@ -16,6 +16,6 @@ class JackieBoi(commands.Cog):
         else:
             reason = f'"{reason}" requested by {ctx.author.mention}.'
         try:
-            await whoever_the_fuck_needs_changed.edit(nick="CHANGEME", reason=reason)
+            await whoever_the_fuck_needs_changed.edit(nick="change", reason=reason)
         except discord.errors.Forbidden:
             await ctx.send("Missing permissions.")

@@ -7,8 +7,10 @@ from datetime import datetime
 class JackieBoi(commands.Cog):
     """JackieCog"""
 
-    async def intialize(self, bot):
+    async def __init__(self, bot):
         self.bot = bot
+
+    async def intialize(self):
         await self.register_casetypes()
 
     @staticmethod

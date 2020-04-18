@@ -2,4 +2,6 @@ from .jackieboi import JackieBoi
 
 
 def setup(bot):
-    bot.add_cog(JackieBoi())
+    cog = Jackieboi(bot)
+    await cog.initialize()
+    bot.add_cog(cog)

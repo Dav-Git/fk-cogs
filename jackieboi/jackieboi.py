@@ -12,7 +12,9 @@ class JackieBoi(commands.Cog):
         self, ctx, whoever_the_fuck_needs_changed: discord.Member, *, reason: Optional[str]
     ):
         if not reason:
-            reason = "Nickname force-changed."
+            reason = f"Nickname force-changed by {ctx.author.mention}"
+        else:
+            reason = f'"{reason}" requested by {ctx.author.mention}.'
         try:
             await whoever_the_fuck_needs_changed.edit(nick="CHANGEME", reason=reason)
         except discord.errors.Forbidden:

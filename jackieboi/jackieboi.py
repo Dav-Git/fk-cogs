@@ -13,4 +13,7 @@ class JackieBoi(commands.Cog):
     ):
         if not reason:
             reason = "Nickname force-changed."
-        await whoever_the_fuck_needs_changed.edit(nick="CHANGEME", reason=reason)
+        try:
+            await whoever_the_fuck_needs_changed.edit(nick="CHANGEME", reason=reason)
+        except discord.errors.Forbidden:
+            await ctx.send("Missing permissions.")

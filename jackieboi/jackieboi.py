@@ -21,7 +21,10 @@ class JackieBoi(commands.Cog):
             "image": ":pencil2:",
             "case_str": "Nickname force-changed",
         }
-        await modlog.register_casetype(**forcechange_case)
+        try:
+            await modlog.register_casetype(**forcechange_case)
+        except RuntimeError:
+            pass
 
     @checks.mod()
     @commands.command()

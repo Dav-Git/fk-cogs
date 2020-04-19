@@ -117,8 +117,8 @@ class FKCom(commands.Cog):
 
     # Member executable
 
-    @commands.command()
-    async def bot(self, ctx):
+    @commands.command(name="bot")
+    async def botinfo(self, ctx):
         """If someone requests a bot is put in... run this."""
         await ctx.send(
             f"""In an effort to keep confusion and management requirements at a minimum we have opted to be a one-bot-server.

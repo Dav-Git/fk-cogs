@@ -1,3 +1,4 @@
+from datetime import datetime
 from sys import stderr
 from typing import Optional
 
@@ -6,6 +7,9 @@ from redbot.core import checks, commands, modlog
 
 
 class FKCom(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
     async def initialize(self):
         await self.register_modlog()
 
@@ -25,21 +29,32 @@ class FKCom(commands.Cog):
     # Mod-tools
     @commands.command()
     @checks.mod()
-    async def claw(self, ctx, user: discord.Member):
+    async def claw(self, ctx, user: discord.Member, reason: Optional[str]):
         """``[Member]`` | Puts a member into #contact-claws."""
         roles = {
             "fireteam": ctx.guild.get_role(634692203582717990),
             "burning": ctx.guild.get_role(489455280266936321),
             "contact": ctx.guild.get_role(483212257237401621),
         }
+        if not reason:
+            reason = (
+                f"Member has been put into {ctx.guild.get_channel(483213085293936640).mention}"
+            )
         try:
             if roles["fireteam"] in user.roles:
                 await user.remove_roles(roles["fireteam"], reason="Contact claws assigned.")
             elif roles["burning"] in user.roles:
                 await user.remove_roles(roles["burning"], reason="Contact claws assigned.")
             await user.add_roles(roles["contact"], reason="Contact claws assigned.")
-            await ctx.guild.get_channel(350726339327950859).send(
-                f"{user.name} has been put into {ctx.guild.get_channel(483213085293936640).mention}."
+            await modlog.create_case(
+                self.bot,
+                ctx.guild,
+                datetime.now(),
+                "claw",
+                user,
+                moderator=ctx.author,
+                reason=reason,
+                channel=ctx.channel,
             )
             print(
                 f"{ctx.author.name}({ctx.author.id}) clawed {user.name}({user.id}).", file=stderr
@@ -67,8 +82,14 @@ class FKCom(commands.Cog):
             await user.add_roles(
                 ctx.guild.get_role(634692203582717990), reason="Returned from Contact claws."
             )
-            await ctx.guild.get_channel(350726339327950859).send(
-                f"{user.name} has been returned from {ctx.guild.get_channel(483213085293936640).mention}."
+            await modlog.create_case(
+                self.bot,
+                ctx.guild,
+                datetime.now(),
+                "unclaw",
+                user,
+                moderator=ctx.author,
+                channel=ctx.channel,
             )
 
     @return_member.command()
@@ -83,6 +104,15 @@ class FKCom(commands.Cog):
             )
             await ctx.guild.get_channel(350726339327950859).send(
                 f"{user.name} has been returned from {ctx.guild.get_channel(483213085293936640).mention}."
+            )
+            await modlog.create_case(
+                self.bot,
+                ctx.guild,
+                datetime.now(),
+                "unclaw",
+                user,
+                moderator=ctx.author,
+                channel=ctx.channel,
             )
 
     # Member executable

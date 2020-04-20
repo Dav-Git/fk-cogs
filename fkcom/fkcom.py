@@ -172,12 +172,13 @@ If you would like to request some sort of functionality please describe exactly 
         text = """```AsciiDoc
 [Moderation commands]\n
 -check [User]                      | Check flags, warnings and userinfo for a user.
+-lvlinfo [User] | -rank [User]     | Get info about a current user's rank.
 -flag [User] [Reason]              | Flag a user (staff notes)
 -warn [User] [Reason]              | Warn a user
 -tm [User] [Reason] --for [time]   | -tm [User] [Reason] --for 12 hours | Tempmute a user.
 -mute                              | See all muting options including voice or channel mutes.
 -claw [User]                       | Put a user into the #contact-claws channel.
--return [fireteam/burning] [User] | Return a user from the #conatct-claws channel.
+-return [fireteam/burning] [User]  | Return a user from the #conatct-claws channel.
 
 
 [Quick-access messages]\n

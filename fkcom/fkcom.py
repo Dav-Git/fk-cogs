@@ -163,7 +163,7 @@ If you would like to request some sort of functionality please describe exactly 
     @commands.command()
     @checks.mod()
     async def issuereport(self, ctx):
-        await ctx.send("Report all issues here: https://github.com/Dav-git/fk-cogs/issues/new")
+        await ctx.send("Report all issues here: https://forms.gle/PGgi1kZ3ExrV3Kij7")
 
     @commands.command()
     @checks.mod()

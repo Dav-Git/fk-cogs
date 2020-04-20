@@ -162,6 +162,11 @@ If you would like to request some sort of functionality please describe exactly 
 
     @commands.command()
     @checks.mod()
+    async def issuereport(self, ctx):
+        await ctx.send("Report all issues here: https://github.com/Dav-git/fk-cogs/issues/new")
+
+    @commands.command()
+    @checks.mod()
     async def moderation(self, ctx):
         """Quick reference to moderation commands."""
         text = """```AsciiDoc
@@ -179,5 +184,9 @@ If you would like to request some sort of functionality please describe exactly 
 -admin                             | Get an admin to help you.
 -bot                               | Run this if someone asks us to put a bot in.
 -rp [User]                         | Run this if someone asks a ARP or otherwise RP related question.
+
+
+[Other]\n
+-issuereport                       | Something is broken? Report it here. Staff only.
 ```"""
         await ctx.send(text)

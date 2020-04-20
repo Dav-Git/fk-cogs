@@ -172,6 +172,12 @@ If you would like to request some sort of functionality please describe exactly 
 -tm [User] [Reason] --for [time]   | -tm [User] [Reason] --for 12 hours | Tempmute a user.
 -mute                              | See all muting options including voice or channel mutes.
 -claw [User]                       | Put a user into the #contact-claws channel.
--release [fireteam/burning] [User] | Return a user from the #conatct-claws channel.
+-return [fireteam/burning] [User] | Return a user from the #conatct-claws channel.
+
+
+[Quick-access messages]\n
+-admin                             | Get an admin to help you.
+-bot                               | Run this if someone asks us to put a bot in.
+-rp [User]                         | Run this if someone asks a ARP or otherwise RP related question.
 ```"""
         await ctx.send(text)

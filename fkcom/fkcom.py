@@ -22,13 +22,18 @@ class FKCom(commands.Cog):
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
-        if after.channel.id in [332834234135740416, 518130862492090415, 481820769568161793]:
-            overwrite = discord.PermissionOverwrite()
-            overwrite.send_messages = True
-            overwrite.read_messages = True
-            await member.guild.get_channel(702969795389292584).set_permissions(
-                member, overwrite=overwrite
-            )
+        if after.channel:
+            if after.channel.id in [332834234135740416, 518130862492090415, 481820769568161793]:
+                overwrite = discord.PermissionOverwrite()
+                overwrite.send_messages = True
+                overwrite.read_messages = True
+                await member.guild.get_channel(702969795389292584).set_permissions(
+                    member, overwrite=overwrite
+                )
+            else:
+                await member.guild.get_channel(702969795389292584).set_permissions(
+                    member, overwrite=None
+                )
         else:
             await member.guild.get_channel(702969795389292584).set_permissions(
                 member, overwrite=None

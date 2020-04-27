@@ -63,7 +63,12 @@ class FKCom(commands.Cog):
             for r in staffroles:
                 if r in m.roles:
                     staffcounter += 1
-        # Check staff counter+edit channel.
+        if staffcounter > 2 and staffcounter < 6:
+            await channelref.edit(user_limit=15, reason="3+ Staff in channel.")
+        elif staffcounter > 5:
+            await channelref.edit(user_limit=20, reason="6+ Staff in channel.")
+        else:
+            await channelref.edit(user_limit=10, reason="Fewer than 3 Staff in channel.")
 
     # Mod-tools
     @commands.command()

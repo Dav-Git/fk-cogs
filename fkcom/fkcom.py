@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta, timezone
 from sys import stderr
 from typing import Optional
 

@@ -239,5 +239,6 @@ If you would like to request some sort of functionality please describe exactly 
 
 [Other]\n
 -issuereport                       | Something is broken? Report it here. Staff only.
-```"""
+```
+Command cheat sheet: https://docs.google.com/spreadsheets/d/1-lcupBATqrQ9HlcmZ8kUhZDxyL7zXDDjRWPbP41VQUE/edit?usp=sharing"""
         await ctx.send(text)

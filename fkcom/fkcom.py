@@ -133,6 +133,17 @@ class FKCom(commands.Cog):
                 f"{user.name} has been returned from {ctx.guild.get_channel(483213085293936640).mention}."
             )
 
+    @return_member.command(aliases=["basic", "normal", "everyone", "nobody"])
+    async def standard(self, ctx, user: discord.Member):
+        """Return them as a nobody."""
+        if ctx.guild.get_role(483212257237401621) in user.roles:
+            await user.remove_roles(
+                ctx.guild.get_role(483212257237401621), reason="Returned from Contact claws."
+            )
+            await ctx.guild.get_channel(350726339327950859).send(
+                f"{user.name} has been returned from {ctx.guild.get_channel(483213085293936640).mention}."
+            )
+
     # Member executable
 
     @commands.command()

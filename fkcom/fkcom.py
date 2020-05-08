@@ -75,6 +75,20 @@ class FKCom(commands.Cog):
         else:
             await channelref.edit(user_limit=10, reason="Fewer than 3 Staff in channel.")
 
+    @commands.Cog.listener()
+    async def on_guild_channel_update(self, before, after):
+        # Moo
+        if after.id == 332834024831582210:
+            if not before.overwrites == after.overwrites:
+                overwrites = before.overwrites
+                for key in overwrites:
+                    if isinstance(key, discord.Member):
+                        await key.remove_roles(after.guild.get_role(707949167338586123))
+                overwrites = after.overwrites
+                for key in overwrites:
+                    if isinstance(key, discord.Member):
+                        await key.add_roles(after.guild.get_role(707949167338586123))
+
     # Mod-tools
     @commands.command()
     @checks.mod()

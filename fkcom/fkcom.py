@@ -82,14 +82,12 @@ class FKCom(commands.Cog):
             if not before.overwrites == after.overwrites:
                 overwrites = before.overwrites
                 for key in overwrites:
-                    await before.send(f"before {key}")
                     if isinstance(key, discord.Member):
                         await key.remove_roles(
                             after.guild.get_role(707949167338586123), reason="No mo moo"
                         )
                 overwrites = after.overwrites
                 for key in overwrites:
-                    await before.send(f"before {key}")
                     if isinstance(key, discord.Member):
                         await key.add_roles(after.guild.get_role(707949167338586123), reason="moo")
 

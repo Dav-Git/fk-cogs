@@ -83,11 +83,13 @@ class FKCom(commands.Cog):
                 overwrites = before.overwrites
                 for key in overwrites:
                     if isinstance(key, discord.Member):
-                        await key.remove_roles(after.guild.get_role(707949167338586123))
+                        await key.remove_roles(
+                            after.guild.get_role(707949167338586123), reason="No mo moo"
+                        )
                 overwrites = after.overwrites
                 for key in overwrites:
                     if isinstance(key, discord.Member):
-                        await key.add_roles(after.guild.get_role(707949167338586123))
+                        await key.add_roles(after.guild.get_role(707949167338586123), reason="moo")
 
     # Mod-tools
     @commands.command()
@@ -251,14 +253,15 @@ If you would like to request some sort of functionality please describe exactly 
         """Quick reference to moderation commands."""
         text = """```AsciiDoc
 [Moderation commands]\n
--check [User]                      | Check flags, warnings and userinfo for a user.
--lvlinfo [User] | -rank [User]     | Get info about a current user's rank.
--flag [User] [Reason]              | Flag a user (staff notes)
--warn [User] [Reason]              | Warn a user
--tm [User] [Reason] --for [time]   | -tm [User] [Reason] --for 12 hours | Tempmute a user.
+-check <User>                      | Check flags, warnings and userinfo for a user.
+-lvlinfo <User> | -rank <User>     | Get info about a current user's rank.
+-forcenick <User> [Reason]         | Force-change a user's nickname.
+-flag <User> <Reason>              | Flag a user (staff notes).
+-warn <User> <Reason>              | Warn a user.
+-tm <User> <Reason> --for <time>   | -tm <User> <Reason> --for 12 hours | Tempmute a user.    | Alias: -moo
 -mute                              | See all muting options including voice or channel mutes.
--claw [User]                       | Put a user into the #contact-claws channel.
--return [fireteam/burning] [User]  | Return a user from the #contact-claws channel.
+-claw <User>                       | Put a user into the #contact-claws channel.
+-return <fireteam/burning> <User>  | Return a user from the #contact-claws channel.
 
 
 [Quick-access messages]\n

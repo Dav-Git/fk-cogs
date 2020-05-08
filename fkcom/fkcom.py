@@ -258,7 +258,7 @@ If you would like to request some sort of functionality please describe exactly 
 -forcenick <User> [Reason]         | Force-change a user's nickname.
 -flag <User> <Reason>              | Flag a user (staff notes).
 -warn <User> <Reason>              | Warn a user.
--tm <User> <Reason> --for <time>   | -tm <User> <Reason> --for 12 hours | Tempmute a user.    | Alias: -moo
+-tm <User> [Reason] --for <time>   | -tm <User> [Reason] --for 12 hours | Tempmute a user.    | Alias: -moo
 -mute                              | See all muting options including voice or channel mutes.
 -claw <User>                       | Put a user into the #contact-claws channel.
 -return <fireteam/burning> <User>  | Return a user from the #contact-claws channel.

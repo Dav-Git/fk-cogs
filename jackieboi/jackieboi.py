@@ -10,40 +10,25 @@ class JackieBoi(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def initialize(self):
-        await self.register_casetypes()
-
-    @staticmethod
-    async def register_casetypes():
-        forcechange_case = {
-            "name": "forcechange",
-            "default_setting": True,
-            "image": ":pencil2:",
-            "case_str": "Nickname force-changed",
-        }
-        try:
-            await modlog.register_casetype(**forcechange_case)
-        except RuntimeError:
-            pass
-
-    @checks.mod()
-    @commands.command()
-    async def forcenick(
-        self, ctx, whoever_the_fuck_needs_changed: discord.Member, *, reason: Optional[str]
-    ):
-        if not reason:
-            reason = f"Nickname force-changed"
-        try:
-            await whoever_the_fuck_needs_changed.edit(nick="change")
-            await modlog.create_case(
-                self.bot,
-                ctx.guild,
-                datetime.now(),
-                "forcechange",
-                whoever_the_fuck_needs_changed,
-                moderator=ctx.author,
-                reason=reason,
-                channel=ctx.channel,
+    @commands.Cog.listener()
+    async def on_voice_state_update(self, member, before, after):
+        # Show #no-mic if member in VC
+        if after.channel:
+            if after.channel.id in [
+                497123927605248000,
+                708311725803438171,
+            ]:
+                overwrite = discord.PermissionOverwrite()
+                overwrite.send_messages = True
+                overwrite.read_messages = True
+                await member.guild.get_channel(630729731825991700).set_permissions(
+                    member, overwrite=overwrite
+                )
+            else:
+                await member.guild.get_channel(630729731825991700).set_permissions(
+                    member, overwrite=None
+                )
+        else:
+            await member.guild.get_channel(630729731825991700).set_permissions(
+                member, overwrite=None
             )
-        except discord.errors.Forbidden:
-            await ctx.send("Missing permissions.")

@@ -2,7 +2,7 @@ import discord
 from redbot.core import commands
 
 
-class VCExpand(commands.cog):
+class VCExpand(commands.Cog):
     """Expands the VC if staff inside"""
 
     @commands.Cog.listener()

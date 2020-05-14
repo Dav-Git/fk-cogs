@@ -2,7 +2,7 @@ import discord
 from redbot.core import commands
 
 
-class NoMic(commands.cog):
+class NoMic(commands.Cog):
     """#No-mic manager"""
 
     @commands.Cog.listener()

@@ -5,7 +5,6 @@ import discord
 class NickNamer(commands.Cog):
     """ForceNick"""
 
-    @checks.mod()
     @commands.command()
     async def nick(self, ctx, user: discord.Member, *, name):
         """Change a user's nickname"""

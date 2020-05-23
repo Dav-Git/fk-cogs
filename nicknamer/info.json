@@ -1,0 +1,9 @@
+{
+    "author": [
+        "Dav"
+    ],
+    "description": "Change a user's nickname",
+    "hidden": false,
+    "install_msg": "Thank you for installing. This cog comes without support.",
+    "short": "Nick tool"
+}

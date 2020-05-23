@@ -17,6 +17,7 @@ class MemCountStatus(commands.Cog):
         )
         await self.bot.change_presence(activity=activity)
 
+    @checks.admin()
     @commands.command()
     async def mcs(self, ctx):
         await self.bot.wait_until_ready()

@@ -72,11 +72,13 @@ class MemCountStatus(commands.Cog):
 
     @checks.admin()
     @commands.command()
-    async def mcs(self, ctx, mc: bool):
-        if mc:
-            await self._memcount_to_status()
-        else:
-            await self._update_status()
+    async def mcs(self, ctx):
+        await self._memcount_to_status()
+    
+    @checks.admin()
+    @commands.command()
+    async def forcenextstatus(self, ctx):
+        await self._update_status()
 
     @checks.admin()
     @commands.command()

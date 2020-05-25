@@ -23,9 +23,8 @@ class JackCunt(commands.Cog):
                 await self._memcount_to_status()
             else:
                 t = getattr(discord.ActivityType, the_chosen_one[0], False)
-                s = getattr(discord.Status, choice(["online", "idle", "dnd"]), False)
                 activity = discord.Activity(name=the_chosen_one[1], type=t)
-                await self.bot.change_presence(status=s, activity=activity)
+                await self.bot.change_presence(activity=activity)
 
     async def _memcount_to_status(self):
         await self.bot.wait_until_ready()

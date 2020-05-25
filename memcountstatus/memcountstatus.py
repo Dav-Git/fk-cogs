@@ -2,7 +2,7 @@ import discord
 from redbot.core import commands, checks, Config
 from discord.ext import tasks
 from random import choice
-from datetime import datetime
+from datetime import datetime, timedelta
 import asyncio
 
 
@@ -29,7 +29,7 @@ class MemCountStatus(commands.Cog):
         await self.config.memdiff.set(await self.config.memdiff() - 1)
         await self._memdiff_to_status()
 
-    @tasks.loop(minutes=3)
+    @tasks.loop(minutes=5)
     async def _update_status(self):
         async with self.config.statuses() as statuses:
             the_chosen_one = choice(statuses)
@@ -45,13 +45,10 @@ class MemCountStatus(commands.Cog):
 
     @tasks.loop(minutes=10)
     async def _clear_memcount(self):
-        await asyncio.sleep(await self._how_many_seconds_until_midnight())
+        now=datetime.utcnow()
+        midnight=now.replace(hour=0, minute=0,second=0,microsecond=0) + timedelta(days=1)
+        await asyncio.sleep((midnight-now).total_seconds())
         await self.config.memdiff.set(0)
-
-    async def _how_many_seconds_until_midnight():
-        """Get the number of seconds until midnight."""
-        n = datetime.now()
-        return ((24 - n.hour - 1) * 60 * 60) + ((60 - n.minute - 1) * 60) + (60 - n.second)
 
     async def _memcount_to_status(self):
         guild = self.bot.get_guild(332834024831582210)

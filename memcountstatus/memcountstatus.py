@@ -31,17 +31,16 @@ class MemCountStatus(commands.Cog):
 
     @tasks.loop(minutes=5)
     async def _update_status(self):
-        async with self.config.statuses() as statuses:
-            the_chosen_one = choice(statuses)
-            if the_chosen_one == "\u200b":
-                await self._memcount_to_status()
-            elif the_chosen_one == "\u200b\u200b":
-                await self._memdiff_to_status()
-            else:
-                t = getattr(discord.ActivityType, the_chosen_one[0], False)
-                s = getattr(discord.Status, choice(["online", "idle", "dnd"]), False)
-                activity = discord.Activity(name=the_chosen_one[1], type=t)
-                await self.bot.change_presence(status=s, activity=activity)
+        the_chosen_one = choice(await self.config.statuses())
+        if the_chosen_one == "\u200b":
+            await self._memcount_to_status()
+        elif the_chosen_one == "\u200b\u200b":
+            await self._memdiff_to_status()
+        else:
+            t = getattr(discord.ActivityType, the_chosen_one[0], False)
+            s = getattr(discord.Status, choice(["online", "idle", "dnd"]), False)
+            activity = discord.Activity(name=the_chosen_one[1], type=t)
+            await self.bot.change_presence(status=s, activity=activity)
 
     @tasks.loop(minutes=10)
     async def _clear_memcount(self):
@@ -78,7 +77,7 @@ class MemCountStatus(commands.Cog):
     @checks.admin()
     @commands.command()
     async def forcenextstatus(self, ctx):
-        await self._update_status()
+        await self._update_status.restart()
 
     @checks.admin()
     @commands.command()

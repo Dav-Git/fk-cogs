@@ -2,18 +2,32 @@ import discord
 from redbot.core import commands, checks, Config
 from discord.ext import tasks
 from random import choice
+from datetime import datetime
+import asyncio
 
 
 class MemCountStatus(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=234524052020, force_registration=True)
-        default = {"statuses": ["\u200b", ("watching", "you.")]}
+        default = {"statuses": ["\u200b", "\u200b\u200b", ("watching", "you.")], "memdiff": 0}
         self.config.register_global(**default)
         self._update_status.start()
+        self._clear_memcount.start()
 
     def cog_unload(self):
         self._update_status.cancel()
+        self._clear_memcount.cancel()
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        await self.config.memdiff.set(await self.config.memdiff() + 1)
+        await self._memdiff_to_status()
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        await self.config.memdiff.set(await self.config.memdiff() - 1)
+        await self._memdiff_to_status()
 
     @tasks.loop(minutes=3)
     async def _update_status(self):
@@ -21,20 +35,43 @@ class MemCountStatus(commands.Cog):
             the_chosen_one = choice(statuses)
             if the_chosen_one == "\u200b":
                 await self._memcount_to_status()
+            elif the_chosen_one == "\u200b\u200b":
+                await self._memdiff_to_status()
             else:
                 t = getattr(discord.ActivityType, the_chosen_one[0], False)
                 s = getattr(discord.Status, choice(["online", "idle", "dnd"]), False)
                 activity = discord.Activity(name=the_chosen_one[1], type=t)
                 await self.bot.change_presence(status=s, activity=activity)
 
+    @tasks.loop(minutes=10)
+    async def _clear_memcount(self):
+        await asyncio.sleep(await self._how_many_seconds_until_midnight())
+        await self.config.memdiff.set(0)
+
+    async def _how_many_seconds_until_midnight():
+        """Get the number of seconds until midnight."""
+        n = datetime.now()
+        return ((24 - n.hour - 1) * 60 * 60) + ((60 - n.minute - 1) * 60) + (60 - n.second)
+
     async def _memcount_to_status(self):
-        await self.bot.wait_until_ready()
         guild = self.bot.get_guild(332834024831582210)
         mc = len(guild.members)
         activity = discord.Activity(
             name=f" over {mc} members.", type=discord.ActivityType.watching
         )
         await self.bot.change_presence(activity=activity)
+
+    async def _memdiff_to_status(self):
+        guild = self.bot.get_guild(332834024831582210)
+        mc = await self.config.memdiff()
+        if mc == 0:
+            text = "No new members yet today."
+        elif mc > 0:
+            text = f" +{mc}new members."
+        elif mc < 0:
+            text = f"{mc} members today."
+        activity = discord.Activity(name=text, type=discord.ActivityType.watching)
+        await self.bot.change_presence(status=discord.Status.idle, activity=activity)
 
     @checks.admin()
     @commands.command()
@@ -69,6 +106,8 @@ class MemCountStatus(commands.Cog):
         for i in statuses:
             if i == "\u200b":
                 await ctx.send(f"**{count}** | Membercount")
+            elif i == "\u200b\u200b":
+                await ctx.send(f"**{count}** | Memberdifference per day")
             else:
                 await ctx.send(f"**{count}** | ``{i[0]} {i[1]}``")
             count += 1

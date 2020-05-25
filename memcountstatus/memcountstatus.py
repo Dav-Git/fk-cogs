@@ -73,11 +73,13 @@ class MemCountStatus(commands.Cog):
     @commands.command()
     async def mcs(self, ctx):
         await self._memcount_to_status()
+        await ctx.send("It is done.",delete_after=10)
     
     @checks.admin()
     @commands.command()
     async def forcenextstatus(self, ctx):
         self._update_status.restart()
+        await ctx.send("I have chosen a new random status from the pool.",delete_after=10)
 
     @checks.admin()
     @commands.command()

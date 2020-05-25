@@ -77,7 +77,7 @@ class MemCountStatus(commands.Cog):
     @checks.admin()
     @commands.command()
     async def forcenextstatus(self, ctx):
-        await self._update_status.restart()
+        self._update_status.restart()
 
     @checks.admin()
     @commands.command()

@@ -63,7 +63,7 @@ class MemCountStatus(commands.Cog):
         if mc == 0:
             text = "No new members yet today."
         elif mc > 0:
-            text = f" +{mc}new members."
+            text = f"+{mc} new members."
         elif mc < 0:
             text = f"{mc} members today."
         activity = discord.Activity(name=text, type=discord.ActivityType.watching)

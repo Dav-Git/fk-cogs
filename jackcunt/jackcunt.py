@@ -65,12 +65,23 @@ class JackCunt(commands.Cog):
     async def liststatus(self, ctx):
         statuses = await self.config.statuses()
         count = 0
+        divcount = 0
+        text = []
         for i in statuses:
             if i == "\u200b":
-                await ctx.send(f"**{count}** | Membercount")
+                text.append(f"**{count}** | Membercount")
+            elif i == "\u200b\u200b":
+                text.append(f"**{count}** | Memberdifference per day")
             else:
-                await ctx.send(f"**{count}** | ``{i[0]} {i[1]}``")
+                text.append(f"**{count}** | ``{i[0]} {i[1]}``")
             count += 1
+            divcount += 1
+            if divcount % 5 == 0:
+                await ctx.send("\n".join(text))
+                text = []
+                divcount = 0
+        if not divcount == 0:
+            await ctx.send("\n".join(text))
 
     @checks.admin()
     @commands.command()

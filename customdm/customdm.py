@@ -12,7 +12,7 @@ class CustomDM(commands.Cog):
         try:
             await user.send(text)
             await ctx.guild.get_channel(717915738739965952).send(
-                f"Outbound message from {ctx.author.mention} to {user.name}#{user.discriminator}:\n{text}"
+                f"Outbound message from {ctx.author.mention} to {user.name}#{user.discriminator}({user.id}):\n{text}"
             )
             if ctx.message.attachments:
                 for e in ctx.message.attachments:
@@ -31,14 +31,12 @@ class CustomDM(commands.Cog):
                 embed = discord.Embed.from_dict(
                     {**message.embeds[0].to_dict(), "timestamp": str(message.created_at)}
                 )
-            else:
-                embed = discord.Embed(description=message.content, timestamp=message.created_at)
-            await self.bot.get_guild(332834024831582210).get_channel(717915738739965952).send(
-                msg, embed=embed
-            )
+                await self.bot.get_guild(332834024831582210).get_channel(717915738739965952).send(
+                    msg, embed=embed
+                )
         else:
             await self.bot.get_guild(332834024831582210).get_channel(717915738739965952).send(
-                f"Incoming message from {message.author.name}#{message.author.discriminator}:\n{message.content}"
+                f"Incoming message from {message.author.name}#{message.author.discriminator}({message.author.id}):\n{message.content}"
             )
             if message.attachments:
                 for e in message.attachments:

@@ -44,9 +44,9 @@ class MemCountStatus(commands.Cog):
 
     @tasks.loop(minutes=10)
     async def _clear_memcount(self):
-        now=datetime.utcnow()
-        midnight=now.replace(hour=0, minute=0,second=0,microsecond=0) + timedelta(days=1)
-        await asyncio.sleep((midnight-now).total_seconds())
+        now = datetime.utcnow()
+        midnight = now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+        await asyncio.sleep((midnight - now).total_seconds())
         await self.config.memdiff.set(0)
 
     async def _memcount_to_status(self):
@@ -73,13 +73,13 @@ class MemCountStatus(commands.Cog):
     @commands.command()
     async def mcs(self, ctx):
         await self._memcount_to_status()
-        await ctx.send("It is done.",delete_after=10)
-    
+        await ctx.send("It is done.", delete_after=10)
+
     @checks.admin()
     @commands.command()
     async def forcenextstatus(self, ctx):
         self._update_status.restart()
-        await ctx.send("I have chosen a new random status from the pool.",delete_after=10)
+        await ctx.send("I have chosen a new random status from the pool.", delete_after=10)
 
     @checks.admin()
     @commands.command()
@@ -103,14 +103,23 @@ class MemCountStatus(commands.Cog):
     async def liststatus(self, ctx):
         statuses = await self.config.statuses()
         count = 0
+        divcount = 0
+        text = []
         for i in statuses:
             if i == "\u200b":
-                await ctx.send(f"**{count}** | Membercount")
+                text.append(f"**{count}** | Membercount")
             elif i == "\u200b\u200b":
-                await ctx.send(f"**{count}** | Memberdifference per day")
+                text.append(f"**{count}** | Memberdifference per day")
             else:
-                await ctx.send(f"**{count}** | ``{i[0]} {i[1]}``")
+                text.append(f"**{count}** | ``{i[0]} {i[1]}``")
             count += 1
+            divcount += 1
+            if divcount % 5 == 0:
+                await ctx.send("\n".join(text))
+                text = []
+                divcount = 0
+        if not divcount == 0:
+            await ctx.send("\n".join(text))
 
     @checks.admin()
     @commands.command()

@@ -3,9 +3,9 @@ from redbot.core import commands, checks
 
 
 class CustomDM(commands.Cog):
-    @commands.command()
+    @commands.command(name="message")
     @checks.admin()
-    async def pm(self, ctx, user: discord.User, *, text: str):
+    async def send_pm(self, ctx, user: discord.User, *, text: str):
         try:
             await user.send(text)
             await ctx.guild.get_channel(717915738739965952).send(

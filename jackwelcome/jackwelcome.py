@@ -14,5 +14,5 @@ class JackWelcome(commands.Cog):
                 timestamp=datetime.utcnow(),
                 thumbnail="https://cdn.discordapp.com/icons/497097726400528394/00453191715921c03ca41dbe8b1a0569.png?size=128",
             )
-            await em.set_image(url="https://tenor.com/view/welcome-gif-10939070")
+            em.set_image(url="https://tenor.com/view/welcome-gif-10939070")
             await member.guild.get_channel(718798993852727317).send(embed=em)

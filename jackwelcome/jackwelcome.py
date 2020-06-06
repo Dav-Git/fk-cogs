@@ -23,7 +23,7 @@ class JackWelcome(commands.Cog):
             await member.guild.get_channel(718798993852727317).send(embed=em)
 
     @commands.Cog.listener()
-    async def on_member_leave(self, member):
+    async def on_member_remove(self, member):
         if member.guild.id == 497097726400528394:
             em = Embed(
                 title=f"{member.name} left the guild.",

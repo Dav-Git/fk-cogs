@@ -15,7 +15,7 @@ class JackWelcome(commands.Cog):
             )
             em.set_author(
                 name="Aurora",
-                url="https://cdn.discordapp.com/icons/497097726400528394/00453191715921c03ca41dbe8b1a0569.png?size=128",
+                icon_url="https://cdn.discordapp.com/icons/497097726400528394/00453191715921c03ca41dbe8b1a0569.png?size=128",
             )
             em.set_image(
                 url="https://cdn.discordapp.com/attachments/663351785293086720/718843908729077830/Aurora_Welcome_Banner.jpg"
@@ -33,7 +33,7 @@ class JackWelcome(commands.Cog):
             )
             em.set_author(
                 name="Aurora",
-                url="https://cdn.discordapp.com/icons/497097726400528394/00453191715921c03ca41dbe8b1a0569.png?size=128",
+                icon_url="https://cdn.discordapp.com/icons/497097726400528394/00453191715921c03ca41dbe8b1a0569.png?size=128",
             )
             em.set_image(
                 url="https://cdn.discordapp.com/attachments/663351785293086720/718843903561695282/Aurora_Farewell_Banner.jpg"

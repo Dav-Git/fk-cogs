@@ -219,9 +219,11 @@ class Claw(commands.Cog):
             try:
                 del new_overrides[user]
             except KeyError:
-                print("Some override was missing.")
-            if channel.id in settings:
+                pass
+            try:
                 new_overrides[user] = discord.PermissionOverwrite(**settings[channel.id])
+            except KeyError:
+                pass
             await channel.edit(overwrites=new_overrides)
         await self.config.member(user).overrides.set({})
         await modlog.create_case(

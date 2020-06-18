@@ -1,5 +1,7 @@
 from .claw import Claw
 
 
-def setup(bot):
-    bot.add_cog(Claw())
+async def setup(bot):
+    cog = Claw()
+    await cog.initialize()
+    bot.add_cog(cog)

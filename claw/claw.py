@@ -1,21 +1,196 @@
 import discord
 from sys import stderr
-from redbot.core import commands, checks
+from redbot.core import commands, checks, Config, modlog
 
 
 class Claw(commands.Cog):
     """Claw cog"""
 
+    def __init__(self):
+        self.config = Config.get_conf(self, 889, force_registration=True)
+        default_member = {"overrides": {}}
+        self.config.register_member(**default_member)
+
+    async def initialize(self):
+        await self.register_casetypes()
+
+    @staticmethod
+    async def register_casetypes():
+        cases = [
+            {
+                "name": "claw",
+                "default_setting": True,
+                "image": "\N{POLICE OFFICER}",
+                "case_str": "Clawed",
+            },
+            {
+                "name": "unclaw",
+                "default_setting": True,
+                "image": "<a:Party_cat:639970674940575764>",
+                "case_str": "Returned",
+            },
+        ]
+        await modlog.register_casetypes(cases)
+
     @commands.command()
     @checks.mod()
     async def claw(self, ctx, user: discord.Member):
-        """``[Member]`` | Puts a member into #contact-claws."""
-        roles = {
-            "fireteam": ctx.guild.get_role(634692203582717990),
-            "burning": ctx.guild.get_role(489455280266936321),
-            "contact": ctx.guild.get_role(483212257237401621),
+        """``[Member]`` | Claw a member."""
+        async with self.config.member(user).overrides() as overrides:
+            for channel in ctx.guild.channels:
+                if user in channel.overwrites:
+                    overrides[channel.id] = dict(channel.overwrites[user])
+                new_overrides = channel.overwrites
+                new_overrides[user] = discord.PermissionOverwrite(
+                    external_emojis=False,
+                    read_message_history=False,
+                    view_guild_insights=False,
+                    priority_speaker=False,
+                    manage_guild=False,
+                    send_tts_messages=False,
+                    manage_messages=False,
+                    connect=False,
+                    attach_files=False,
+                    send_messages=False,
+                    administrator=False,
+                    speak=False,
+                    manage_webhooks=False,
+                    read_messages=False,
+                    change_nickname=False,
+                    create_instant_invite=False,
+                    use_voice_activation=False,
+                    add_reactions=False,
+                    move_members=False,
+                    manage_emojis=False,
+                    stream=False,
+                    embed_links=False,
+                    view_audit_log=False,
+                    manage_nicknames=False,
+                    kick_members=False,
+                    deafen_members=False,
+                    manage_roles=False,
+                    mention_everyone=False,
+                    ban_members=False,
+                    mute_members=False,
+                    manage_channels=False,
+                )
+                await channel.edit(overwrites=new_overrides)
+        nc_override = {
+            ctx.guild.default_role: discord.PermissionOverwrite(
+                external_emojis=False,
+                read_message_history=False,
+                view_guild_insights=False,
+                priority_speaker=False,
+                manage_guild=False,
+                send_tts_messages=False,
+                manage_messages=False,
+                connect=False,
+                attach_files=False,
+                send_messages=False,
+                administrator=False,
+                speak=False,
+                manage_webhooks=False,
+                read_messages=False,
+                change_nickname=False,
+                create_instant_invite=False,
+                use_voice_activation=False,
+                add_reactions=False,
+                move_members=False,
+                manage_emojis=False,
+                stream=False,
+                embed_links=False,
+                view_audit_log=False,
+                manage_nicknames=False,
+                kick_members=False,
+                deafen_members=False,
+                manage_roles=False,
+                mention_everyone=False,
+                ban_members=False,
+                mute_members=False,
+                manage_channels=False,
+            ),
+            ctx.guild.get_role(332835206493110272): discord.PermissionOverwrite(
+                external_emojis=True,
+                read_message_history=True,
+                view_guild_insights=False,
+                priority_speaker=False,
+                manage_guild=False,
+                send_tts_messages=False,
+                manage_messages=True,
+                connect=False,
+                attach_files=True,
+                send_messages=True,
+                administrator=False,
+                speak=False,
+                manage_webhooks=False,
+                read_messages=True,
+                change_nickname=False,
+                create_instant_invite=False,
+                use_voice_activation=False,
+                add_reactions=True,
+                move_members=False,
+                manage_emojis=False,
+                stream=False,
+                embed_links=True,
+                view_audit_log=False,
+                manage_nicknames=False,
+                kick_members=False,
+                deafen_members=False,
+                manage_roles=False,
+                mention_everyone=False,
+                ban_members=False,
+                mute_members=False,
+                manage_channels=False,
+            ),
+            user: discord.PermissionOverwrite(
+                external_emojis=True,
+                read_message_history=True,
+                view_guild_insights=False,
+                priority_speaker=False,
+                manage_guild=False,
+                send_tts_messages=False,
+                manage_messages=False,
+                connect=False,
+                attach_files=True,
+                send_messages=True,
+                administrator=False,
+                speak=False,
+                manage_webhooks=False,
+                read_messages=True,
+                change_nickname=False,
+                create_instant_invite=False,
+                use_voice_activation=False,
+                add_reactions=True,
+                move_members=False,
+                manage_emojis=False,
+                stream=False,
+                embed_links=True,
+                view_audit_log=False,
+                manage_nicknames=False,
+                kick_members=False,
+                deafen_members=False,
+                manage_roles=False,
+                mention_everyone=False,
+                ban_members=False,
+                mute_members=False,
+                manage_channels=False,
+            ),
         }
-        try:
+        await ctx.guild.create_text_channel(
+            name=f"contact-{user.name}",
+            overwrites=nc_override,
+            category="categoryhere",
+            reason=f"{user.name}#{user.discriminator} has been clawed.",
+        )
+        await modlog.create_case(
+            ctx.bot,
+            ctx.guild,
+            ctx.message.created_at,
+            action_type="claw",
+            user=user,
+            moderator=ctx.author,
+        )
+        """try:
             if roles["fireteam"] in user.roles:
                 await user.remove_roles(roles["fireteam"], reason="Contact claws assigned.")
             elif roles["burning"] in user.roles:
@@ -32,17 +207,32 @@ class Claw(commands.Cog):
             print(
                 f"{ctx.author.name}({ctx.author.id}) tried to claw {user.name}({user.id}) but something went wrong.",
                 file=stderr,
-            )
+            )"""
 
     @commands.group(name="return")
     @checks.mod()
-    async def return_member(self, ctx):
-        """Return a member out of #contact-claws. Use ``fireteam`` or ``burning`` to decide at which level they re-join the conversation."""
-        pass
+    async def return_member(self, ctx, user: discord.Member):
+        """Return a member out of #contact-claws."""
+        settings = await self.config.member(user).overrides()
+        for channel in ctx.guild.channels:
+            new_overrides = channel.overwrites
+            del new_overrides[user]
+            if channel.id in settings:
+                new_overrides[user] = discord.PermissionOverwrite(**settings[channel.id])
+            await channel.edit(overwrites=new_overrides)
+            await self.config.member.overrides.set({})
+        await modlog.create_case(
+            ctx.bot,
+            ctx.guild,
+            ctx.message.created_at,
+            action_type="unclaw",
+            user=user,
+            moderator=ctx.author,
+        )
 
-    @return_member.command()
+    """@return_member.command()
     async def fireteam(self, ctx, user: discord.Member):
-        """Return them as a member of the Fireteam"""
+        
         if ctx.guild.get_role(483212257237401621) in user.roles:
             await user.remove_roles(
                 ctx.guild.get_role(483212257237401621), reason="Returned from Contact claws."
@@ -56,7 +246,7 @@ class Claw(commands.Cog):
 
     @return_member.command()
     async def burning(self, ctx, user: discord.Member):
-        """Return them as a Burning Bright"""
+        
         if ctx.guild.get_role(483212257237401621) in user.roles:
             await user.remove_roles(
                 ctx.guild.get_role(483212257237401621), reason="Returned from Contact claws."
@@ -70,11 +260,11 @@ class Claw(commands.Cog):
 
     @return_member.command(aliases=["basic", "normal", "everyone", "nobody"])
     async def standard(self, ctx, user: discord.Member):
-        """Return them as a nobody."""
+        
         if ctx.guild.get_role(483212257237401621) in user.roles:
             await user.remove_roles(
                 ctx.guild.get_role(483212257237401621), reason="Returned from Contact claws."
             )
             await ctx.guild.get_channel(350726339327950859).send(
                 f"{user.name} has been returned from {ctx.guild.get_channel(483213085293936640).mention}."
-            )
+            )"""

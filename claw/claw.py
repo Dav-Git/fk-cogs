@@ -216,8 +216,10 @@ class Claw(commands.Cog):
         settings = await self.config.member(user).overrides()
         for channel in ctx.guild.channels:
             new_overrides = channel.overwrites
-            if new_overrides[user]:
+            try:
                 del new_overrides[user]
+            except KeyError:
+                print("Some override was missing.")
             if channel.id in settings:
                 new_overrides[user] = discord.PermissionOverwrite(**settings[channel.id])
             await channel.edit(overwrites=new_overrides)

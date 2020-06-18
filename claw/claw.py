@@ -179,7 +179,7 @@ class Claw(commands.Cog):
         await ctx.guild.create_text_channel(
             name=f"contact-{user.name}",
             overwrites=nc_override,
-            category="categoryhere",
+            category=ctx.guild.get_channel(360775964470280193),
             reason=f"{user.name}#{user.discriminator} has been clawed.",
         )
         await modlog.create_case(

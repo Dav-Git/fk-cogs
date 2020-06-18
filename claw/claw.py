@@ -209,7 +209,7 @@ class Claw(commands.Cog):
                 file=stderr,
             )"""
 
-    @commands.group(name="return")
+    @commands.command(name="return")
     @checks.mod()
     async def return_member(self, ctx, user: discord.Member):
         """Return a member out of #contact-claws."""

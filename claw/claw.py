@@ -176,11 +176,14 @@ class Claw(commands.Cog):
                 manage_channels=False,
             ),
         }
-        await ctx.guild.create_text_channel(
+        channel = await ctx.guild.create_text_channel(
             name=f"contact-{user.name}",
             overwrites=nc_override,
             category=ctx.guild.get_channel(360775964470280193),
             reason=f"{user.name}#{user.discriminator} has been clawed.",
+        )
+        await channel.send(
+            f"Hello {user.mention}, you have been pulled into the contact area, a member of staff will be with you shortly."
         )
         await modlog.create_case(
             ctx.bot,

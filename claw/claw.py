@@ -223,7 +223,7 @@ class Claw(commands.Cog):
             if channel.id in settings:
                 new_overrides[user] = discord.PermissionOverwrite(**settings[channel.id])
             await channel.edit(overwrites=new_overrides)
-            await self.config.member.overrides.set({})
+            await self.config.member(user).overrides.set({})
         await modlog.create_case(
             ctx.bot,
             ctx.guild,

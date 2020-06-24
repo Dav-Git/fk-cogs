@@ -4,6 +4,9 @@ import discord
 
 
 class BotCredits(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
     @commands.command(cls=commands.commands._AlwaysAvailableCommand)
     async def credits(self, ctx):
         """Credits for everyone who makes this bot possible."""

@@ -80,9 +80,11 @@ If you would like to request some sort of functionality please describe exactly 
 
     @commands.command()
     async def amy2(self, ctx):
-        await ctx.send(
-            "https://cdn.discordapp.com/attachments/428677715973898270/726090406668009472/Screenshot_20200626-125925.jpg"
+        embed = discord.Embed(title="Amy 2.0")
+        embed.set_image(
+            url="https://cdn.discordapp.com/attachments/428677715973898270/726090406668009472/Screenshot_20200626-125925.jpg"
         )
+        await ctx.send(embed=embed)
 
     @commands.command()
     @checks.mod()

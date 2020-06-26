@@ -64,9 +64,8 @@ If you would like to request some sort of functionality please describe exactly 
         """See all bot commands using -help"""
         await ctx.send("Use ``-help`` to see all bot commands.")
 
-    @commands.command()
+    """@commands.command()
     async def spam(self, ctx, r: int, *, text: str):
-        """Spam a channel."""
         if ctx.author.id == 428675506947227648:
             for i in range(0, r):
                 i  # Stop screaming at me for not using the variable VSCode!!!!
@@ -77,7 +76,13 @@ If you would like to request some sort of functionality please describe exactly 
                     f"No Jackieboi you can not do that. Here, have a ping: {ctx.author.mention}"
                 )
         else:
-            await ctx.send(f"Nope. Evil {ctx.author.mention}.")
+            await ctx.send(f"Nope. Evil {ctx.author.mention}.")"""
+
+    @commands.command()
+    async def amy2(self, ctx):
+        await ctx.send(
+            "https://cdn.discordapp.com/attachments/428677715973898270/726090406668009472/Screenshot_20200626-125925.jpg"
+        )
 
     @commands.command()
     @checks.mod()

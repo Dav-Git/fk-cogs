@@ -34,7 +34,7 @@ class Claw(commands.Cog):
 
     @commands.command()
     @checks.mod()
-    async def claw(self, ctx, user: discord.Member):
+    async def claw(self, ctx, user: discord.Member, *, reason: Optional[str]):
         """``[Member]`` | Claw a member."""
         async with self.config.member(user).overrides() as overrides:
             for channel in ctx.guild.channels:
@@ -192,6 +192,7 @@ class Claw(commands.Cog):
             action_type="claw",
             user=user,
             moderator=ctx.author,
+            reason=reason,
         )
         """try:
             if roles["fireteam"] in user.roles:

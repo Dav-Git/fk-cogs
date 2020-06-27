@@ -1,6 +1,7 @@
 import discord
 from sys import stderr
 from redbot.core import commands, checks, Config, modlog
+from typing import Optional
 
 
 class Claw(commands.Cog):

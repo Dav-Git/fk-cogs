@@ -19,7 +19,3 @@ class NoMic(commands.Cog):
             await member.guild.get_channel(702969795389292584).set_permissions(
                 member, overwrite=None
             )
-    else:
-        await member.guild.get_channel(702969795389292584).set_permissions(
-            member, overwrite=None
-        )

@@ -11,7 +11,7 @@ class AshleyRoleJoin(commands.Cog):
         if member.guild.id == 718316599559585843:
             try:
                 await member.send(
-                    "Welcome to the ``Mental Health Together`` discord. \n\nBy default you will not be subsribed to any topic in this server. To subscribe to one of the topics, visit #self-roles and click on the reaction corresponding to the topic you want to unsubscribe from."
+                    "Welcome to the ``Mental Health Together`` discord. \n\nBy default you will not be subsribed to any topic in this server. To subscribe to one of the topics, visit #self-roles and click on the reaction corresponding to the topic you want to subscribe to."
                 )
             except:
                 self.log.info(

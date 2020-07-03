@@ -7,6 +7,7 @@ class TruePurge(commands.Cog):
     @checks.admin()
     @commands.command()
     async def truepurge(self, ctx, amount: int):
+        """Purge a channel.\n\nSet the amount to -1 to clear all of it."""
         if amount == -1:
             amount = None
         await ctx.send("Starting...")

@@ -13,5 +13,5 @@ class TruePurge(commands.Cog):
                 await message.delete()
             except discord.errors.NotFound:
                 pass
-            await asyncio.sleep(5)
+            await asyncio.sleep(0.2)
         await ctx.send("Done", delete_after=30)

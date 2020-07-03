@@ -7,12 +7,11 @@ class TruePurge(commands.Cog):
     @checks.admin()
     @commands.command()
     async def truepurge(self, ctx, amount: int):
-        await ctx.send("Starting...", delete_after=30)
+        await ctx.send("Starting...")
         async for message in ctx.channel.history(limit=amount):
-            for i in range(5):
-                try:
-                    await message.delete()
-                except discord.errors.NotFound:
-                    pass
-            await asyncio.sleep(30)
+            try:
+                await message.delete()
+            except discord.errors.NotFound:
+                pass
+            await asyncio.sleep(5)
         await ctx.send("Done", delete_after=30)

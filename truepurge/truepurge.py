@@ -7,6 +7,8 @@ class TruePurge(commands.Cog):
     @checks.admin()
     @commands.command()
     async def truepurge(self, ctx, amount: int):
+        if amount == -1:
+            amount = None
         await ctx.send("Starting...")
         async for message in ctx.channel.history(limit=amount):
             try:

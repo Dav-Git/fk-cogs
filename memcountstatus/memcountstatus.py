@@ -58,7 +58,6 @@ class MemCountStatus(commands.Cog):
         await self.bot.change_presence(activity=activity)
 
     async def _memdiff_to_status(self):
-        guild = self.bot.get_guild(332834024831582210)
         mc = await self.config.memdiff()
         if mc == 0:
             text = "No new members yet today."

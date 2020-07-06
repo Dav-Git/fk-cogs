@@ -13,6 +13,7 @@ class LukasStatus(commands.Cog):
         self.bot = bot
         self._user_count = 0
         self.user_task = asyncio.create_task(self._get_user_count())
+        self._update_presence.start()
 
     def cog_unload(self):
         self.user_task.cancel()

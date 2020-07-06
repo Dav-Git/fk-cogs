@@ -24,10 +24,10 @@ class LukasStatus(commands.Cog):
         users = self._user_count
         guilds = len(self.bot.guilds)
         strings = [
-            ".payday to earn some diamonds",
-            ".help for all commands",
-            f"{users} users and {guilds} servers",
-            "Watching you",
+            " .payday to earn some diamonds",
+            " .help for all commands",
+            f" {users} users and {guilds} servers",
+            " you",
         ]
         await self.bot.change_presence(
             activity=discord.Activity(name=choice(strings), type=discord.ActivityType.watching)

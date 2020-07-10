@@ -21,13 +21,15 @@ class MemCountStatus(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        await self.config.memdiff.set(await self.config.memdiff() + 1)
-        await self._memdiff_to_status()
+        if member.guild.id == 332834024831582210:
+            await self.config.memdiff.set(await self.config.memdiff() + 1)
+            await self._memdiff_to_status()
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        await self.config.memdiff.set(await self.config.memdiff() - 1)
-        await self._memdiff_to_status()
+        if member.guild.id == 332834024831582210:
+            await self.config.memdiff.set(await self.config.memdiff() - 1)
+            await self._memdiff_to_status()
 
     @tasks.loop(minutes=5)
     async def _update_status(self):

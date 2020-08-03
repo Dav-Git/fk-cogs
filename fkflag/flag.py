@@ -15,7 +15,7 @@ class Flag(Cog):
     async def red_delete_data_for_user(self, *, requester, user_id):
         if requester == "owner" or requester == "discord_deleted_user":
             for guild_id in await self.config.guild.all():
-                await self.config.guild_from_id(guild_id).flags.set_raw(str(member.id), value=[])
+                await self.config.guild_from_id(guild_id).flags.set_raw(str(user_id), value=[])
 
     def __init__(self, bot: Red):
         self.bot = bot

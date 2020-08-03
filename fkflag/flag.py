@@ -61,7 +61,7 @@ class Flag(Cog):
         flag = self._flag_template()
 
         flag["reason"] = reason
-        flag["author"] = ctx.author
+        flag["author"] = f"{ctx.author.name}#{ctx.author.discriminator}"
 
         async with self.config.guild(guild).flags() as flags:
             if str(member.id) not in flags:

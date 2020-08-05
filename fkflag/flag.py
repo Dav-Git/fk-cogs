@@ -133,9 +133,7 @@ class Flag(Cog):
                 )
             except KeyError:
                 embed.add_field(
-                    name=f"Reason: {flag['reason']}",
-                    value="Unknown author.",
-                    inline=True,
+                    name=f"Reason: {flag['reason']}", value="Unknown author.", inline=True,
                 )
 
         embed.set_thumbnail(url=member.avatar_url)

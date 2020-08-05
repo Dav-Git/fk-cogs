@@ -1,0 +1,10 @@
+{
+    "author": [
+        "Dav"
+    ],
+    "description": "Grants a role to users temporarily for the amount of time specified.",
+    "hidden": false,
+    "install_msg": "Thank you for installing TempRole. This cog is commissioned work made for jacob#0006.",
+    "short": "Temporary roles",
+    "end_user_data_statement": "This cog stores user IDs to be able to remove temporary roles of users."
+}

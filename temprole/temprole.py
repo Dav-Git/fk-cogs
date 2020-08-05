@@ -117,7 +117,7 @@ class TempRole(commands.Cog):
             until=expiry,
             channel=ctx.channel,
         )
-        await self._update_cache
+        await self._update_cache()
         await ctx.tick()
 
     @temprole.command()
@@ -137,7 +137,7 @@ class TempRole(commands.Cog):
     @temprole.command(name="list")
     async def list_temproles(self, ctx):
         rendered = []
-        await ctx.send("This may take a while...")
+        await ctx.send("This may take a while...", delete_after=5)
         data = await self.config.all_members(guild=ctx.guild)
         for member_id in data:
             if data[member_id]["temproles"]:

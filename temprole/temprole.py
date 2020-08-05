@@ -34,7 +34,7 @@ class TempRole(commands.Cog):
 
     @tasks.loop(minutes=5)
     async def task(self):
-        self.log.info("Running temprole task")
+        self.log.debug("Running temprole task")
         if self.cache is None:
             await self._update_cache()
         for guild_id in self.cache:

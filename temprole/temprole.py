@@ -16,26 +16,8 @@ class TempRole(commands.Cog):
             for guild_id in self.cache:
                 for member_id in self.cache[guild_id]:
                     if int(member_id) == user_id:
-                        if self.cache[guild_id][member_id]["temproles"]:
-                            mem_roles = self.cache[guild_id][member_id]["temproles"]
-                            guild = self.bot.get_guild(int(guild_id))
-                            member = guild.get_member(int(member_id))
-                            for role_id in mem_roles:
-                                role = guild.get_role(int(role_id))
-                                try:
-                                    await member.remove_roles(
-                                        role, reason="Data deletion request."
-                                    )
-                                except discord.errors.Forbidden:
-                                    self.log.warning(
-                                        f"Couldn't remove role {role_id} from {member_id} in {guild_id} due to insufficient permissions."
-                                    )
-                                async with self.config.member(member).temproles() as temproles:
-                                    try:
-                                        del temproles[role.id]
-                                    except KeyError:
-                                        pass
-                                await self._update_cache()
+                        await self.config.member().clear()
+                        await self._update_cache()
             self.log.info("Data deletion complete.")
 
     def __init__(self, bot):
@@ -75,11 +57,12 @@ class TempRole(commands.Cog):
                                 self.log.warning(
                                     f"Couldn't remove role {role_id} from {member_id} in {guild_id} due to insufficient permissions."
                                 )
-                            async with self.config.member(member).temproles() as temproles:
-                                try:
-                                    del temproles[role.id]
-                                except KeyError:
-                                    pass
+                            temproles = await self.config.member(member).temproles()
+                            try:
+                                del temproles[role_id]
+                                await self.config.member(member).temproles.set(temproles)
+                            except KeyError:
+                                pass
                             await self._update_cache()
 
     async def initialize(self):
@@ -140,13 +123,14 @@ class TempRole(commands.Cog):
     @temprole.command()
     async def remove(self, ctx, role: discord.Role, member: discord.Member, reason: Optional[str]):
         await member.remove_roles(role, reason=reason)
-        async with self.config.member(member).temproles() as temproles:
-            try:
-                del temproles[role.id]
-            except KeyError:
-                await ctx.send(
-                    f"This user did not have the role {role.name} as temprole.", delete_after=15
-                )
+        temproles = await self.config.member(member).temproles()
+        try:
+            del temproles[str(role.id)]
+            await self.config.member(member).temproles.set(temproles)
+        except KeyError:
+            await ctx.send(
+                f"This user did not have the role {role.name} as temprole.", delete_after=15
+            )
         await self._update_cache()
         await ctx.tick()
 

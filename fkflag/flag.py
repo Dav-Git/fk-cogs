@@ -61,7 +61,7 @@ class Flag(Cog):
         flag = self._flag_template()
 
         flag["reason"] = reason
-        flag["author"] = ctx.author
+        flag["author"] = f"{ctx.author.name}#{ctx.author.discriminator}"
 
         async with self.config.guild(guild).flags() as flags:
             if str(member.id) not in flags:
@@ -125,11 +125,18 @@ class Flag(Cog):
             color=0x804040,
         )
         for flag in flags:
-            embed.add_field(
-                name=f"Reason: {flag['reason']}",
-                value=f"Author: {flag['author']}" if flag["author"] else "Author unknown.",
-                inline=True,
-            )
+            try:
+                embed.add_field(
+                    name=f"Reason: {flag['reason']}",
+                    value=f"Author: {flag['author']}",
+                    inline=True,
+                )
+            except KeyError:
+                embed.add_field(
+                    name=f"Reason: {flag['reason']}",
+                    value="Unknown author.",
+                    inline=True,
+                )
 
         embed.set_thumbnail(url=member.avatar_url)
 

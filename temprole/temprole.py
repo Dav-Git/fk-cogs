@@ -98,6 +98,7 @@ class TempRole(commands.Cog):
         duration: commands.TimedeltaConverter,
         reason: Optional[str],
     ):
+        """Add a temporary role to the target user with optional reason."""
         try:
             await member.add_roles(role, reason=reason)
         except discord.errors.Forbidden:
@@ -115,13 +116,13 @@ class TempRole(commands.Cog):
             moderator=ctx.author,
             reason=reason,
             until=expiry,
-            channel=ctx.channel,
         )
         await self._update_cache()
         await ctx.tick()
 
     @temprole.command()
     async def remove(self, ctx, role: discord.Role, member: discord.Member, reason: Optional[str]):
+        """Remove a role from the target user with optional reason."""
         await member.remove_roles(role, reason=reason)
         temproles = await self.config.member(member).temproles()
         try:
@@ -136,6 +137,7 @@ class TempRole(commands.Cog):
 
     @temprole.command(name="list")
     async def list_temproles(self, ctx):
+        """List the current users in a temp role."""
         rendered = []
         await ctx.send("This may take a while...", delete_after=5)
         data = await self.config.all_members(guild=ctx.guild)

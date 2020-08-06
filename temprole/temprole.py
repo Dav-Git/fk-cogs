@@ -16,7 +16,7 @@ class TempRole(commands.Cog):
             for guild_id in self.cache:
                 for member_id in self.cache[guild_id]:
                     if int(member_id) == user_id:
-                        await self.config.member().clear()
+                        await self.config.member_from_ids(guild_id, user_id).clear()
                         await self._update_cache()
             self.log.info("Data deletion complete.")
 
@@ -31,6 +31,13 @@ class TempRole(commands.Cog):
 
     def cog_unload(self):
         self.task.cancel()
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        if self.cache[member.guild.id][member.id]["temproles"]:
+            for role_id in self.cache[member.guild.id][member.id]["temproles"]:
+                role = member.guild.get_role(role_id)
+                await member.add_roles(role, reason="Persistent temprole, member rejoined.")
 
     @tasks.loop(minutes=5)
     async def task(self):

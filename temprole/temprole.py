@@ -34,10 +34,13 @@ class TempRole(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        if self.cache[member.guild.id][member.id]["temproles"]:
-            for role_id in self.cache[member.guild.id][member.id]["temproles"]:
-                role = member.guild.get_role(role_id)
-                await member.add_roles(role, reason="Persistent temprole, member rejoined.")
+        try:
+            if self.cache[member.guild.id][member.id]["temproles"]:
+                for role_id in self.cache[member.guild.id][member.id]["temproles"]:
+                    role = member.guild.get_role(role_id)
+                    await member.add_roles(role, reason="Persistent temprole, member rejoined.")
+        except KeyError:
+            pass
 
     @tasks.loop(minutes=5)
     async def task(self):

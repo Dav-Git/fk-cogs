@@ -3,13 +3,14 @@ import subprocess
 from typing import Optional
 
 
+async def is_dav():
+    async def predicate(ctx):
+        return ctx.author.id == 428675506947227648
+
+    return commands.check(predicate)
+
+
 class BadIdea(commands.Cog):
-    async def is_dav(self):
-        async def predicate(ctx):
-            return ctx.author.id == 428675506947227648
-
-        return commands.check(predicate)
-
     async def _bots(self):
         subprocess.run("sudo systemctl restart fkred")
         subprocess.run("sudo systemctl restart aurora")

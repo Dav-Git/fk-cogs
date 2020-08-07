@@ -1,5 +1,6 @@
 from redbot.core import commands
 import subprocess
+import os
 from typing import Optional
 
 
@@ -44,4 +45,4 @@ class BadIdea(commands.Cog):
             if botname == "all":
                 await self._bots()
             else:
-                subprocess.run(f"sudo /usr/bin/systemctl restart {botname}")
+                os.system(f"sudo /usr/bin/systemctl restart {botname}")

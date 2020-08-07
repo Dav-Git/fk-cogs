@@ -3,7 +3,7 @@ import subprocess
 from typing import Optional
 
 
-async def is_dav():
+def is_dav():
     async def predicate(ctx):
         return ctx.author.id == 428675506947227648
 

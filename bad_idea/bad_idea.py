@@ -44,4 +44,4 @@ class BadIdea(commands.Cog):
             if botname == "all":
                 await self._bots()
             else:
-                subprocess.run(f"sudo systemctl restart {botname}")
+                subprocess.run(f"sudo /usr/bin/systemctl restart {botname}")

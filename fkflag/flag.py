@@ -56,7 +56,7 @@ class Flag(Cog):
     @commands.command()
     async def flag(self, ctx: commands.Context, member: discord.Member, *, reason):
         """Flag a member"""
-        guild = ctx.guild
+        guild == ctx.guild
         if ctx.author=member:
             await ctx.send("Fuck you!")
             return

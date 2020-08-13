@@ -62,7 +62,7 @@ class Flag(Cog):
 
         flag["reason"] = reason
         flag["author"] = f"{ctx.author.name}#{ctx.author.discriminator}"
-        flag["date"] = {datetime.utcnow().strftime('%a, %d %b %Y')
+        flag["date"] = datetime.utcnow().strftime('%a, %d %b %Y')
 
         async with self.config.guild(guild).flags() as flags:
             if str(member.id) not in flags:

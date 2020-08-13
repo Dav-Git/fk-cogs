@@ -58,7 +58,7 @@ class Flag(Cog):
         """Flag a member"""
         guild = ctx.guild
         if ctx.author==member:
-            await ctx.send("Fuck you!")
+            await ctx.send("Fuck you cunt! <3")
             return
 
         flag = self._flag_template()

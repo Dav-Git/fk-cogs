@@ -62,6 +62,7 @@ class Flag(Cog):
 
         flag["reason"] = reason
         flag["author"] = f"{ctx.author.name}#{ctx.author.discriminator}"
+        flag["date"] = {datetime.utcnow().strftime('%a, %d %b %Y')
 
         async with self.config.guild(guild).flags() as flags:
             if str(member.id) not in flags:
@@ -125,15 +126,19 @@ class Flag(Cog):
             color=0x804040,
         )
         for flag in flags:
+            if not flag["date"]:
+                flag["date"]="N/A"
+            if not flag["author"]:
+                flag["author"]="N/A"
             try:
                 embed.add_field(
                     name=f"Reason: {flag['reason']}",
-                    value=f"Author: {flag['author']}",
+                    value=f"Author: {flag['author']}\nDate: {flag['date']}",
                     inline=True,
                 )
             except KeyError:
                 embed.add_field(
-                    name=f"Reason: {flag['reason']}", value="Unknown author.", inline=True,
+                    name=f"Reason: {flag['reason']}", value="An error occurred whirl fetching metadata.", inline=True,
                 )
 
         embed.set_thumbnail(url=member.avatar_url)

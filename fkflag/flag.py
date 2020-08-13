@@ -126,9 +126,13 @@ class Flag(Cog):
             color=0x804040,
         )
         for flag in flags:
-            if not flag["date"]:
+            try:
+                flag["date"]
+            except KeyError:
                 flag["date"]="N/A"
-            if not flag["author"]:
+            try:
+                flag["author"]
+            except KeyError:
                 flag["author"]="N/A"
             try:
                 embed.add_field(

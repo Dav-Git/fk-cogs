@@ -14,9 +14,11 @@ If you would like to request some sort of functionality please describe exactly 
         )
 
     @commands.command()
-    async def rp(self, ctx, user: Optional[discord.User]):
+    async def rp(self, ctx, user: Optional[discord.User], channel: Optional[discord.TextChannel]):
         """Blanket warn message for rp questions"""
-        await ctx.send(
+        if not channel:
+            channel = ctx.channel
+        await channel.send(
             "Hey{}, it seems like you have asked a question about ARP (Aspirant Gaming). We are not affiliated with ARP at all and sadly can not provide any information to you. To receive an answer to your question, try {} or the Aspirant Gaming discord server.".format(
                 " " + user.mention if user != None else "\u200b",
                 ctx.guild.get_channel(478917077705555970).mention,
@@ -51,7 +53,7 @@ If you would like to request some sort of functionality please describe exactly 
                 "To make a complaint against a regular discord member please use the ``-report <your_report_here>`` command. These reports will be seen by all staff members."
             )
             await ctx.author.dm_channel.send(
-                "To make a complaint against a member of staff please use the ``-contact <your_report_here>`` command. These reports will be seen by admins."
+                "To make a complaint against a member of staff please send a DM to the bot. These reports will be seen by admins."
             )
             await ctx.author.dm_channel.send("Both commands can be used in direct messages.")
         except discord.Forbidden:

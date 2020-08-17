@@ -57,7 +57,7 @@ class Flag(Cog):
     async def flag(self, ctx: commands.Context, member: discord.Member, *, reason):
         """Flag a member"""
         guild = ctx.guild
-        if ctx.author==member:
+        if ctx.author == member:
             await ctx.send("Fuck you cunt! <3")
             return
 
@@ -65,7 +65,7 @@ class Flag(Cog):
 
         flag["reason"] = reason
         flag["author"] = f"{ctx.author.name}#{ctx.author.discriminator}"
-        flag["date"] = datetime.utcnow().strftime('%a, %d %b %Y')
+        flag["date"] = datetime.utcnow().strftime("%a, %d %b %Y")
 
         async with self.config.guild(guild).flags() as flags:
             if str(member.id) not in flags:
@@ -132,11 +132,11 @@ class Flag(Cog):
             try:
                 flag["date"]
             except KeyError:
-                flag["date"]="N/A"
+                flag["date"] = "N/A"
             try:
                 flag["author"]
             except KeyError:
-                flag["author"]="N/A"
+                flag["author"] = "N/A"
             try:
                 embed.add_field(
                     name=f"Reason: {flag['reason']}",
@@ -145,7 +145,9 @@ class Flag(Cog):
                 )
             except KeyError:
                 embed.add_field(
-                    name=f"Reason: {flag['reason']}", value="An error occurred whirl fetching metadata.", inline=True,
+                    name=f"Reason: {flag['reason']}",
+                    value="An error occurred whirl fetching metadata.",
+                    inline=True,
                 )
 
         embed.set_thumbnail(url=member.avatar_url)

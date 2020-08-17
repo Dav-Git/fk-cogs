@@ -13,5 +13,6 @@ class DungeonKick(commands.Cog):
 
     @tasks.loop(hours=24)
     async def _kick_dungeon_members(self):
+        await self.bot.wait_until_red_ready()
         for m in self.bot.get_guild(332834024831582210).get_role(718099883692785747).members:
             await m.kick(reason="Member got lost in the dungeon...")

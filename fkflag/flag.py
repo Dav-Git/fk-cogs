@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import datetime, date, timedelta
 
 import discord
 from redbot.core import Config, checks, commands
@@ -57,11 +57,15 @@ class Flag(Cog):
     async def flag(self, ctx: commands.Context, member: discord.Member, *, reason):
         """Flag a member"""
         guild = ctx.guild
+        if ctx.author==member:
+            await ctx.send("Fuck you cunt! <3")
+            return
 
         flag = self._flag_template()
 
         flag["reason"] = reason
         flag["author"] = f"{ctx.author.name}#{ctx.author.discriminator}"
+        flag["date"] = datetime.utcnow().strftime('%a, %d %b %Y')
 
         async with self.config.guild(guild).flags() as flags:
             if str(member.id) not in flags:
@@ -126,14 +130,22 @@ class Flag(Cog):
         )
         for flag in flags:
             try:
+                flag["date"]
+            except KeyError:
+                flag["date"]="N/A"
+            try:
+                flag["author"]
+            except KeyError:
+                flag["author"]="N/A"
+            try:
                 embed.add_field(
                     name=f"Reason: {flag['reason']}",
-                    value=f"Author: {flag['author']}",
+                    value=f"Author: {flag['author']}\nDate: {flag['date']}",
                     inline=True,
                 )
             except KeyError:
                 embed.add_field(
-                    name=f"Reason: {flag['reason']}", value="Unknown author.", inline=True,
+                    name=f"Reason: {flag['reason']}", value="An error occurred whirl fetching metadata.", inline=True,
                 )
 
         embed.set_thumbnail(url=member.avatar_url)

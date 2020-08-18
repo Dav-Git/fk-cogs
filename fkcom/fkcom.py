@@ -4,6 +4,9 @@ from redbot.core import checks, commands
 
 
 class FKCom(commands.Cog):
+    async def red_delete_data_for_user(self, *, requester, user_id):
+        pass  # This cog stores no EUD
+
     @commands.command()
     async def bot(self, ctx):
         """If someone requests a bot is put in... run this."""

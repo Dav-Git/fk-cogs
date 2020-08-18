@@ -5,6 +5,9 @@ from redbot.core import commands
 class TheDot(commands.Cog):
     """Manage the dot"""
 
+    async def red_delete_data_for_user(self, *, requester, user_id):
+        pass  # This cog stores no EUD
+
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
         # Remove burning if dot is present

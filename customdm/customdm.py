@@ -3,6 +3,9 @@ from redbot.core import commands, checks
 
 
 class CustomDM(commands.Cog):
+    async def red_delete_data_for_user(self, *, requester, user_id):
+        pass  # This cog stores no EUD
+
     def __init__(self, bot):
         self.bot = bot
 

@@ -4,6 +4,9 @@ from discord.ext import tasks
 
 
 class DungeonKick(commands.Cog):
+    async def red_delete_data_for_user(self, *, requester, user_id):
+        pass  # This cog stores no EUD
+
     def __init__(self, bot):
         self.bot = bot
         self._kick_dungeon_members.start()

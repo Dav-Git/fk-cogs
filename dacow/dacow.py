@@ -5,6 +5,9 @@ from redbot.core import commands
 class DaCow(commands.Cog):
     """Manages the cow"""
 
+    async def red_delete_data_for_user(self, *, requester, user_id):
+        pass  # This cog stores no EUD
+
     @commands.Cog.listener()
     async def on_guild_channel_update(self, before, after):
         # Moo

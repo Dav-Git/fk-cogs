@@ -1,5 +1,7 @@
 from .flag import Flag
 
+__end_user_data_statement__ = "This cog stores user IDs and notes attached to those user IDs by moderators.\nYou may only request deletion of this data on legal grounds or through a discord data deletion request.\nOperational data (such as logs) will be retained unless otherwise legally required."
+
 
 def setup(bot):
     bot.add_cog(Flag(bot))

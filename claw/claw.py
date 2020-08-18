@@ -7,6 +7,9 @@ from typing import Optional
 class Claw(commands.Cog):
     """Claw cog"""
 
+    async def red_delete_data_for_user(self, *, requester, user_id):
+        pass  # This cog stores no EUD
+
     def __init__(self):
         self.config = Config.get_conf(self, 889, force_registration=True)
         default_member = {"overrides": {}}

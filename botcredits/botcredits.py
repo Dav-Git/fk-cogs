@@ -10,7 +10,7 @@ class BotCredits(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(cls=commands.commands._AlwaysAvailableCommand)
+    @commands.command()
     async def credits(self, ctx):
         """Credits for everyone who makes this bot possible."""
         app = await self.bot.application_info()

@@ -12,37 +12,13 @@ def is_dav():
 
 
 class BadIdea(commands.Cog):
-    async def _bots(self):
-        subprocess.run("sudo systemctl restart fkred")
-        subprocess.run("sudo systemctl restart aurora")
-        subprocess.run("sudo systemctl restart ashley")
-        subprocess.run("sudo systemctl restart testo")
+    def __init__(self):
+        self.warnsystem = bot.get_cog("WarnSystem").api
 
-    @commands.group()
     @is_dav()
-    async def sr(self, ctx):
-        """System restart commands. Dav only."""
-        pass
+    @commands.command()
+    async def test(self, ctx):
+        self.warnsystem.warn(
+            ctx.guild, ctx.author, ctx.author, 6,
+        )
 
-    @sr.command(aliases=["lavalink"])
-    async def ll(self, ctx, restart_bots: Optional[bool] = True):
-        subprocess.run("sudo systemctl restart lavalink")
-        if restart_bots:
-            await self._bots()
-        await ctx.tick()
-
-    @sr.command(aliases=["dashboard"])
-    async def dash(self, ctx):
-        subprocess.run("sudo systemctl restart fkreddash")
-        subprocess.run("sudo systemctl restart auroradash")
-        subprocess.run("sudo systemctl restart ashleydash")
-        subprocess.run("sudo systemctl restart testodash")
-        await ctx.tick()
-
-    @sr.command()
-    async def bot(self, ctx, botname: str):
-        if botname in ["fkred", "ashley", "aurora", "testo", "all"]:
-            if botname == "all":
-                await self._bots()
-            else:
-                os.system(f"sudo /usr/bin/systemctl restart {botname}")

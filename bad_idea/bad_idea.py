@@ -12,7 +12,7 @@ def is_dav():
 
 
 class BadIdea(commands.Cog):
-    def __init__(self):
+    def __init__(self, bot):
         self.warnsystem = bot.get_cog("WarnSystem").api
 
     @is_dav()

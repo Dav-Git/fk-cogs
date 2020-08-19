@@ -18,5 +18,5 @@ class BadIdea(commands.Cog):
     @is_dav()
     @commands.command()
     async def test(self, ctx):
-        await self.warnsystem.warn(ctx.guild, ctx.author, ctx.author, 1, "test reason")
+        await self.warnsystem.warn(ctx.guild, [ctx.author], "SkoobieDoo", 1, "test reason")
 

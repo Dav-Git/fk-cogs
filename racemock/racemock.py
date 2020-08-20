@@ -20,4 +20,9 @@ class RaceMock(commands.Cog):
     async def racemock(self, ctx, member: discord.Member):
         """Allow amy to force people to race"""
 
-        await ctx.bot.get_command("race enter")(FakeCTX(member))
+        race = bot.get_cog("Race")
+        if race.active:
+            race.players.append(member)
+            await ctx.send(f"Amy forced {member.mention} to race.")
+        else:
+            await ctx.send(f"There is no race ongoing. Start one first.")

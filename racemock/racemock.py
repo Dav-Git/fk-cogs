@@ -15,6 +15,9 @@ class FakeCTX(discord.Member):
 
 
 class RaceMock(commands.Cog):
+    async def red_delete_data_for_user(self, **kwargs):
+        pass
+
     @is_amy()
     @commands.command()
     async def racemock(self, ctx, member: discord.Member):
@@ -23,6 +26,10 @@ class RaceMock(commands.Cog):
         race = ctx.bot.get_cog("Race")
         if race.active:
             race.players.append(member)
-            await ctx.send(f"Amy forced {member.mention} to race.")
+            await ctx.send(f"Amy forced {member.display_name} to race.")
+        elif member in race.players:
+            await ctx.send(
+                f"{member.display_name} is already racing. Don't force them to race twice you meanie."
+            )
         else:
             await ctx.send(f"There is no race ongoing. Start one first.")

@@ -28,7 +28,7 @@ If you would like to request some sort of functionality please describe exactly 
             )
         )
 
-    @ommands.command()
+    @commands.command()
     async def mh(self, ctx, user: Optional[discord.Member]):
         """Mental health advisory"""
         await ctx.send(

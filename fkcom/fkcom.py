@@ -32,7 +32,7 @@ If you would like to request some sort of functionality please describe exactly 
     async def mh(self, ctx, user: Optional[discord.Member]):
         """Mental health advisory"""
         await ctx.send(
-            "{}\nFeeling like you or someone you know needs help or a place to vent some negative feelings and don't know where to start?  Please visit The Mental Health Together Discord.  We have resources if you need help, areas to vent or share your story.  We even some fun areas to share hobbies like food, cute animal pics, etc.\n\nPlease feel free to visit or invite your friends with this link: <https://discord.mhtogether.com/>".format(
+            "{}\nFeeling like you or someone you know needs help or a place to vent some negative feelings and don't know where to start?  Please visit The Mental Health Together Discord.  They have resources help you and can give advice or guide you in the right direction. The server has areas to vent, share your story and get in touch with others.  There are also some fun areas to share hobbies like food, cute animal pics, etc.\n\nPlease feel free to visit or invite your friends with this link: <https://discord.mhtogether.com/>".format(
                 user.mention if user != None else "\u200b"
             )
         )

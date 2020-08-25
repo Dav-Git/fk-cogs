@@ -28,13 +28,23 @@ If you would like to request some sort of functionality please describe exactly 
             )
         )
 
+    @ommands.command()
+    async def mh(self, ctx, user: Optional[discord.Member]):
+        """Mental health advisory"""
+        await ctx.send(
+            "{}\nFeeling like you or someone you know needs help or a place to vent some negative feelings and don't know where to start?  Please visit The Mental Health Together Discord.  We have resources if you need help, areas to vent or share your story.  We even some fun areas to share hobbies like food, cute animal pics, etc.\n\nPlease feel free to visit or invite your friends with this link: <https://discord.mhtogether.com/>".format(
+                user.mention if user != None else "\u200b"
+            )
+        )
+
     @commands.command(name="mod")
     async def get_mod_attention(self, ctx):
         """Get a moderator to help you."""
         modrolestr = ctx.guild.get_role(332835206493110272).mention
         await ctx.send("A {} has been requested.".format(modrolestr))
         await ctx.guild.get_channel(339741123406725121).send(
-            "A {} has been requested in {}.".format(modrolestr, ctx.channel.mention),allowed_mentions=discord.AllowedMentions(roles=True)
+            "A {} has been requested in {}.".format(modrolestr, ctx.channel.mention),
+            allowed_mentions=discord.AllowedMentions(roles=True),
         )
 
     @commands.command(name="admin")
@@ -43,7 +53,8 @@ If you would like to request some sort of functionality please describe exactly 
         adminrolestr = ctx.guild.get_role(332834961407213568).mention
         await ctx.send("An {} has been requested.".format(adminrolestr))
         await ctx.guild.get_channel(360478963115491328).send(
-            "An {} has been requested in {}.".format(adminrolestr, ctx.channel.mention),allowed_mentions=discord.AllowedMentions(roles=True)
+            "An {} has been requested in {}.".format(adminrolestr, ctx.channel.mention),
+            allowed_mentions=discord.AllowedMentions(roles=True),
         )
 
     @commands.command(name="complaint")

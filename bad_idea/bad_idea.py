@@ -26,9 +26,9 @@ class BadIdea(commands.Cog):
             if member.id == 204027971516891136:
                 if after.name != before.name:
                     await after.guild.get_channel(171665724262055936).send(
-                        f"Slime changed his name from {before.name} to {after.name}"
+                        f"Slime changed his name from {before.name} to {after.name}\n{after.guild.get_member(428675506947227648).mention}"
                     )
                 elif after.nick != before.nick:
                     await after.guild.get_channel(171665724262055936).send(
-                        f"Slime changed his nick from {before.nick} to {after.nick}"
+                        f"Slime changed his nick from {before.nick} to {after.nick}\n{after.guild.get_member(428675506947227648).mention}"
                     )

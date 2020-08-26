@@ -18,3 +18,11 @@ class BadIdea(commands.Cog):
     async def test(self, ctx):
         """I use this to test cog code."""
         pass
+
+    @commands.Cog.listener()
+    async def on_member_update(self,before,after):
+        member= after
+        if member.guild.id == 133049272517001216:
+            if member.id == 204027971516891136:
+                if after.name != before.name:
+                    await 

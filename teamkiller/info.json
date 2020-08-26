@@ -1,0 +1,16 @@
+{
+    "author": [
+        "Dav"
+    ],
+    "description": "Log teamkills",
+    "hidden": false,
+    "install_msg": "This cog was made as a commission. It comes with limited to no support. Feel free to contact me on discord.gg/z6Nhqc5",
+    "short": "Log teamkills",
+    "tags": [
+        "stats",
+        "comission",
+        "teamkills",
+        "tools"
+    ],
+    "end_user_data_statement": "This cog stores data which is attached to your user profile. This data includes the amount of teamkills you made, the amount of teamdeaths you have as well as info on who you killed and who killed you. You can delete the data by making a deletion request.s"
+}

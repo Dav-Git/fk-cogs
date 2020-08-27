@@ -9,6 +9,7 @@ class BotCredits(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        # black
 
     @commands.command()
     async def credits(self, ctx):

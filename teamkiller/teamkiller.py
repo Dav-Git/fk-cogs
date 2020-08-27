@@ -77,9 +77,10 @@ class TeamKiller(commands.Cog):
         """Remove a teamkill"""
         await ctx.send("Deleting teamkill...")
         async with self.config.member(killer).all() as data:
-            data["teamkills"] -= 1
-            if victim:
-                data["hitlist"].remove(victim.id)
+            if data["teamkills"]:
+                data["teamkills"] -= 1
+                if victim:
+                    data["hitlist"].remove(victim.id)
         if victim:
             async with self.config.member(victim).all() as data:
                 data["teamdeaths"] -= 1

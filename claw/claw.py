@@ -37,7 +37,7 @@ class Claw(commands.Cog):
         await modlog.register_casetypes(cases)
 
     @commands.command()
-    @commands.max_concurrency(1,commands.BucketType.default,wait=False)
+    @commands.max_concurrency(1, commands.BucketType.default, wait=False)
     @checks.mod()
     async def claw(self, ctx, user: discord.Member, *, reason: Optional[str]):
         """``[Member]`` | Claw a member."""

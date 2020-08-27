@@ -32,7 +32,9 @@ class BotCredits(commands.Cog):
             inline=False,
         )
         embed.add_field(
-            name="Hosting", value="This instance is maintained by Dav#6998.", inline=False,
+            name="Hosting",
+            value="This instance is maintained by Dav#6998.",
+            inline=False,
         )
         embed.add_field(
             name="Art",

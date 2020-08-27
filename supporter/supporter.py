@@ -165,7 +165,10 @@ class Supporter(commands.Cog):
 
     @ticket.command(aliases=["open"])
     async def create(
-        self, ctx, *, reason: Optional[str] = "No reason provided.",
+        self,
+        ctx,
+        *,
+        reason: Optional[str] = "No reason provided.",
     ):
         """Create a ticket."""
         if await self._check_settings(ctx):
@@ -235,7 +238,9 @@ class Supporter(commands.Cog):
                         f'{ctx.author.name}#{ctx.author.discriminator}:"{reason}"'
                     )
                     embed = discord.Embed(
-                        title=name, description=reason, timestamp=datetime.utcnow(),
+                        title=name,
+                        description=reason,
+                        timestamp=datetime.utcnow(),
                     ).set_footer(text="Last updated at:")
                     embed.add_field(name="Department", value=dept_role.mention)
                     message = await ctx.guild.get_channel(settings["channel"]).send(embed=embed)
@@ -271,7 +276,8 @@ class Supporter(commands.Cog):
                 await (
                     await ctx.guild.get_channel(settings["channel"]).fetch_message(ticket[1])
                 ).edit(
-                    embed=new_embed, delete_after=10,
+                    embed=new_embed,
+                    delete_after=10,
                 )
                 await ctx.send(embed=new_embed)
                 await ctx.send(

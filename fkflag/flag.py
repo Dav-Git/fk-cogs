@@ -140,11 +140,12 @@ class Flag(Cog):
                         inline=True,
                     )
                 counter += 1
-                for flag in flags_to_remove:
-                    flags.remove(flag)
                 if len(flags) == 0:
                     done = True
                     break
+
+            for flag in flags_to_remove:
+                flags.remove(flag)
 
             embed.set_thumbnail(url=member.avatar_url)
             embedlist.append(embed)

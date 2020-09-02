@@ -41,6 +41,7 @@ class Flag(Cog):
             return
         elif len(reason) > 500:
             await ctx.send("**No u.**\n\nKeep it below 500 chars.")
+            return
 
         flag = self._flag_template()
 

@@ -21,31 +21,10 @@ class Flag(Cog):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=9811198108111121, force_registration=True)
         default_global = {}
-        default_guild = {"days": 31, "dm": True, "flags": {}}
+        default_guild = {"days": 31, "flags": {}}
 
         self.config.register_global(**default_global)
         self.config.register_guild(**default_guild)
-
-    @checks.mod_or_permissions(manage_roles=True)
-    @commands.guild_only()
-    @commands.group()
-    async def flagset(self, ctx: commands.Context):
-        """
-        My custom cog
-
-        Extra information goes here
-        """
-        if ctx.invoked_subcommand is None:
-            pass
-
-    @flagset.command(name="dm")
-    async def flagset_dm(self, ctx: commands.Context):
-        """Toggles DM-ing the flags"""
-
-        dm = await self.config.guild(ctx.guild).dm()
-        await self.config.guild(ctx.guild).dm.set(not dm)
-
-        await ctx.send("DM-ing members when they get a flag is now set to **{}**".format(not dm))
 
     @staticmethod
     def _flag_template():
@@ -75,12 +54,8 @@ class Flag(Cog):
         outembed = await self._list_flags(member)
 
         if outembed:
-            await ctx.send(embed=outembed)
-            if await self.config.guild(guild).dm():
-                try:
-                    await member.send(embed=outembed)
-                except discord.Forbidden:
-                    await ctx.send("DM-ing user failed")
+            for embed in outembed:
+                await ctx.send(embed=embed)
         else:
             await ctx.send("This member has no flags.. somehow..")
 
@@ -94,7 +69,8 @@ class Flag(Cog):
         outembed = await self._list_flags(member)
 
         if outembed:
-            await ctx.send(embed=outembed)
+            for embed in outembed:
+                await ctx.send(embed=embed)
         else:
             await ctx.send("This member has no flags!")
 
@@ -121,38 +97,50 @@ class Flag(Cog):
 
     async def _list_flags(self, member: discord.Member):
         """Returns a pretty embed of flags on a member"""
+        done = False
         flags = await self.config.guild(member.guild).flags.get_raw(str(member.id), default=[])
+        embedlist = []
 
-        embed = discord.Embed(
-            title="Flags for " + member.display_name,
-            description="User has {} active flags".format(len(flags)),
-            color=0x804040,
-        )
-        for flag in flags:
-            try:
-                flag["date"]
-            except KeyError:
-                flag["date"] = "N/A"
-            try:
-                flag["author"]
-            except KeyError:
-                flag["author"] = "N/A"
-            try:
-                embed.add_field(
-                    name=f"Reason: {flag['reason']}",
-                    value=f"Author: {flag['author']}\nDate: {flag['date']}",
-                    inline=True,
-                )
-            except KeyError:
-                embed.add_field(
-                    name=f"Reason: {flag['reason']}",
-                    value="An error occurred whirl fetching metadata.",
-                    inline=True,
-                )
+        while not done:
+            embed = discord.Embed(
+                title="Flags for " + member.display_name,
+                description="User has {} active flags".format(len(flags)),
+                color=0x804040,
+            )
+            counter = 0
+            for flag in flags:
+                if counter == 15:
+                    break
+                try:
+                    flag["date"]
+                except KeyError:
+                    flag["date"] = "N/A"
+                try:
+                    flag["author"]
+                except KeyError:
+                    flag["author"] = "N/A"
+                try:
+                    embed.add_field(
+                        name=f"Reason: {flag['reason']}",
+                        value=f"Author: {flag['author']}\nDate: {flag['date']}",
+                        inline=True,
+                    )
+                except KeyError:
+                    embed.add_field(
+                        name=f"Reason: {flag['reason']}",
+                        value="An error occurred whirl fetching metadata.",
+                        inline=True,
+                    )
+                counter += 1
+                flags.remove(flag)
+                if len(flags) == 0:
+                    done = True
+                    break
 
-        embed.set_thumbnail(url=member.avatar_url)
+            embed.set_thumbnail(url=member.avatar_url)
+            embedlist.append(embed)
 
-        return embed
+        return embedlist
 
     async def _check_flags(self, guild: discord.Guild):
         """Updates and removes expired flags"""

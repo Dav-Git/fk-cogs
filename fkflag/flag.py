@@ -133,7 +133,7 @@ class Flag(Cog):
                     embed.add_field(
                         name=f"\u200b\u200b",
                         value=f"**Reason: {flag['reason']}**\nAuthor: {flag['author']}\nDate: {flag['date']}",
-                        inline=True,
+                        inline=False,
                     )
                 except KeyError:
                     embed.add_field(

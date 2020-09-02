@@ -108,9 +108,13 @@ class Flag(Cog):
                 description="User has {} active flags".format(flagno),
                 color=0x804040,
             )
+            if flagno == 0:
+                done = True
+                break
             counter = 0
+            flags_to_remove = []
             for flag in flags:
-                if counter == 15:
+                if counter == 16:
                     break
                 try:
                     flag["date"]
@@ -133,7 +137,9 @@ class Flag(Cog):
                         inline=True,
                     )
                 counter += 1
-                flags.remove(flag)
+                flags_to_remove.append(flag)
+                for flag in flags_to_remove:
+                    flags.remove(flag)
                 if len(flags) == 0:
                     done = True
                     break

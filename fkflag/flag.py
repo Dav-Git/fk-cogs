@@ -121,13 +121,13 @@ class Flag(Cog):
                     flag["author"] = "N/A"
                 try:
                     embed.add_field(
-                        name=f"\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~",
+                        name=f"\u200b\u200b",
                         value=f"**Reason: {flag['reason']}**\nAuthor: {flag['author']}\nDate: {flag['date']}",
                         inline=True,
                     )
                 except KeyError:
                     embed.add_field(
-                        name=f"\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~",
+                        name=f"\u200b\u200b",
                         value=f"**Reason: {flag['reason']}**\nAn error occurred while fetching metadata.",
                         inline=True,
                     )

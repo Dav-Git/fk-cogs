@@ -116,6 +116,9 @@ class Flag(Cog):
             for flag in flags:
                 if counter == 16:
                     break
+                flags_to_remove.append(
+                    flag
+                )  # Do this here so past modifications don't screw with it.
                 try:
                     flag["date"]
                 except KeyError:
@@ -137,7 +140,6 @@ class Flag(Cog):
                         inline=True,
                     )
                 counter += 1
-                flags_to_remove.append(flag)
                 for flag in flags_to_remove:
                     flags.remove(flag)
                 if len(flags) == 0:

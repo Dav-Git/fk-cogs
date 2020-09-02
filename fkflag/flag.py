@@ -39,6 +39,8 @@ class Flag(Cog):
         if ctx.author == member:
             await ctx.send("Fuck you cunt! <3")
             return
+        elif len(reason) > 500:
+            await ctx.send("**No u.**\n\nKeep it below 500 chars.")
 
         flag = self._flag_template()
 
@@ -73,27 +75,6 @@ class Flag(Cog):
                 await ctx.send(embed=embed)
         else:
             await ctx.send("This member has no flags!")
-
-    @commands.guild_only()
-    @commands.command(aliases=["flagall"])
-    async def allflag(self, ctx: commands.Context):
-        """Lists all flags for the server"""
-        guild = ctx.guild
-        await self._check_flags(guild)
-        out = "All flags for {}\n".format(ctx.guild.name)
-
-        flags = await self.config.guild(guild).flags()
-        flag_d = {}
-        for memberid, flag_data in flags.items():
-            if len(flag_data) > 0:
-                member = guild.get_member(int(memberid))
-                flag_d[member.display_name + member.discriminator] = len(flag_data)
-
-        for display_name, flag_count in sorted(flag_d.items()):
-            out += "{} - **{}** flags".format(display_name, flag_count)
-
-        for page in pagify(out):
-            await ctx.send(page)
 
     async def _list_flags(self, member: discord.Member):
         """Returns a pretty embed of flags on a member"""

@@ -103,6 +103,8 @@ class Flag(Cog):
         embedlist = []
 
         while not done:
+            if len(flags) == 0 and flagno != 0:
+                break
             embed = discord.Embed(
                 title="Flags for " + member.display_name,
                 description="User has {} active flags".format(flagno),

@@ -99,12 +99,13 @@ class Flag(Cog):
         """Returns a pretty embed of flags on a member"""
         done = False
         flags = await self.config.guild(member.guild).flags.get_raw(str(member.id), default=[])
+        flagno = len(flags)
         embedlist = []
 
         while not done:
             embed = discord.Embed(
                 title="Flags for " + member.display_name,
-                description="User has {} active flags".format(len(flags)),
+                description="User has {} active flags".format(flagno),
                 color=0x804040,
             )
             counter = 0

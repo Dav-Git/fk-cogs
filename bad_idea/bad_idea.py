@@ -11,7 +11,7 @@ def is_dav():
 
 class BadIdea(commands.Cog):
     def __init__(self, bot):
-        self.config.get_conf(self, identifier=123, force_registration=True)
+        self.config = Config.get_conf(self, identifier=123, force_registration=True)
         self.config.register_guild(lastslime=None)
 
     @is_dav()

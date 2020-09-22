@@ -102,7 +102,7 @@ If you would like to request some sort of functionality please describe exactly 
         )
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(aliases=["issuereport"])
     @checks.mod()
     async def moderation(self, ctx):
         """Quick reference to moderation commands."""

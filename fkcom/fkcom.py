@@ -104,11 +104,6 @@ If you would like to request some sort of functionality please describe exactly 
 
     @commands.command()
     @checks.mod()
-    async def issuereport(self, ctx):
-        await ctx.send("Report all issues here: https://forms.gle/PGgi1kZ3ExrV3Kij7")
-
-    @commands.command()
-    @checks.mod()
     async def moderation(self, ctx):
         """Quick reference to moderation commands."""
         text = """```AsciiDoc
@@ -134,6 +129,10 @@ If you would like to request some sort of functionality please describe exactly 
 
 
 [Other]\n
--issuereport                       | Something is broken? Report it here. Staff only.
+-bug <Title> [Priority 1-3] <Text>         | Something is broken? Report it here. Staff only.
+-enhancement <Title> [Priority 1-3] <Text> | You have an idea on how to do something better? Put it here. Staff only.
+-feature <Title> [Priority 1-3] <Text>     | You have a new feature idea? This is your command. Staff only.
+ ! IMPORTANT: If your title consists of more than one word make sure to wrap it in quotes. "This title"
+              The default priority is 1/low.
 ```"""
         await ctx.send(text)

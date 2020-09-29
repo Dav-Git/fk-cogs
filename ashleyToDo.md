@@ -1,10 +1,11 @@
 # To-Do list
 I'll do my best to update this list as I go along.
 ## General
-- [ ] Twitch live role 
-- [ ] manage giveaways 
-- [ ] carl bot=- ashley go live message, reaction roles, automod [Explanation required]
-- [ ] ? !ship [Atago] = https://wiki.wargaming.net/en/Ship:Atago [Explanation required]
+- [x] Twitch live role [Filter by game+black/whitelist available]
+- [x] manage giveaways 
+- [x] carl bot=- ashley go live message, reaction roles,
+- [ ] automod [Word filters]
+- [x] ? !ship [Atago] = https://wiki.wargaming.net/en/Ship:Atago 
 - [ ] Command to DM Server Info [What do you mean here?]
 ## Alias:
 - [ ] alias

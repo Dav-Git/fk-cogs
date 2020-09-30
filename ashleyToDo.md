@@ -4,11 +4,10 @@ I'll do my best to update this list as I go along.
 - [x] Twitch live role [Filter by game+black/whitelist available]
 - [x] manage giveaways 
 - [x] carl bot=- ashley go live message, reaction roles,
-- [ ] automod [Word filters]
+- [x] automod [Word filters]
 - [x] ? !ship [Atago] = https://wiki.wargaming.net/en/Ship:Atago 
-- [ ] Command to DM Server Info [What do you mean here?]
 ## Alias:
-- [ ] alias
+- [x] alias
 ## Audio:
 - [x] Queue
 - [x] Remove
@@ -18,12 +17,12 @@ I'll do my best to update this list as I go along.
 ## Chatchart:
 - [ ] Chatchart
 ## Cleanup:
-- [ ] Cleanup
+- [x] Cleanup
 ## Core:
  ? --> [All of this is included anyways as the "core" of the bot.]
 - [x] Restart
 ## Customcommands
-- [ ] Customcom
+- [x] Customcom
 ## Dadjokes:
 - [ ] Dadjoke
 ## Dashboard
@@ -40,25 +39,26 @@ I'll do my best to update this list as I go along.
 - [ ] Mod
 - [ ] Moderation
 ## Filter:
-- [ ] Filter
-- [ ] Filterset
+- [x] Filter
+- [x] Filterset
 ## Flag:
+Need to choose persistent or non-persistent version.
 - [ ] Flag
 - [ ] Listflag
 ## General:
-- [ ] Flip
-- [ ] Lmgtfy
-- [ ] Roll
-- [ ] Serverinfo
-- [ ] Stopwatch
-- [ ] Urban
+- [x] Flip
+- [x] Lmgtfy
+- [x] Roll
+- [x] Serverinfo
+- [x] Stopwatch
+- [x] Urban
 ## Mod:
 - [ ] Ban
 - [ ] Hackban
 - [ ] Modset
 - [x] Movedeletedelay ? [N/A]
 - [x] Moveignoredchannels [N/A]
-- [ ] Mute
+- [ ] Mute [I recommend adapted mutes. We need to talk about the mute strategy used here.]
 - [ ] Names
 - [ ] Rename
 - [ ] Slowmode
@@ -71,10 +71,10 @@ I'll do my best to update this list as I go along.
 - [ ] Boicekick
 - [ ] Voiceunban
 ## Modlog:
-- [ ] Case
-- [ ] Casesfor
-- [ ] Modlogset
-- [ ] Reason
+- [x] Case
+- [x] Casesfor
+- [x] Modlogset
+- [x] Reason
 ## Mover:
 - [ ] Massmove 
 ## Nicknamer:
@@ -87,17 +87,18 @@ I'll do my best to update this list as I go along.
 - [ ] Unfreezenick
 ## Permissions:
 - [ ] Permissions
+This is complicated. We need to discuss security and access levels previously to setting this up completely.
 ## Pingtime
 - [ ] Pingtime
 ## Rss:
 Rss ?
 ## Raffle:
-- [ ] Raffle
-- [ ] Setraffle
+- [x] Raffle
+- [x] Setraffle
 ## Reports: 
-?
-- [ ] Report
-- [ ] Reportset
+ This module allows users to report other users or problems to the bot-owner/admin team.
+- [x] Report
+- [x] Reportset
 ## Rolemanagement:
 - [ ] Bulkrolebind
 - [ ] Clearmessagebinds
@@ -130,26 +131,37 @@ Rss ?
 - [ ] Topic
 - [ ] topmembers
 ## Starboard:
- ? what is
+ A starboard is a place where upvoted messages from the community are saved. Consider this example:
+ ```
+Ashley: lmao I'm so funny [4]
+Dav: nah I'm way funnier [3]
+lameoll: i'm the funniest anyways [5]
+ ```
+ Users will be able to react with a predefined emoji (amount of reactions in cornored braces.) \
+ With a threshold of 4 set the starboard channel will look like this:
+ ```
+ Shley9000: "Ashley: lmao I'm so funny #4"
+ Shley9000: "lameoll: i'm the funniest anyways #5"
+ ```
 ## Uniquename: 
-?
+This module allows you to reserve names for your moderators. If a user changes their name to be the same as the moderator's name it will auto-revert the change.
 ## Uwu:
 - [ ] Uwu
 ## Warnings:
-- [ ] Actionlist
-- [ ] Mywarnings
-- [ ] Reasonlist
-- [ ] Unwarn
-- [ ] Warn
-- [ ] Warnaction
-- [ ] Warnings
-- [ ] Warningset
-- [ ] Warnreason
+- [x] Actionlist
+- [x] Mywarnings
+- [x] Reasonlist
+- [x] Unwarn
+- [x] Warn
+- [ ] Warnaction [We need to configure those together.]
+- [x] Warnings
+- [x] Warningset
+- [x] Warnreason
 ## Other server commands that look applicable?
 - [ ] gamesearch: Display game information from IGDB
 - [ ] imdb: Display movie information from IMDB
 - [ ] animal: Post animal pics
 - [ ] wikia: Displays wikia articles
 - [ ] randimals: Get some random animal images.
-- [ ] streamrole: Streamers get a role.
+- [x] streamrole: Streamers get a role.
 - [ ] pupper: Pet the dog.

@@ -15,7 +15,7 @@ I'll do my best to update this list as I go along.
 - [x] Summon
 - [x] Volume
 ## Chatchart:
-- [ ] Chatchart
+- [x] Chatchart
 ## Cleanup:
 - [x] Cleanup
 ## Core:
@@ -24,7 +24,7 @@ I'll do my best to update this list as I go along.
 ## Customcommands
 - [x] Customcom
 ## Dadjokes:
-- [ ] Dadjoke
+- [x] Dadjoke
 ## Dashboard
 - [x] Dashboard [N/A]
 ## Dungeon:
@@ -76,20 +76,20 @@ Need to choose persistent or non-persistent version.
 - [x] Modlogset
 - [x] Reason
 ## Mover:
-- [ ] Massmove 
+- [x] Massmove 
 ## Nicknamer:
-- [ ] Cnick
-- [ ] Freezenick
-- [ ] Nick
-- [ ] Nickpurge
-- [ ] Nickset
-- [ ] Tempnick
-- [ ] Unfreezenick
+- [x] Freezenick
+- [x] Cnick
+- [x] Nick
+- [x] Nickpurge
+- [x] Nickset
+- [x] Tempnick
+- [x] Unfreezenick
 ## Permissions:
 - [ ] Permissions
 This is complicated. We need to discuss security and access levels previously to setting this up completely.
 ## Pingtime
-- [ ] Pingtime
+- [x] Pingtime
 ## Rss:
 Rss ?
 ## Raffle:
@@ -100,15 +100,15 @@ Rss ?
 - [x] Report
 - [x] Reportset
 ## Rolemanagement:
-- [ ] Bulkrolebind
-- [ ] Clearmessagebinds
-- [ ] Hackrole
-- [ ] Massrole
-- [ ] Rolebind
-- [ ] Rolebindservercleanup
-- [ ] Roleset
-- [ ] Roleunbind
-- [ ] Srole
+- [x] Bulkrolebind
+- [x] Clearmessagebinds
+- [x] Hackrole
+- [x] Massrole
+- [x] Rolebind
+- [x] Rolebindservercleanup
+- [x] Roleset
+- [x] Roleunbind
+- [x] Srole
 ## Scheduler:
 - [ ] Remindme
 - [ ] Schedule
@@ -117,19 +117,19 @@ Rss ?
 - [ ] Tempmute
 - [ ] Unschedule
 ## Serverstats:
-- [ ] Avatar
-- [ ] Botstats
-- [ ] Channeledit
-- [ ] Channelstats
-- [ ] Emoji
-- [ ] Getreactions
-- [ ] Getroles
-- [ ] Listchannels
-- [ ] Nummembers
-- [ ] Pruneroles
-- [ ] Serverstats
-- [ ] Topic
-- [ ] topmembers
+- [x] Avatar
+- [x] Botstats
+- [x] Channeledit
+- [x] Channelstats
+- [x] Emoji
+- [x] Getreactions
+- [x] Getroles
+- [x] Listchannels
+- [x] Nummembers
+- [x] Pruneroles
+- [x] Serverstats
+- [x] Topic
+- [x] topmembers
 ## Starboard:
  A starboard is a place where upvoted messages from the community are saved. Consider this example:
  ```
@@ -146,7 +146,7 @@ lameoll: i'm the funniest anyways [5]
 ## Uniquename: 
 This module allows you to reserve names for your moderators. If a user changes their name to be the same as the moderator's name it will auto-revert the change.
 ## Uwu:
-- [ ] Uwu
+- [x] Uwu
 ## Warnings:
 - [x] Actionlist
 - [x] Mywarnings
@@ -157,11 +157,6 @@ This module allows you to reserve names for your moderators. If a user changes t
 - [x] Warnings
 - [x] Warningset
 - [x] Warnreason
-## Other server commands that look applicable?
-- [ ] gamesearch: Display game information from IGDB
-- [ ] imdb: Display movie information from IMDB
-- [ ] animal: Post animal pics
-- [ ] wikia: Displays wikia articles
-- [ ] randimals: Get some random animal images.
+
+## Other
 - [x] streamrole: Streamers get a role.
-- [ ] pupper: Pet the dog.

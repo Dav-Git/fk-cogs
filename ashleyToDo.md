@@ -27,16 +27,16 @@ I'll do my best to update this list as I go along.
 ## Dashboard
 - [x] Dashboard [N/A]
 ## Fkcom:
-- [ ] Mh
-- [ ] Mod
-- [ ] Moderation
+- [x] Mh
+- [x] Mod
+- [x] Moderation
 ## Filter:
 - [x] Filter
 - [x] Filterset
 ## Flag:
 Permanent version.
-- [ ] flag
-- [ ] Listflag
+- [x] flag
+- [x] Listflag
 ## General:
 - [x] Flip
 - [x] Lmgtfy
@@ -45,23 +45,23 @@ Permanent version.
 - [x] Stopwatch
 - [x] Urban
 ## Mod:
-- [ ] Ban
-- [ ] Hackban
-- [ ] Modset
+- [x] Ban
+- [x] Hackban
+- [x] Modset
 - [x] Movedeletedelay ? [N/A]
 - [x] Moveignoredchannels [N/A]
-- [ ] Mute [I recommend adapted mutes. We need to talk about the mute strategy used here.]
-- [ ] Names
-- [ ] Rename
-- [ ] Slowmode
-- [ ] Softban
-- [ ] Tempban
-- [ ] Unban
-- [ ] Unmute
-- [ ] Userinfo
-- [ ] Voiceban
-- [ ] Boicekick
-- [ ] Voiceunban
+- [x] Mute [I recommend adapted mutes. We need to talk about the mute strategy used here.]
+- [x] Names
+- [x] Rename
+- [x] Slowmode
+- [x] Softban
+- [x] Tempban
+- [x] Unban
+- [x] Unmute
+- [x] Userinfo
+- [x] Voiceban
+- [x] Boicekick
+- [x] Voiceunban
 ## Modlog:
 - [x] Case
 - [x] Casesfor
@@ -78,7 +78,7 @@ Permanent version.
 - [x] Tempnick
 - [x] Unfreezenick
 ## Permissions:
-- [ ] Permissions
+- [x] Permissions
 This is complicated. We need to discuss security and access levels previously to setting this up completely.
 ## Pingtime
 - [x] Pingtime
@@ -102,7 +102,7 @@ This is complicated. We need to discuss security and access levels previously to
 - [x] Roleunbind
 - [x] Srole
 ## Reminder:
-- [ ] Remindme
+- [x] Remindme
 ## Serverstats:
 - [x] Avatar
 - [x] Botstats
@@ -130,7 +130,7 @@ lameoll: i'm the funniest anyways [5]
  Shley9000: "Ashley: lmao I'm so funny #4"
  Shley9000: "lameoll: i'm the funniest anyways #5"
  ```
- - [ ] Starboard
+ - [x] Starboard
 ## Uniquename: 
 This module allows you to reserve names for your moderators. If a user changes their name to be the same as the moderator's name it will auto-revert the change.
 ## Uwu:

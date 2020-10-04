@@ -19,7 +19,6 @@ I'll do my best to update this list as I go along.
 ## Cleanup:
 - [x] Cleanup
 ## Core:
- ? --> [All of this is included anyways as the "core" of the bot.]
 - [x] Restart
 ## Customcommands
 - [x] Customcom
@@ -28,11 +27,6 @@ I'll do my best to update this list as I go along.
 ## Dashboard
 - [x] Dashboard [N/A]
 ## Fkcom:
-- [ ] Admin
-- [ ] Bot
-- [ ] Commands
-- [ ] Complaint
-- [ ] Issuereport
 - [ ] Mh
 - [ ] Mod
 - [ ] Moderation
@@ -40,8 +34,8 @@ I'll do my best to update this list as I go along.
 - [x] Filter
 - [x] Filterset
 ## Flag:
-Need to choose persistent or non-persistent version.
-- [ ] Flag
+Permanent version.
+- [ ] flag
 - [ ] Listflag
 ## General:
 - [x] Flip
@@ -89,7 +83,7 @@ This is complicated. We need to discuss security and access levels previously to
 ## Pingtime
 - [x] Pingtime
 ## Rss:
-Rss ?
+- [x] rss
 ## Raffle:
 - [x] Raffle
 - [x] Setraffle
@@ -107,13 +101,8 @@ Rss ?
 - [x] Roleset
 - [x] Roleunbind
 - [x] Srole
-## Scheduler:
+## Reminder:
 - [ ] Remindme
-- [ ] Schedule
-- [ ] Scheduleradmin
-- [ ] Showscheduled
-- [ ] Tempmute
-- [ ] Unschedule
 ## Serverstats:
 - [x] Avatar
 - [x] Botstats
@@ -141,6 +130,7 @@ lameoll: i'm the funniest anyways [5]
  Shley9000: "Ashley: lmao I'm so funny #4"
  Shley9000: "lameoll: i'm the funniest anyways #5"
  ```
+ - [ ] Starboard
 ## Uniquename: 
 This module allows you to reserve names for your moderators. If a user changes their name to be the same as the moderator's name it will auto-revert the change.
 ## Uwu:
@@ -151,7 +141,6 @@ This module allows you to reserve names for your moderators. If a user changes t
 - [x] Reasonlist
 - [x] Unwarn
 - [x] Warn
-- [ ] Warnaction [We need to configure those together.]
 - [x] Warnings
 - [x] Warningset
 - [x] Warnreason

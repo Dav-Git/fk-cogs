@@ -27,8 +27,6 @@ I'll do my best to update this list as I go along.
 - [x] Dadjoke
 ## Dashboard
 - [x] Dashboard [N/A]
-## Dungeon:
-- [ ] Dungeon [I may need to explain this]
 ## Fkcom:
 - [ ] Admin
 - [ ] Bot

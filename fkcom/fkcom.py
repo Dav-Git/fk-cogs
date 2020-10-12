@@ -38,12 +38,14 @@ If you would like to request some sort of functionality please describe exactly 
         )
 
     @commands.command(name="mod")
-    async def get_mod_attention(self, ctx):
+    async def get_mod_attention(self, ctx, *, details: Optional[str]):
         """Get a moderator to help you."""
         modrolestr = ctx.guild.get_role(332835206493110272).mention
         await ctx.send("A {} has been requested.".format(modrolestr))
         await ctx.guild.get_channel(339741123406725121).send(
-            "A {} has been requested in {}.".format(modrolestr, ctx.channel.mention),
+            "A {} has been requested in {}.{}".format(
+                modrolestr, ctx.channel.mention, f"\n``{details}```" if details else ""
+            ),
             allowed_mentions=discord.AllowedMentions(roles=True),
         )
 

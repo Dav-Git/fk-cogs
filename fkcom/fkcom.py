@@ -134,5 +134,6 @@ If you would like to request some sort of functionality please describe exactly 
 -feature <Title> [Priority 1-3] <Text>     | You have a new feature idea? This is your command. Staff only.
  ! IMPORTANT: If your title consists of more than one word make sure to wrap it in quotes. "This title"
               The default priority is 1/low.
+-blocklist add <User>                       | Block a user from interacting with the bot. Permission only.
 ```"""
         await ctx.send(text)

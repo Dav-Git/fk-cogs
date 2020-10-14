@@ -27,7 +27,7 @@ class FKCom(commands.Cog):
             },
             {
                 "name": "ncc",
-                "default_settings": True,
+                "default_setting": True,
                 "image": "\N{ARTIST PALETTE}",
                 "case_str": "NCC",
             },

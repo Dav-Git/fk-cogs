@@ -7,6 +7,9 @@ class FKCom(commands.Cog):
     async def red_delete_data_for_user(self, *, requester, user_id):
         pass  # This cog stores no EUD
 
+    async def initialize(self):
+        await self.reg_ct()
+
     @staticmethod
     async def reg_ct():
         new_types = [

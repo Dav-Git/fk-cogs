@@ -1,11 +1,35 @@
 from typing import Optional
 import discord
-from redbot.core import checks, commands
+from redbot.core import checks, commands, modlog
 
 
 class FKCom(commands.Cog):
     async def red_delete_data_for_user(self, *, requester, user_id):
         pass  # This cog stores no EUD
+
+    @staticmethod
+    async def reg_ct():
+        new_types = [
+            {
+                "name": "nsp",
+                "default_setting": True,
+                "image": "<a:bonk_newspaper_bean:736744548138745866>",
+                "case_str": "NSP",
+            },
+            {
+                "name": "nss",
+                "default_setting": True,
+                "image": "\N{OPEN BOOK}",
+                "case_str": "NSS",
+            },
+            {
+                "name": "ncc",
+                "default_settings": True,
+                "image": "\N{ARTIST PALETTE}",
+                "case_str": "NCC",
+            },
+        ]
+        await modlog.register_casetypes(new_types)
 
     @commands.command()
     async def bot(self, ctx):
@@ -44,7 +68,7 @@ If you would like to request some sort of functionality please describe exactly 
         await ctx.send("A {} has been requested.".format(modrolestr))
         await ctx.guild.get_channel(339741123406725121).send(
             "A {} has been requested in {}.{}".format(
-                modrolestr, ctx.channel.mention, f"\n``{details}```" if details else ""
+                modrolestr, ctx.channel.mention, f"\n``{details}``" if details else ""
             ),
             allowed_mentions=discord.AllowedMentions(roles=True),
         )
@@ -58,6 +82,54 @@ If you would like to request some sort of functionality please describe exactly 
             "An {} has been requested in {}.".format(adminrolestr, ctx.channel.mention),
             allowed_mentions=discord.AllowedMentions(roles=True),
         )
+
+    @checks.admin()
+    @commands.command()
+    async def nsp(self, ctx, member: discord.Member, *, reason: Optional[str]):
+        """Assign NSP to a member.\n\nThis role is used to block access to #self-promotion ."""
+        await member.add_roles(ctx.guild.get_role(699776108970770542))
+        await modlog.create_case(
+            ctx.bot,
+            ctx.guild,
+            ctx.message.created_at,
+            "nsp",
+            member,
+            ctx.author,
+            reason if reason else None,
+        )
+        await ctx.tick()
+
+    @checks.admin()
+    @commands.command()
+    async def nss(self, ctx, member: discord.Member, *, reason: Optional[str]):
+        """Assign NSS to a member.\n\nThis role is used to block access to #scenario-suggestions ."""
+        await member.add_roles(ctx.guild.get_role(672402596098736128))
+        await modlog.create_case(
+            ctx.bot,
+            ctx.guild,
+            ctx.message.created_at,
+            "nss",
+            member,
+            ctx.author,
+            reason if reason else None,
+        )
+        await ctx.tick()
+
+    @checks.admin()
+    @commands.command()
+    async def ncc(self, ctx, member: discord.Member, *, reason: Optional[str]):
+        """Assign NCC to a member.\n\nThis role is used to block access to creative channels."""
+        await member.add_roles(ctx.guild.get_role(507595253814001664))
+        await modlog.create_case(
+            ctx.bot,
+            ctx.guild,
+            ctx.message.created_at,
+            "ncc",
+            member,
+            ctx.author,
+            reason if reason else None,
+        )
+        await ctx.tick()
 
     @commands.command(name="complaint")
     async def complaint(self, ctx):

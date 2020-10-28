@@ -21,7 +21,7 @@ class Claw(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         if member.guild.id == 332834024831582210:
-            if self.config.member(member).clawed():
+            if await self.config.member(member).clawed():
                 for channel in member.guild.channels:
                     new_overrides = channel.overwrites
                     new_overrides[member] = discord.PermissionOverwrite(

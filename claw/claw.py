@@ -12,11 +12,158 @@ class Claw(commands.Cog):
 
     def __init__(self):
         self.config = Config.get_conf(self, 889, force_registration=True)
-        default_member = {"overrides": {}}
+        default_member = {"overrides": {}, "clawed": False, "channel": 0}
         self.config.register_member(**default_member)
 
     async def initialize(self):
         await self.register_casetypes()
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        if member.guild.id == 332834024831582210:
+            if self.config.member(member).clawed():
+                for channel in member.guild.channels:
+                    new_overrides = channel.overwrites
+                    new_overrides[member] = discord.PermissionOverwrite(
+                        external_emojis=False,
+                        read_message_history=False,
+                        view_guild_insights=False,
+                        priority_speaker=False,
+                        manage_guild=False,
+                        send_tts_messages=False,
+                        manage_messages=False,
+                        connect=False,
+                        attach_files=False,
+                        send_messages=False,
+                        administrator=False,
+                        speak=False,
+                        manage_webhooks=False,
+                        read_messages=False,
+                        change_nickname=False,
+                        create_instant_invite=False,
+                        use_voice_activation=False,
+                        add_reactions=False,
+                        move_members=False,
+                        manage_emojis=False,
+                        stream=False,
+                        embed_links=False,
+                        view_audit_log=False,
+                        manage_nicknames=False,
+                        kick_members=False,
+                        deafen_members=False,
+                        manage_roles=False,
+                        mention_everyone=False,
+                        ban_members=False,
+                        mute_members=False,
+                        manage_channels=False,
+                    )
+                    await channel.edit(overwrites=new_overrides)
+                nc_override = {
+                    member.guild.default_role: discord.PermissionOverwrite(
+                        external_emojis=False,
+                        read_message_history=False,
+                        view_guild_insights=False,
+                        priority_speaker=False,
+                        manage_guild=False,
+                        send_tts_messages=False,
+                        manage_messages=False,
+                        connect=False,
+                        attach_files=False,
+                        send_messages=False,
+                        administrator=False,
+                        speak=False,
+                        manage_webhooks=False,
+                        read_messages=False,
+                        change_nickname=False,
+                        create_instant_invite=False,
+                        use_voice_activation=False,
+                        add_reactions=False,
+                        move_members=False,
+                        manage_emojis=False,
+                        stream=False,
+                        embed_links=False,
+                        view_audit_log=False,
+                        manage_nicknames=False,
+                        kick_members=False,
+                        deafen_members=False,
+                        manage_roles=False,
+                        mention_everyone=False,
+                        ban_members=False,
+                        mute_members=False,
+                        manage_channels=False,
+                    ),
+                    member.guild.get_role(332835206493110272): discord.PermissionOverwrite(
+                        external_emojis=True,
+                        read_message_history=True,
+                        view_guild_insights=False,
+                        priority_speaker=False,
+                        manage_guild=False,
+                        send_tts_messages=False,
+                        manage_messages=True,
+                        connect=False,
+                        attach_files=True,
+                        send_messages=True,
+                        administrator=False,
+                        speak=False,
+                        manage_webhooks=False,
+                        read_messages=True,
+                        change_nickname=False,
+                        create_instant_invite=False,
+                        use_voice_activation=False,
+                        add_reactions=True,
+                        move_members=False,
+                        manage_emojis=False,
+                        stream=False,
+                        embed_links=True,
+                        view_audit_log=False,
+                        manage_nicknames=False,
+                        kick_members=False,
+                        deafen_members=False,
+                        manage_roles=False,
+                        mention_everyone=False,
+                        ban_members=False,
+                        mute_members=False,
+                        manage_channels=False,
+                    ),
+                    member: discord.PermissionOverwrite(
+                        external_emojis=True,
+                        read_message_history=True,
+                        view_guild_insights=False,
+                        priority_speaker=False,
+                        manage_guild=False,
+                        send_tts_messages=False,
+                        manage_messages=False,
+                        connect=False,
+                        attach_files=True,
+                        send_messages=True,
+                        administrator=False,
+                        speak=False,
+                        manage_webhooks=False,
+                        read_messages=True,
+                        change_nickname=False,
+                        create_instant_invite=False,
+                        use_voice_activation=False,
+                        add_reactions=True,
+                        move_members=False,
+                        manage_emojis=False,
+                        stream=False,
+                        embed_links=True,
+                        view_audit_log=False,
+                        manage_nicknames=False,
+                        kick_members=False,
+                        deafen_members=False,
+                        manage_roles=False,
+                        mention_everyone=False,
+                        ban_members=False,
+                        mute_members=False,
+                        manage_channels=False,
+                    ),
+                }
+                channel=member.guild.get_channel(await self.config.member(member).channel())
+                await channel.edit(
+                    overwrites=nc_override
+                )
+                await member.guild.get_channel(449945421742211082).send(f"{member.display_name}({member.id)} has been re-captured to {channel.mention}")
 
     @staticmethod
     async def register_casetypes():
@@ -187,6 +334,7 @@ class Claw(commands.Cog):
             category=ctx.guild.get_channel(360775964470280193),
             reason=f"{user.name}#{user.discriminator} has been clawed.",
         )
+        await self.config.member(user).channel.set(channel.id)
         await channel.send(
             f"Hello {user.mention}, you have been pulled into the contact area, a member of staff will be with you shortly."
         )
@@ -199,6 +347,7 @@ class Claw(commands.Cog):
             moderator=ctx.author,
             reason=reason,
         )
+        await self.config.member(user).clawed.set(True)
         """try:
             if roles["fireteam"] in user.roles:
                 await user.remove_roles(roles["fireteam"], reason="Contact claws assigned.")
@@ -243,6 +392,7 @@ class Claw(commands.Cog):
             user=user,
             moderator=ctx.author,
         )
+        await self.config.member(user).clawed.set(False)
 
     """@return_member.command()
     async def fireteam(self, ctx, user: discord.Member):

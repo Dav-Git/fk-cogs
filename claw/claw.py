@@ -159,11 +159,11 @@ class Claw(commands.Cog):
                         manage_channels=False,
                     ),
                 }
-                channel=member.guild.get_channel(await self.config.member(member).channel())
-                await channel.edit(
-                    overwrites=nc_override
+                channel = member.guild.get_channel(await self.config.member(member).channel())
+                await channel.edit(overwrites=nc_override)
+                await member.guild.get_channel(449945421742211082).send(
+                    f"{member.display_name}({member.id}) has been re-captured to {channel.mention}"
                 )
-                await member.guild.get_channel(449945421742211082).send(f"{member.display_name}({member.id)} has been re-captured to {channel.mention}")
 
     @staticmethod
     async def register_casetypes():

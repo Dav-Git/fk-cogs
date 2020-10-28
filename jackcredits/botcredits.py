@@ -14,7 +14,6 @@ class BotCredits(commands.Cog):
     @commands.command()
     async def credits(self, ctx):
         """Credits for everyone who makes this bot possible."""
-        app = await self.bot.application_info()
         repo_cog = self.bot.get_cog("Downloader")
         embed = discord.Embed(
             title=f"{self.bot.user.name}'s Credits",
@@ -23,7 +22,9 @@ class BotCredits(commands.Cog):
         )
         embed.set_footer(text=f"{self.bot.user.name} exists since")
         # discord.py, where is my icon_url_as?
-        embed.set_thumbnail(url=str(app.icon_url).replace("jpg", "png") + "?size=4096")
+        embed.set_thumbnail(
+            url="https://media.discordapp.net/attachments/765366487438983208/768899405872365598/Defender_Bot_-_white_border.png?width=461&height=461"
+        )
         embed.add_field(
             name="Red-DiscordBot",
             value=f"{self.bot.user.name} is an instance of [Red bot](https://github.com/Cog-Creators/Red-DiscordBot), "

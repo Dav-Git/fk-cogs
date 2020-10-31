@@ -369,8 +369,11 @@ class Claw(commands.Cog):
 
     @commands.command(name="return")
     @checks.mod()
-    async def return_member(self, ctx, user: discord.Member):
+    async def return_member(self, ctx, user: discord.Member, *, reason: str):
         """Return a member out of #contact-claws."""
+        if len(reason) > 1000:
+            await ctx.send("The reason for this case was to long. I will shorten it for you.")
+            reason = reason[:1000]
         settings = await self.config.member(user).overrides()
         for channel in ctx.guild.channels:
             new_overrides = channel.overwrites
@@ -391,6 +394,7 @@ class Claw(commands.Cog):
             action_type="unclaw",
             user=user,
             moderator=ctx.author,
+            reason=reason,
         )
         await self.config.member(user).clawed.set(False)
 

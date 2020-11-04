@@ -22,6 +22,9 @@ class Claw(commands.Cog):
     async def on_member_join(self, member):
         if member.guild.id == 332834024831582210:
             if await self.config.member(member).clawed():
+                await member.add_roles(
+                    member.guild.get_role(707949167338586123), reason="Re-Clawed"
+                )
                 for channel in member.guild.channels:
                     new_overrides = channel.overwrites
                     new_overrides[member] = discord.PermissionOverwrite(
@@ -188,6 +191,7 @@ class Claw(commands.Cog):
     @checks.mod()
     async def claw(self, ctx, user: discord.Member, *, reason: Optional[str]):
         """``[Member]`` | Claw a member."""
+        await user.add_roles(ctx.guild.get_role(707949167338586123), reason="Clawed")
         async with self.config.member(user).overrides() as overrides:
             for channel in ctx.guild.channels:
                 if user in channel.overwrites:
@@ -368,35 +372,41 @@ class Claw(commands.Cog):
             )"""
 
     @commands.command(name="return")
+    @commands.max_concurrency(1, commands.BucketType.default, wait=False)
     @checks.mod()
     async def return_member(self, ctx, user: discord.Member, *, reason: str):
         """Return a member out of #contact-claws."""
         if len(reason) > 1000:
             await ctx.send("The reason for this case was to long. I will shorten it for you.")
             reason = reason[:1000]
-        settings = await self.config.member(user).overrides()
-        for channel in ctx.guild.channels:
-            new_overrides = channel.overwrites
-            try:
-                del new_overrides[user]
-            except KeyError:
-                pass
-            try:
-                new_overrides[user] = discord.PermissionOverwrite(**settings[channel.id])
-            except KeyError:
-                pass
-            await channel.edit(overwrites=new_overrides)
-        await self.config.member(user).overrides.set({})
-        await modlog.create_case(
-            ctx.bot,
-            ctx.guild,
-            ctx.message.created_at,
-            action_type="unclaw",
-            user=user,
-            moderator=ctx.author,
-            reason=reason,
+        await ctx.send(
+            "Don't panic. This will take a while. Sit back and relax as your channels are coming back."
         )
-        await self.config.member(user).clawed.set(False)
+        async with ctx.typing():
+            settings = await self.config.member(user).overrides()
+            for channel in ctx.guild.channels:
+                new_overrides = channel.overwrites
+                try:
+                    del new_overrides[user]
+                except KeyError:
+                    pass
+                try:
+                    new_overrides[user] = discord.PermissionOverwrite(**settings[channel.id])
+                except KeyError:
+                    pass
+                await channel.edit(overwrites=new_overrides)
+            await user.remove_roles(ctx.guild.get_role(707949167338586123), reason="Unclawed")
+            await self.config.member(user).overrides.set({})
+            await modlog.create_case(
+                ctx.bot,
+                ctx.guild,
+                ctx.message.created_at,
+                action_type="unclaw",
+                user=user,
+                moderator=ctx.author,
+                reason=reason,
+            )
+            await self.config.member(user).clawed.set(False)
 
     """@return_member.command()
     async def fireteam(self, ctx, user: discord.Member):

@@ -22,3 +22,4 @@ class JoinFlag(commands.Cog):
     @commands.mod()
     async def joinflag(self, ctx, user_id: int, *, text: str):
         await self.config.member_from_ids(ctx.guild.id, user_id).flag.set(text)
+        await ctx.tick()

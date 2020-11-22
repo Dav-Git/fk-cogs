@@ -374,11 +374,8 @@ class Claw(commands.Cog):
     @commands.command(name="return")
     @commands.max_concurrency(1, commands.BucketType.default, wait=False)
     @checks.mod()
-    async def return_member(self, ctx, user: discord.Member, *, reason: str):
+    async def return_member(self, ctx, user: discord.Member):
         """Return a member out of #contact-claws."""
-        if len(reason) > 1000:
-            await ctx.send("The reason for this case was to long. I will shorten it for you.")
-            reason = reason[:1000]
         await ctx.send(
             "Don't panic. This will take a while. Sit back and relax as your channels are coming back."
         )
@@ -397,15 +394,6 @@ class Claw(commands.Cog):
                 await channel.edit(overwrites=new_overrides)
             await user.remove_roles(ctx.guild.get_role(707949167338586123), reason="Unclawed")
             await self.config.member(user).overrides.set({})
-            await modlog.create_case(
-                ctx.bot,
-                ctx.guild,
-                ctx.message.created_at,
-                action_type="unclaw",
-                user=user,
-                moderator=ctx.author,
-                reason=reason,
-            )
             await self.config.member(user).clawed.set(False)
 
     """@return_member.command()

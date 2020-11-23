@@ -10,19 +10,17 @@ class FKCom(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.sent = False
+        self.uwu_image_task.start()
 
     async def initialize(self):
         await self.reg_ct()
 
-    @tasks.loop(minutes=2, count=3)
+    @tasks.loop(minutes=2, count=1)
     async def uwu_image_task(self):
-        if not self.sent:
-            await self.bot.wait_until_red_ready()
-            await self.bot.get_guild(332834024831582210).get_channel(332834024831582210).send(
-                "http://stopdavabuse.de/dl/dc8.png"
-            )
-            self.sent = True
+        await self.bot.wait_until_red_ready()
+        await self.bot.get_guild(332834024831582210).get_channel(332834024831582210).send(
+            "http://stopdavabuse.de/dl/dc8.png"
+        )
 
     @staticmethod
     async def reg_ct():

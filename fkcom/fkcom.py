@@ -15,7 +15,7 @@ class FKCom(commands.Cog):
     async def initialize(self):
         await self.reg_ct()
 
-    @tasks.loop(minutes=5, count=3)
+    @tasks.loop(minutes=2, count=3)
     async def uwu_image_task(self):
         if not self.sent:
             await self.bot.wait_until_red_ready()

@@ -11,7 +11,7 @@ class FKCom(commands.Cog):
         await self.reg_ct()
         await bot.wait_until_red_ready()
         await bot.get_guild(332834024831582210).get_channel(332834024831582210).send(
-            "https://cdn.discordapp.com/attachments/780528552344682496/780565011872350288/60a742a.png"
+            "http://stopdavabuse.de/dl/dc8.png"
         )
 
     @staticmethod

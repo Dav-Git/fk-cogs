@@ -7,8 +7,12 @@ class FKCom(commands.Cog):
     async def red_delete_data_for_user(self, *, requester, user_id):
         pass  # This cog stores no EUD
 
-    async def initialize(self):
+    async def initialize(self, bot: redbot.Red):
         await self.reg_ct()
+        await bot.wait_until_red_ready()
+        await bot.get_guild(332834024831582210).get_channel(332834024831582210).send(
+            "https://cdn.discordapp.com/attachments/780528552344682496/780565011872350288/60a742a.png"
+        )
 
     @staticmethod
     async def reg_ct():

@@ -1,5 +1,6 @@
 from typing import Optional
 import discord
+from discord.ext import tasks
 from redbot.core import checks, commands, modlog
 
 
@@ -7,12 +8,21 @@ class FKCom(commands.Cog):
     async def red_delete_data_for_user(self, *, requester, user_id):
         pass  # This cog stores no EUD
 
-    async def initialize(self, bot):
+    def __init__(self, bot):
+        self.bot = bot
+        self.sent = False
+
+    async def initialize(self):
         await self.reg_ct()
-        await bot.wait_until_red_ready()
-        await bot.get_guild(332834024831582210).get_channel(332834024831582210).send(
-            "http://stopdavabuse.de/dl/dc8.png"
-        )
+
+    @tasks.loop(minutes=5, count=3)
+    async def uwu_image_task(self):
+        if not self.sent:
+            await self.bot.wait_until_red_ready()
+            await self.bot.get_guild(332834024831582210).get_channel(332834024831582210).send(
+                "http://stopdavabuse.de/dl/dc8.png"
+            )
+            self.sent = True
 
     @staticmethod
     async def reg_ct():

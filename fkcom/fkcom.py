@@ -201,6 +201,7 @@ If you would like to request some sort of functionality please describe exactly 
 -lvlinfo <User> | -rank <User>         | Get info about a current user's rank.
 -forcenick <User> [Reason]             | Force-change a user's nickname.
 -flag <User> <Reason>                  | Flag a user (staff notes).
+-joinflag <UserID> <text>              | Add a text which is shown when a user (re-)joins the server.
 -warn <User> <Reason>                  | Warn a user.
 -mute <User> [duration] [Reason]       | Mute a user. Provide a duration to make it a tempmute. 
 -channelmute <User> [duration] [Reason]| Mute a user in a channel.

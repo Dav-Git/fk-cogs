@@ -1,0 +1,9 @@
+{
+    "author": [
+        "Dav"
+    ],
+    "description": "Assign a role to a user, depending on the status message they have set. This cog is a comission payed by Candy#1111",
+    "hidden": false,
+    "install_msg": "This cog comes without absolutely no warranty, support or updates.",
+    "short": "Assign a role to a user based on their status."
+}

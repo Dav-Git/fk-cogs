@@ -1,5 +1,7 @@
 from .statusrole import Statusrole
 
 
-def setup(bot):
-    bot.add_cog(Statusrole())
+async def setup(bot):
+    cog = Statusrole()
+    bot.add_cog(cog)
+    await cog.initialize(bot)

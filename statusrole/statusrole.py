@@ -9,6 +9,29 @@ class Statusrole(commands.Cog):
         self.config.register_guild(**default_guild)
         self.text_to_role = {}
 
+    async def initialize(self, bot):
+        await bot.wait_until_red_ready()
+        for guild in bot.guilds:
+            await self._update_cache(guild)
+
+    @commands.Cog.listener()
+    async def on_member_update(self, before, member: discord.Member):
+        if member.activity:
+            if member.activity.type == discord.ActivityType.custom:
+                try:
+                    if member.activity.name in self.text_to_role[member.guild]:
+                        role = self.text_to_role[member.guild][member.activity.name]
+                        if not role in member.roles:
+                            await member.add_roles(role)
+                    else:
+                        await self._maybe_remove_role(member)
+                except KeyError:
+                    pass
+            else:
+                await self._maybe_remove_role(member)
+        else:
+            await self._maybe_remove_role(member)
+
     @commands.group()
     async def statusrole(self, ctx):
         """Statusrole commands."""
@@ -27,9 +50,54 @@ class Statusrole(commands.Cog):
             f"Users with ``{text}`` in their status will now get the ``{role.name}`` role."
         )
 
+    @checks.admin()
+    @statusrole.command()
+    async def remove(self, ctx, *, text: str):
+        """Remove a text to role relation."""
+        try:
+            async with self.config.guild(ctx.guild).text_to_role_id() as text_to_role_id:
+                del text_to_role_id[text]
+            await self._update_cache(ctx.guild)
+            await ctx.send(
+                f"Statusrole removed.\nTo remove the role from all members run ``{ctx.clean_prefix}statusrole purge <role>``"
+            )
+        except KeyError:
+            await ctx.send("This text is not known as a statusrole.")
+
+    @checks.admin()
+    @statusrole.command(name="list")
+    async def list_statusroles(self, ctx):
+        """List all text to role relations."""
+        data = self.text_to_role[ctx.guild]
+        for key in data:
+            await ctx.send(
+                f"Members with the ``{key}`` status will get the ``{data[key].name}`` role."
+            )
+
+    @checks.admin()
+    @statusrole.command()
+    async def purge(self, ctx, role: discord.Role):
+        """Remove a role from all your members."""
+        async with ctx.typing():
+            for member in ctx.guild.members:
+                if role in member.roles:
+                    try:
+                        await member.remove_roles(role, reason="Statusrole purge")
+                    except:
+                        pass
+        await ctx.send("Role purged.")
+
     async def _update_cache(self, guild):
         text_to_role_id = await self.config.guild(guild).text_to_role_id()
         text_to_role = {}
         for text in text_to_role_id:
             text_to_role[text] = guild.get_role(text_to_role_id[text])
-        self.text_to_role = text_to_role
+        self.text_to_role[guild] = text_to_role
+
+    async def _maybe_remove_role(self, member):
+        if member.activity:
+            if member.activity.name in self.text_to_role[member.guild]:
+                return
+        for role in member.roles:
+            if role in self.text_to_role[member.guild].values():
+                await member.remove_roles(role)

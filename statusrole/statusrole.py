@@ -31,6 +31,8 @@ class Statusrole(commands.Cog):
                             await self._maybe_remove_role(member)
                 except KeyError:
                     pass
+                except TypeError:
+                    pass
             else:
                 await self._maybe_remove_role(member)
         else:

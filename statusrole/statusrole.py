@@ -16,6 +16,8 @@ class Statusrole(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_update(self, before, member: discord.Member):
+        if member.bot:
+            return
         if member.activity:
             if (
                 member.activity.type == discord.ActivityType.custom

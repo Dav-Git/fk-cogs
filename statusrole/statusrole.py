@@ -17,14 +17,18 @@ class Statusrole(commands.Cog):
     @commands.Cog.listener()
     async def on_member_update(self, before, member: discord.Member):
         if member.activity:
-            if member.activity.type == discord.ActivityType.custom:
+            if (
+                member.activity.type == discord.ActivityType.custom
+                or member.activity.type == discord.ActivityType.playing
+            ):
                 try:
-                    if member.activity.name in self.text_to_role[member.guild]:
-                        role = self.text_to_role[member.guild][member.activity.name]
-                        if not role in member.roles:
-                            await member.add_roles(role)
-                    else:
-                        await self._maybe_remove_role(member)
+                    for text in self.text_to_role[member.guild]:
+                        if text in member.activity.name:
+                            role = self.text_to_role[member.guild][text]
+                            if not role in member.roles:
+                                await member.add_roles(role)
+                        else:
+                            await self._maybe_remove_role(member)
                 except KeyError:
                     pass
             else:
@@ -95,6 +99,10 @@ class Statusrole(commands.Cog):
         self.text_to_role[guild] = text_to_role
 
     async def _maybe_remove_role(self, member):
+        try:  # Make sure this doesn't error when no info about the guild was saved.
+            self.text_to_role[member.guild].values()
+        except KeyError:
+            return
         if member.activity:
             if member.activity.name in self.text_to_role[member.guild]:
                 return

@@ -90,10 +90,11 @@ class Statusrole(commands.Cog):
         async with ctx.typing():
             for member in ctx.guild.members:
                 if role in member.roles:
-                    try:
-                        await member.remove_roles(role, reason="Statusrole purge")
-                    except:
-                        pass
+                    if not role.id == ctx.guild.id:
+                        try:
+                            await member.remove_roles(role, reason="Statusrole purge")
+                        except:
+                            pass
         await ctx.send("Role purged.")
 
     async def _update_cache(self, guild):

@@ -3,11 +3,12 @@ import discord
 
 
 class Statusrole(commands.Cog):
-    def __init__(self):
+    def __init__(self, bot):
         self.config = Config.get_conf(self, 1234, force_registration=True)
         default_guild = {"text_to_role_id": {}}
         self.config.register_guild(**default_guild)
         self.text_to_role = {}
+        bot.loop.create_task(self.initialize(bot))
 
     async def initialize(self, bot):
         await bot.wait_until_red_ready()

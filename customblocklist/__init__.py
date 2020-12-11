@@ -1,20 +1,19 @@
 from .customblocklist import CustomBlockList
 
-old_blocklist_add_command = None
+old_blocklist_commands = None
 
 
 async def setup(bot):
-    global old_blocklist_add_command
+    global old_blocklist_commands
     group = bot.get_command("blocklist")
-    old_blocklist_add_command = group.get_command("add")
-    group.remove_command("add")
+    bot.remove_command(group)
+    old_blocklist_commands = group
     cog = CustomBlockList(bot)
     bot.add_cog(cog)
     await cog.initialize(bot)
 
 
 def teardown(bot):
-    if old_blocklist_add_command is None:
+    if old_blocklist_commands is None:
         return
-    group = bot.get_command("blocklist")
-    group.add_command(old_blocklist_add_command)
+    bot.add_command(old_blocklist_commands)

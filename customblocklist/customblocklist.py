@@ -23,7 +23,9 @@ class CustomBlockList(commands.Cog):
     async def initialize(self, bot):
         await self.register_casetypes()
 
-        bot.get_command("blocklist").add_command(bot.get_command("blocklist_add"))
+        bot.get_command("blocklist").add_command(
+            bot.get_command("blocklist_add").update(name="add")
+        )
 
     @commands.command(usage="<user>...")
     async def blocklist_add(self, ctx: commands.Context, *users: discord.Member):

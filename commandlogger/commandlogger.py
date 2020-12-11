@@ -75,19 +75,22 @@ class CommandLogger(commands.Cog):
         for member in members:
             data = members[member]
             pages = []
-            for timestamp in data[command]:
-                user = ctx.guild.get_member(member)
-                e = discord.Embed(
-                    title=f"Commandlog for ``{command}``",
-                    description=f"Invoked by: {user.mention}({user.name}#{user.discriminator} {user.id}",
-                )
-                e.add_field(name="Content", value=data[command][timestamp], inline=False)
-                e.add_field(
-                    name="Timestamp",
-                    value=datetime.fromtimestamp(float(timestamp)).strftime(
-                        "%H:%M:%S | %d %b %Y UTC"
-                    ),
-                )
-                e.color = discord.Color.green()
-                pages.append(e)
+            try:
+                for timestamp in data[command]:
+                    user = ctx.guild.get_member(member)
+                    e = discord.Embed(
+                        title=f"Commandlog for ``{command}``",
+                        description=f"Invoked by: {user.mention}({user.name}#{user.discriminator} {user.id}",
+                    )
+                    e.add_field(name="Content", value=data[command][timestamp], inline=False)
+                    e.add_field(
+                        name="Timestamp",
+                        value=datetime.fromtimestamp(float(timestamp)).strftime(
+                            "%H:%M:%S | %d %b %Y UTC"
+                        ),
+                    )
+                    e.color = discord.Color.orange()
+                    pages.append(e)
+            except KeyError:
+                pass
         await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)

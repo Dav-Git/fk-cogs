@@ -2,13 +2,11 @@ from redbot.core import commands, modlog
 import discord
 from datetime import datetime
 
-command_group = None
-
 
 class CustomBlockList(commands.Cog):
     def __init__(self, bot, group):
         global command_group
-        command_group = group
+        command_group = bot.get_command("blocklist")
         self.bot = bot
 
     @staticmethod

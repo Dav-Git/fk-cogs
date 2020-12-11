@@ -22,17 +22,23 @@ class CommandLogger(commands.Cog):
                 commands_dict[ctx.command.qualified_name] = name_dict
 
     @commands.is_owner()
-    @commands.command()
-    async def cmdlog(self, ctx, user: discord.Member, *, command: str):
-        """Get the command log for a user and command."""
+    @commands.group()
+    async def cmdlog(self, ctx):
+        """Commandlog"""
+        pass
+
+    @cmdlog.command(name="user")
+    async def cmdlog_user(self, ctx, user: discord.Member):
+        """Get the command log for a user."""
         data = await self.config.member(user).commands()
         pages = []
         for command in data:
             for timestamp in data[command]:
                 e = discord.Embed(
-                    title=f"Commandlog for {user.mention}", description=f"Command: ``{command}``"
+                    title=f"Commandlog for {user.display_name}",
+                    description=f"Command: ``{command}``",
                 )
-                e.add_field(name="Content", value=data[command][timestamp])
+                e.add_field(name="Content", value=data[command][timestamp], inline=False)
                 e.add_field(
                     name="Timestamp",
                     value=datetime.fromtimestamp(float(timestamp)).strftime(
@@ -40,5 +46,48 @@ class CommandLogger(commands.Cog):
                     ),
                 )
                 e.color = discord.Color.dark_blue()
+                pages.append(e)
+        await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
+
+    @cmdlog.command(name="both")
+    async def cmdlog_command_and_user(self, ctx, user: discord.Member, *, command: str):
+        """Get the command log for a user using a specified command."""
+        data = await self.config.member(user).commands()
+        pages = []
+        for timestamp in data[command]:
+            e = discord.Embed(
+                title=f"Commandlog for {user.display_name}",
+                description=f"Command: ``{command}``",
+            )
+            e.add_field(name="Content", value=data[command][timestamp], inline=False)
+            e.add_field(
+                name="Timestamp",
+                value=datetime.fromtimestamp(float(timestamp)).strftime("%H:%M:%S | %d %b %Y UTC"),
+            )
+            e.color = discord.Color.green()
+            pages.append(e)
+        await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
+
+    @cmdlog.command(name="command")
+    async def cmdlog_command(self, ctx, *, command: str):
+        """Get the command log for a user using a specified command."""
+        members = await self.config.all_members(ctx.guild)
+        for member in members:
+            data = members[member]
+            pages = []
+            for timestamp in data[command]:
+                user = ctx.guild.get_member(member)
+                e = discord.Embed(
+                    title=f"Commandlog for ``{command}``",
+                    description=f"Invoked by: {user.mention}({user.name}#{user.discriminator} {user.id}",
+                )
+                e.add_field(name="Content", value=data[command][timestamp], inline=False)
+                e.add_field(
+                    name="Timestamp",
+                    value=datetime.fromtimestamp(float(timestamp)).strftime(
+                        "%H:%M:%S | %d %b %Y UTC"
+                    ),
+                )
+                e.color = discord.Color.green()
                 pages.append(e)
         await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)

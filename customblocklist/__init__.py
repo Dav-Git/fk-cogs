@@ -6,7 +6,7 @@ old_blocklist_commands = None
 async def setup(bot):
     global old_blocklist_commands
     group = bot.get_command("blocklist")
-    bot.remove_command(group)
+    bot.remove_command("blocklist")
     old_blocklist_commands = group
     cog = CustomBlockList(bot)
     bot.add_cog(cog)

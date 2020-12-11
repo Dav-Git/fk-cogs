@@ -35,7 +35,7 @@ class CommandLogger(commands.Cog):
                 e.add_field(name="Content", value=data[command][timestamp])
                 e.add_field(
                     name="Timestamp",
-                    value=datetime.fromtimestamp(int(timestamp)).strftime(
+                    value=datetime.fromtimestamp(float(timestamp)).strftime(
                         "%H:%M:%S | %d %b %Y UTC"
                     ),
                 )

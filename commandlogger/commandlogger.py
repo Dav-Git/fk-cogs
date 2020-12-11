@@ -35,7 +35,9 @@ class CommandLogger(commands.Cog):
                 e.add_field(name="Content", value=data[command][timestamp])
                 e.add_field(
                     name="Timestamp",
-                    value=datetime.fromtimestamp(timestamp).strftime("%H:%M:%S | %d %b %Y UTC"),
+                    value=datetime.fromtimestamp(int(timestamp)).strftime(
+                        "%H:%M:%S | %d %b %Y UTC"
+                    ),
                 )
                 e.color = discord.Color.dark_blue()
                 pages.append(e)

@@ -4,8 +4,7 @@ from datetime import datetime
 
 
 class CustomBlockList(commands.Cog):
-    def __init__(self, bot, group):
-        self.command_group = bot.get_command("blocklist")
+    def __init__(self, bot):
         self.bot = bot
 
     @staticmethod
@@ -24,7 +23,9 @@ class CustomBlockList(commands.Cog):
     async def initialize(self):
         await self.register_casetypes()
 
-    @self.command_group.command(name="add", usage="<user>...")
+        command_group = bot.get_command("blocklist").add_command(bot.get_command("blocklist_add"))
+
+    @commands.command(usage="<user>...")
     async def blocklist_add(self, ctx: commands.Context, *users: discord.Member):
         """
         Adds a user to the blocklist.

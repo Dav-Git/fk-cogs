@@ -8,7 +8,7 @@ async def setup(bot):
     group = bot.get_command("blocklist")
     old_blocklist_add_command = group.get_command("add")
     group.remove_command("add")
-    cog = CustomBlockList(bot, group)
+    cog = CustomBlockList(bot)
     bot.add_cog(cog)
     await cog.initialize()
 

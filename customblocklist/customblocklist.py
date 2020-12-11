@@ -29,7 +29,7 @@ class CustomBlockList(commands.Cog):
         bot.get_command("blocklist").add_command(command)
 
     @commands.command(usage="<user>...")
-    async def blocklist_add(self, ctx: commands.Context, *users: discord.Member):
+    async def blocklist_add(self, ctx, *users: discord.Member):
         """
         Adds a user to the blocklist.
         """

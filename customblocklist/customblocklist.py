@@ -25,6 +25,7 @@ class CustomBlockList(commands.Cog):
 
         command = bot.get_command("blocklist_add")
         command.update(name="add")
+        bot.remove_command(command)
         bot.get_command("blocklist").add_command(command)
 
     @commands.command(usage="<user>...")

@@ -41,4 +41,4 @@ class CommandLogger(commands.Cog):
                 )
                 e.color = discord.Color.dark_blue()
                 pages.append(e)
-        await menu(ctx, e, DEFAULT_CONTROLS, timeout=120)
+        await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)

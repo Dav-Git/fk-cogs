@@ -1,4 +1,5 @@
 from redbot.core import commands, modlog, checks
+from redbot.core.utils.chat_formatting import box, pagify
 import discord
 from datetime import datetime
 from typing import Union
@@ -54,7 +55,7 @@ class CustomBlockList(commands.Cog):
             else:
                 user_obj = user
             if await ctx.bot.is_owner(user_obj):
-                await ctx.send(_("You cannot add an owner to the blocklist!"))
+                await ctx.send("You cannot add an owner to the blocklist!")
                 return
 
         uids = {getattr(user, "id", user) for user in users}
@@ -64,7 +65,7 @@ class CustomBlockList(commands.Cog):
                 ctx.bot, ctx.guild, datetime.now(), "blocklist", user, ctx.author
             )
 
-        await ctx.send(_("User added to blocklist."))
+        await ctx.send("User added to blocklist.")
 
     @blocklist.command(name="list")
     async def blocklist_list(self, ctx: commands.Context):
@@ -99,7 +100,7 @@ class CustomBlockList(commands.Cog):
             await modlog.create_case(
                 ctx.bot, ctx.guild, datetime.now(), "unblocklist", user, ctx.author
             )
-        await ctx.send(_("Users have been removed from blocklist."))
+        await ctx.send("Users have been removed from blocklist.")
 
     @blocklist.command(name="clear")
     async def blocklist_clear(self, ctx: commands.Context):
@@ -107,4 +108,4 @@ class CustomBlockList(commands.Cog):
         Clears the blocklist.
         """
         await self.bot._whiteblacklist_cache.clear_blacklist()
-        await ctx.send(_("Blocklist has been cleared."))
+        await ctx.send("Blocklist has been cleared.")

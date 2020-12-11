@@ -24,8 +24,8 @@ class CustomBlockList(commands.Cog):
             "case_str": "Removed from blocklist",
         }
         try:
-            await modlog.register_casetype(**blocklist_add_case)
             await modlog.register_casetype(**blocklist_remove_case)
+            await modlog.register_casetype(**blocklist_add_case)
         except RuntimeError:
             pass
 

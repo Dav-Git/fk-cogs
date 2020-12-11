@@ -28,7 +28,7 @@ class CommandLogger(commands.Cog):
         data = await self.config.member(user).commands()
         pages = []
         for command in data:
-            for timestamp in command:
+            for timestamp in data[command]:
                 e = discord.Embed(
                     title=f"Commandlog for {user.mention}", description=f"Command: ``{command}``"
                 )

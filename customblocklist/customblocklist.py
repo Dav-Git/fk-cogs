@@ -20,10 +20,10 @@ class CustomBlockList(commands.Cog):
         except RuntimeError:
             pass
 
-    async def initialize(self):
+    async def initialize(self, bot):
         await self.register_casetypes()
 
-        command_group = bot.get_command("blocklist").add_command(bot.get_command("blocklist_add"))
+        bot.get_command("blocklist").add_command(bot.get_command("blocklist_add"))
 
     @commands.command(usage="<user>...")
     async def blocklist_add(self, ctx: commands.Context, *users: discord.Member):

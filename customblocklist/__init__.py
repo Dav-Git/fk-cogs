@@ -10,7 +10,7 @@ async def setup(bot):
     group.remove_command("add")
     cog = CustomBlockList(bot)
     bot.add_cog(cog)
-    await cog.initialize()
+    await cog.initialize(bot)
 
 
 def teardown(bot):

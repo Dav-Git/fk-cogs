@@ -30,7 +30,7 @@ class CustomBlockList(commands.Cog):
 
     @commands.mod()
     @commands.command(usage="<user>...")
-    async def blocklist_add(self, ctx, *users: discord.Member):
+    async def blocklist_add(ctx, *users: discord.Member):
         """
         Adds a user to the blocklist.
         """
@@ -48,10 +48,10 @@ class CustomBlockList(commands.Cog):
                 return
 
         uids = {getattr(user, "id", user) for user in users}
-        await self.bot._whiteblacklist_cache.add_to_blacklist(None, uids)
+        await ctx.bot._whiteblacklist_cache.add_to_blacklist(None, uids)
         for user in users:
             await modlog.create_case(
-                self.bot, ctx.guild, datetime.now(), "blocklist", user, ctx.author
+                ctx.bot, ctx.guild, datetime.now(), "blocklist", user, ctx.author
             )
 
         await ctx.send(("User added to blocklist."))

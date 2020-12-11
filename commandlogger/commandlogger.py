@@ -93,4 +93,7 @@ class CommandLogger(commands.Cog):
                     pages.append(e)
             except KeyError:
                 pass
-        await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
+        try:
+            await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
+        except IndexError:
+            await ctx.send("Command not tracked yet.")

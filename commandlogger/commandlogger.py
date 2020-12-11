@@ -47,6 +47,7 @@ class CommandLogger(commands.Cog):
                 )
                 e.color = discord.Color.dark_blue()
                 pages.append(e)
+        pages.reverse()
         await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
 
     @cmdlog.command(name="both")
@@ -66,6 +67,7 @@ class CommandLogger(commands.Cog):
             )
             e.color = discord.Color.green()
             pages.append(e)
+        pages.reverse()
         await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
 
     @cmdlog.command(name="command")
@@ -93,6 +95,7 @@ class CommandLogger(commands.Cog):
                     pages.append(e)
             except KeyError:
                 pass
+        pages.reverse()
         try:
             await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
         except IndexError:

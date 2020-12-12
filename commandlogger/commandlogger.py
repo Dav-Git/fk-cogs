@@ -109,12 +109,13 @@ class CommandLogger(commands.Cog):
             data = members[member]["commands"]
             try:
                 for timestamp in data[command]:
-                    if data[command][timestamp] == f"-{command} {arguments}":
+                    if data[command][timestamp] == f"-{command}":
                         user = ctx.guild.get_member(member)
                         e = discord.Embed(
                             title=f"Commandlog for ``-{command} {arguments}``",
                             description=f"Invoked by: {user.mention}({user.name}#{user.discriminator} {user.id}",
                         )
+                        e.add_field(name="Content", value=data[command][timestamp], inline=False)
                         e.add_field(
                             name="Timestamp",
                             value=self._timestamp_to_string(timestamp),

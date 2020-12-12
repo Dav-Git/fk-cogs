@@ -41,11 +41,10 @@ class CommandLogger(commands.Cog):
                 e.add_field(name="Content", value=data[command][timestamp], inline=False)
                 e.add_field(
                     name="Timestamp",
-                    value=datetime.fromtimestamp(float(timestamp)).strftime(
-                        "%H:%M:%S | %d %b %Y UTC"
-                    ),
+                    value=self._timestamp_to_string(timestamp)),
                 )
                 e.color = discord.Color.dark_blue()
+                e.set_thumbnail(url=ctx.guild.get_member(user).avatar_url)
                 pages.append(e)
         pages.reverse()
         await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
@@ -63,9 +62,10 @@ class CommandLogger(commands.Cog):
             e.add_field(name="Content", value=data[command][timestamp], inline=False)
             e.add_field(
                 name="Timestamp",
-                value=datetime.fromtimestamp(float(timestamp)).strftime("%H:%M:%S | %d %b %Y UTC"),
+                value=self._timestamp_to_string(timestamp),
             )
             e.color = discord.Color.green()
+            e.set_thumbnail(url=ctx.guild.get_member(user).avatar_url)
             pages.append(e)
         pages.reverse()
         await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
@@ -87,11 +87,10 @@ class CommandLogger(commands.Cog):
                     e.add_field(name="Content", value=data[command][timestamp], inline=False)
                     e.add_field(
                         name="Timestamp",
-                        value=datetime.fromtimestamp(float(timestamp)).strftime(
-                            "%H:%M:%S | %d %b %Y UTC"
-                        ),
+                        value=self._timestamp_to_string(timestamp),
                     )
-                    e.color = discord.Color.orange()
+                    e.color = discord.Color.dark_orange()
+                    e.set_thumbnail(url=ctx.guild.get_member(member).avatar_url)
                     pages.append(e)
             except KeyError:
                 pass
@@ -100,3 +99,39 @@ class CommandLogger(commands.Cog):
             await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
         except IndexError:
             await ctx.send("Command not tracked yet.")
+
+    @commands.is_owner()
+    @commands.command(name="raw")
+    async def commandlog_raw(self,ctx,command:str,*,arguments:str):
+        """Get the uses of an exact command"""
+        members = await self.config.all_members(ctx.guild)
+        pages = []
+        for member in members:
+            data = members[member]["commands"]
+            try:
+                for timestamp in data[command]:
+                    if data[command][timestamp]==f"-{command} {arguments}":
+                        user = ctx.guild.get_member(member)
+                        e = discord.Embed(
+                            title=f"Commandlog for ``{command}``",
+                            description=f"Invoked by: {user.mention}({user.name}#{user.discriminator} {user.id}",
+                        )
+                        e.add_field(name="Content", value=data[command][timestamp], inline=False)
+                        e.add_field(
+                            name="Timestamp",
+                            value=self._timestamp_to_string(timestamp),
+                        )
+                        e.color = discord.Color.dark_orange()
+                        e.set_thumbnail(url=user.avatar_url)
+                        pages.append(e)
+            except KeyError:
+                pass
+        pages.reverse()
+        try:
+            await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
+        except IndexError:
+            await ctx.send("Command not tracked yet.")
+
+
+    def _timestamp_to_string(self,timestamp):
+        return datetime.fromtimestamp(float(timestamp)).strftime("%H:%M:%S | %d %b %Y EST")

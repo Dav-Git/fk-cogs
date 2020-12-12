@@ -100,8 +100,7 @@ class CommandLogger(commands.Cog):
         except IndexError:
             await ctx.send("Command not tracked yet.")
 
-    @commands.is_owner()
-    @commands.command(name="raw")
+    @cmdlog.command(name="raw")
     async def commandlog_raw(self, ctx, command: str, *, arguments: str):
         """Get the uses of an exact command"""
         members = await self.config.all_members(ctx.guild)

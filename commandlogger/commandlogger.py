@@ -41,7 +41,7 @@ class CommandLogger(commands.Cog):
                 e.add_field(name="Content", value=data[command][timestamp], inline=False)
                 e.add_field(
                     name="Timestamp",
-                    value=self._timestamp_to_string(timestamp)),
+                    value=self._timestamp_to_string(timestamp),
                 )
                 e.color = discord.Color.dark_blue()
                 e.set_thumbnail(url=ctx.guild.get_member(user).avatar_url)
@@ -102,7 +102,7 @@ class CommandLogger(commands.Cog):
 
     @commands.is_owner()
     @commands.command(name="raw")
-    async def commandlog_raw(self,ctx,command:str,*,arguments:str):
+    async def commandlog_raw(self, ctx, command: str, *, arguments: str):
         """Get the uses of an exact command"""
         members = await self.config.all_members(ctx.guild)
         pages = []
@@ -110,7 +110,7 @@ class CommandLogger(commands.Cog):
             data = members[member]["commands"]
             try:
                 for timestamp in data[command]:
-                    if data[command][timestamp]==f"-{command} {arguments}":
+                    if data[command][timestamp] == f"-{command} {arguments}":
                         user = ctx.guild.get_member(member)
                         e = discord.Embed(
                             title=f"Commandlog for ``-{command} {arguments}``",
@@ -131,6 +131,5 @@ class CommandLogger(commands.Cog):
         except IndexError:
             await ctx.send("Command not tracked yet.")
 
-
-    def _timestamp_to_string(self,timestamp):
+    def _timestamp_to_string(self, timestamp):
         return datetime.fromtimestamp(float(timestamp)).strftime("%H:%M:%S | %d %b %Y EST")

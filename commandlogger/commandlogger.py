@@ -76,7 +76,7 @@ class CommandLogger(commands.Cog):
         members = await self.config.all_members(ctx.guild)
         pages = []
         for member in members:
-            data = members[member]
+            data = members[member]["commands"]
             try:
                 for timestamp in data[command]:
                     user = ctx.guild.get_member(member)

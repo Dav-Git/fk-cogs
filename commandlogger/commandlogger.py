@@ -44,7 +44,7 @@ class CommandLogger(commands.Cog):
                     value=self._timestamp_to_string(timestamp),
                 )
                 e.color = discord.Color.dark_blue()
-                e.set_thumbnail(url=ctx.guild.get_member(user).avatar_url)
+                e.set_thumbnail(url=user.avatar_url)
                 pages.append(e)
         pages.reverse()
         await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
@@ -65,7 +65,7 @@ class CommandLogger(commands.Cog):
                 value=self._timestamp_to_string(timestamp),
             )
             e.color = discord.Color.green()
-            e.set_thumbnail(url=ctx.guild.get_member(user).avatar_url)
+            e.set_thumbnail(url=user.avatar_url)
             pages.append(e)
         pages.reverse()
         await menu(ctx, pages, DEFAULT_CONTROLS, timeout=120)
@@ -90,7 +90,7 @@ class CommandLogger(commands.Cog):
                         value=self._timestamp_to_string(timestamp),
                     )
                     e.color = discord.Color.dark_orange()
-                    e.set_thumbnail(url=ctx.guild.get_member(member).avatar_url)
+                    e.set_thumbnail(url=user.avatar_url)
                     pages.append(e)
             except KeyError:
                 pass

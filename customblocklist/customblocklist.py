@@ -78,7 +78,7 @@ class CustomBlockList(commands.Cog):
             await ctx.send("Blocklist is empty.")
             return
 
-        msg = _("Users on blocklist:")
+        msg = "Users on blocklist:"
         for user in curr_list:
             msg += "\n\t- {}".format(user)
 

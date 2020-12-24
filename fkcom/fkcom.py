@@ -208,7 +208,7 @@ If you would like to request some sort of functionality please describe exactly 
 -voicemute <User> [Reason]             | Mute a user in a voicechannel.
 -voiceban                              | Ban a user from all voicechannels.
 -activemutes                           | See all curently active mutes.
--claw <User>                           | Put a user into the #contact-claws channel.
+-claw <User> <Reason>                  | Put a user into the #contact-claws channel. Requires descriptive reason.
 -return <User>                         | Return a user from the #contact-claws channel.
 
 

@@ -352,24 +352,6 @@ class Claw(commands.Cog):
             reason=reason,
         )
         await self.config.member(user).clawed.set(True)
-        """try:
-            if roles["fireteam"] in user.roles:
-                await user.remove_roles(roles["fireteam"], reason="Contact claws assigned.")
-            elif roles["burning"] in user.roles:
-                await user.remove_roles(roles["burning"], reason="Contact claws assigned.")
-            await user.add_roles(roles["contact"], reason="Contact claws assigned.")
-            await ctx.guild.get_channel(350726339327950859).send(
-                f"{user.name} has been put into {ctx.guild.get_channel(483213085293936640).mention}."
-            )
-            print(
-                f"{ctx.author.name}({ctx.author.id}) clawed {user.name}({user.id}).", file=stderr
-            )
-        except:
-            await ctx.send("An error occured.")
-            print(
-                f"{ctx.author.name}({ctx.author.id}) tried to claw {user.name}({user.id}) but something went wrong.",
-                file=stderr,
-            )"""
 
     @commands.command(name="return")
     @commands.max_concurrency(1, commands.BucketType.default, wait=False)
@@ -395,42 +377,3 @@ class Claw(commands.Cog):
             await user.remove_roles(ctx.guild.get_role(707949167338586123), reason="Unclawed")
             await self.config.member(user).overrides.set({})
             await self.config.member(user).clawed.set(False)
-
-    """@return_member.command()
-    async def fireteam(self, ctx, user: discord.Member):
-        
-        if ctx.guild.get_role(483212257237401621) in user.roles:
-            await user.remove_roles(
-                ctx.guild.get_role(483212257237401621), reason="Returned from Contact claws."
-            )
-            await user.add_roles(
-                ctx.guild.get_role(634692203582717990), reason="Returned from Contact claws."
-            )
-            await ctx.guild.get_channel(350726339327950859).send(
-                f"{user.name} has been returned from {ctx.guild.get_channel(483213085293936640).mention}."
-            )
-
-    @return_member.command()
-    async def burning(self, ctx, user: discord.Member):
-        
-        if ctx.guild.get_role(483212257237401621) in user.roles:
-            await user.remove_roles(
-                ctx.guild.get_role(483212257237401621), reason="Returned from Contact claws."
-            )
-            await user.add_roles(
-                ctx.guild.get_role(489455280266936321), reason="Returned from Contact claws."
-            )
-            await ctx.guild.get_channel(350726339327950859).send(
-                f"{user.name} has been returned from {ctx.guild.get_channel(483213085293936640).mention}."
-            )
-
-    @return_member.command(aliases=["basic", "normal", "everyone", "nobody"])
-    async def standard(self, ctx, user: discord.Member):
-        
-        if ctx.guild.get_role(483212257237401621) in user.roles:
-            await user.remove_roles(
-                ctx.guild.get_role(483212257237401621), reason="Returned from Contact claws."
-            )
-            await ctx.guild.get_channel(350726339327950859).send(
-                f"{user.name} has been returned from {ctx.guild.get_channel(483213085293936640).mention}."
-            )"""

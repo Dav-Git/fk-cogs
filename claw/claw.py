@@ -14,6 +14,7 @@ class Claw(commands.Cog):
         self.config = Config.get_conf(self, 889, force_registration=True)
         default_member = {"overrides": {}, "clawed": False, "channel": 0}
         self.config.register_member(**default_member)
+        self.mute_cache = {}
 
     async def initialize(self):
         await self.register_casetypes()
@@ -191,7 +192,12 @@ class Claw(commands.Cog):
     @checks.mod()
     async def claw(self, ctx, user: discord.Member, *, reason: Optional[str]):
         """``[Member]`` | Claw a member."""
-        await user.add_roles(ctx.guild.get_role(707949167338586123), reason="Clawed")
+        muterole = ctx.guild.get_role(707949167338586123)
+        if muterole in user.roles:
+            self.mute_cache[user.id] = True
+        else:
+            self.mute_cache[user.id] = False
+            await user.add_roles(muterole, reason="Clawed")
         async with self.config.member(user).overrides() as overrides:
             for channel in ctx.guild.channels:
                 if user in channel.overwrites:
@@ -374,6 +380,15 @@ class Claw(commands.Cog):
                 except KeyError:
                     pass
                 await channel.edit(overwrites=new_overrides)
-            await user.remove_roles(ctx.guild.get_role(707949167338586123), reason="Unclawed")
+            try:
+                if self.mute_cache[user.id]:
+                    del self.mute_cache[user.id]
+                else:
+                    del self.mute_cache[user.id]
+                    await user.remove_roles(
+                        ctx.guild.get_role(707949167338586123), reason="Unclawed"
+                    )
+            except KeyError:
+                await user.remove_roles(ctx.guild.get_role(707949167338586123), reason="Unclawed")
             await self.config.member(user).overrides.set({})
             await self.config.member(user).clawed.set(False)

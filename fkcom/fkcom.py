@@ -146,42 +146,10 @@ If you would like to request some sort of functionality please describe exactly 
         )
         await ctx.tick()
 
-    @commands.command(name="complaint")
-    async def complaint(self, ctx):
-        """Get info on how to file a complaint against a discord member or against a member of staff."""
-        try:
-            if not ctx.author.dm_channel:
-                await ctx.author.create_dm()
-            await ctx.author.dm_channel.send(
-                "To make a complaint against a regular discord member please use the ``-report <your_report_here>`` command. These reports will be seen by all staff members."
-            )
-            await ctx.author.dm_channel.send(
-                "To make a complaint against a member of staff please send a DM to the bot. These reports will be seen by admins."
-            )
-            await ctx.author.dm_channel.send("Both commands can be used in direct messages.")
-        except discord.Forbidden:
-            await ctx.send(
-                "I could not send you a DM. Make sure I can send you a direct message due to the confidentiality of your issue."
-            )
-
     @commands.command(name="commands")
     async def user_helper(self, ctx):
         """See all bot commands using -help"""
         await ctx.send("Use ``-help`` to see all bot commands.")
-
-    """@commands.command()
-    async def spam(self, ctx, r: int, *, text: str):
-        if ctx.author.id == 428675506947227648:
-            for i in range(0, r):
-                i  # Stop screaming at me for not using the variable VSCode!!!!
-                await ctx.send(text)
-        elif ctx.author.id == 472727265713586176:
-            for i in range(0, r):
-                await ctx.send(
-                    f"No Jackieboi you can not do that. Here, have a ping: {ctx.author.mention}"
-                )
-        else:
-            await ctx.send(f"Nope. Evil {ctx.author.mention}.")"""
 
     @commands.command()
     async def amy2(self, ctx):

@@ -76,7 +76,7 @@ If you would like to request some sort of functionality please describe exactly 
             )
         )
 
-    @commands.command(name="mod")
+    @commands.command(name="staff")
     async def get_mod_attention(self, ctx, *, details: Optional[str]):
         """Get a moderator to help you."""
         modrolestr = ctx.guild.get_role(775359048342044713).mention

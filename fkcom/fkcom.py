@@ -71,7 +71,12 @@ class FKCom(commands.Cog):
     async def get_mod_attention(self, ctx, *, details: Optional[str]):
         """Get a moderator to help you."""
         modrolestr = ctx.guild.get_role(775359048342044713).mention
-        await ctx.send("A {} has been requested.".format(modrolestr))
+        await ctx.send(
+            "A {} or {} has been requested.".format(
+                ctx.guild.get_role(530016413616963591).mention,
+                ctx.guild.get_role(332835206493110272).mention,
+            )
+        )
         await ctx.guild.get_channel(339741123406725121).send(
             "A {} has been requested in {}.{}".format(
                 modrolestr, ctx.channel.mention, f"\n``{details}``" if details else ""
@@ -83,7 +88,9 @@ class FKCom(commands.Cog):
     async def get_admin_attention(self, ctx):
         """Get an admin to help you."""
         adminrolestr = ctx.guild.get_role(775332588196724767).mention
-        await ctx.send("An {} has been requested.".format(adminrolestr))
+        await ctx.send(
+            "An {} has been requested.".format(ctx.guild.get_role(332834961407213568).mention)
+        )
         await ctx.guild.get_channel(360478963115491328).send(
             "An {} has been requested in {}.".format(adminrolestr, ctx.channel.mention),
             allowed_mentions=discord.AllowedMentions(roles=True),

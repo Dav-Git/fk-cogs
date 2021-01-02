@@ -125,7 +125,7 @@ class Statusrole(commands.Cog):
     @blocklist.command(name="list")
     async def blocklist_list(self,ctx):
         for user_id in await self.config.guild(ctx.guild).blocklist():
-            user=ctx.guild.get_user(user_id)
+            user=ctx.guild.get_member(user_id)
             await ctx.send(f"{user.display_name} | {user.name}#{user.discriminator}({user.id})")
 
     async def _update_cache(self, guild):

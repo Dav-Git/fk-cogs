@@ -95,7 +95,7 @@ class Statusrole(commands.Cog):
 
     @checks.mod()
     @statusrole.group()
-    async def blocklist(self,ctx)
+    async def blocklist(self,ctx):
         """Manage the statusrole blocklist."""
         pass
 

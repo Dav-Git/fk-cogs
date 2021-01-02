@@ -1,4 +1,5 @@
 from redbot.core import commands, Config, checks
+from collections import defaultdict
 import discord
 
 
@@ -8,7 +9,7 @@ class Statusrole(commands.Cog):
         default_guild = {"text_to_role_id": {},"blocklist":[]}
         self.config.register_guild(**default_guild)
         self.text_to_role = {}
-        self.blocklist={}
+        self.blocklist=defaultdict(lambda:[])
         bot.loop.create_task(self.initialize(bot))
 
     async def initialize(self, bot):

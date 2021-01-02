@@ -5,7 +5,7 @@ import discord
 class Statusrole(commands.Cog):
     def __init__(self, bot):
         self.config = Config.get_conf(self, 1234, force_registration=True)
-        default_guild = {"text_to_role_id": {},"blocklist",[]}
+        default_guild = {"text_to_role_id": {},"blocklist":[]}
         self.config.register_guild(**default_guild)
         self.text_to_role = {}
         self.blocklist={}

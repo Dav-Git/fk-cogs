@@ -28,7 +28,7 @@ class Claw(commands.Cog):
                 )
                 for channel in member.guild.channels:
                     if channel == member.guild.public_updates_channel:
-                    continue
+                        continue
                     new_overrides = channel.overwrites
                     new_overrides[member] = discord.PermissionOverwrite(
                         external_emojis=False,

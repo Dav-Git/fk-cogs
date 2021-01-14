@@ -235,8 +235,6 @@ class Claw(commands.Cog):
             await user.add_roles(muterole, reason="Clawed")
         async with self.config.member(user).overrides() as overrides:
             for channel in ctx.guild.channels:
-                if channel == ctx.guild.rules_channel:
-                    continue
                 if user in channel.overwrites:
                     overrides[channel.id] = dict(channel.overwrites[user])
                 new_overrides = channel.overwrites
@@ -273,7 +271,10 @@ class Claw(commands.Cog):
                     mute_members=False,
                     manage_channels=False,
                 )
-                await channel.edit(overwrites=new_overrides)
+                try:
+                    await channel.edit(overwrites=new_overrides)
+                except discord.HTTPException:
+                    return await ctx.send(channel.mention)
         nc_override = {
             ctx.guild.default_role: discord.PermissionOverwrite(
                 external_emojis=False,

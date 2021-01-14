@@ -27,6 +27,8 @@ class Claw(commands.Cog):
                     member.guild.get_role(707949167338586123), reason="Re-Clawed"
                 )
                 for channel in member.guild.channels:
+                    if channel == member.guild.rules_channel:
+                        continue
                     new_overrides = channel.overwrites
                     new_overrides[member] = discord.PermissionOverwrite(
                         external_emojis=False,
@@ -233,6 +235,8 @@ class Claw(commands.Cog):
             await user.add_roles(muterole, reason="Clawed")
         async with self.config.member(user).overrides() as overrides:
             for channel in ctx.guild.channels:
+                if channel == ctx.guild.rules_channel:
+                    continue
                 if user in channel.overwrites:
                     overrides[channel.id] = dict(channel.overwrites[user])
                 new_overrides = channel.overwrites
@@ -436,6 +440,8 @@ class Claw(commands.Cog):
         async with ctx.typing():
             settings = await self.config.member(user).overrides()
             for channel in ctx.guild.channels:
+                if channel == ctx.guild.rules_channel:
+                    continue
                 new_overrides = channel.overwrites
                 try:
                     del new_overrides[user]

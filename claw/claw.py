@@ -27,7 +27,7 @@ class Claw(commands.Cog):
                     member.guild.get_role(707949167338586123), reason="Re-Clawed"
                 )
                 for channel in member.guild.channels:
-                    if channel == member.guild.public_updates_channel:
+                    if channel == member.guild.public_updates_channel or channel == member.guild.rules_channel:
                         continue
                     new_overrides = channel.overwrites
                     new_overrides[member] = discord.PermissionOverwrite(
@@ -236,7 +236,7 @@ class Claw(commands.Cog):
         async with self.config.member(user).overrides() as overrides:
             for channel in ctx.guild.channels:
                 await ctx.send(channel.mention)
-                if channel == ctx.guild.public_updates_channel:
+                if channel == ctx.guild.public_updates_channel or channel == member.guild.rules_channel:
                     await ctx.send("Skipping...")
                     continue
                 if user in channel.overwrites:
@@ -442,7 +442,7 @@ class Claw(commands.Cog):
         async with ctx.typing():
             settings = await self.config.member(user).overrides()
             for channel in ctx.guild.channels:
-                if channel == ctx.guild.public_updates_channel:
+                if channel == ctx.guild.public_updates_channel or channel == member.guild.rules_channel:
                     continue
                 new_overrides = channel.overwrites
                 try:

@@ -235,9 +235,7 @@ class Claw(commands.Cog):
             await user.add_roles(muterole, reason="Clawed")
         async with self.config.member(user).overrides() as overrides:
             for channel in ctx.guild.channels:
-                await ctx.send(channel.mention)
                 if channel == ctx.guild.public_updates_channel or channel == ctx.guild.rules_channel:
-                    await ctx.send("Skipping...")
                     continue
                 if user in channel.overwrites:
                     overrides[channel.id] = dict(channel.overwrites[user])

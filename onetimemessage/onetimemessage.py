@@ -33,6 +33,7 @@ class OneTimeMessage(commands.Cog):
                                 pass
                             channels.append(message.channel.id)
 
+    @commands.admin()
     @commands.group()
     async def otm(self, ctx):
         """One time messages settings."""
@@ -72,3 +73,12 @@ class OneTimeMessage(commands.Cog):
         """Clear all roles from a one time message channel."""
         await self.config.channel(channel).roles.set([])
         await ctx.send("Roles cleared.")
+
+    @otm.command()
+    async def clearmem(self, ctx, channel: discord.TextChannel):
+        async with self.config.member(ctx.author).channels() as channels:
+            try:
+                channels.remove(channel.id)
+            except ValueError:
+                pass
+        await ctx.tick()

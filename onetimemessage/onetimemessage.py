@@ -32,7 +32,7 @@ class OneTimeMessage(commands.Cog):
 
     @commands.command()
     async def otm(self, ctx, channel: discord.TextChannel, *, text: str):
-        """Add a one time message to a channel."""
+        """Add a one time message to a channel.\n\nYou can use `{user}`, `{guild}`and `{channel} to customize your message.`"""
         await self.config.channel(channel).text.set(text)
         await ctx.send(f"Message set to:\n{text}")
 

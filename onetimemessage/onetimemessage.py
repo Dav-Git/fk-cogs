@@ -16,7 +16,7 @@ class OneTimeMessage(commands.Cog):
         if text:
             roles = await self.config.channel(message.channel).roles()
             for role in roles:
-                if role in message.author.roles:
+                if role in [x.id for x in message.author.roles]:
                     async with self.config.member(message.author).channels() as channels:
                         if message.channel.id in channels:
                             return

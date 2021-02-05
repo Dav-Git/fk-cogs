@@ -54,7 +54,7 @@ class OneTimeMessage(commands.Cog):
     async def addrole(self, ctx, channel: discord.TextChannel, role: discord.Role):
         """Add a role to a one time message channel."""
         async with self.config.channel(channel).roles() as roles:
-            roles.add(role.id)
+            roles.append(role.id)
         await ctx.send(f"{role.name} added to {channel.name}.")
 
     @otm.command()

@@ -5,4 +5,5 @@ class Baller(commands.Cog):
     @commands.Cog.listener()
     async def on_command(self, ctx):
         if ctx.command == ctx.bot.get_command("8ball"):
+            print("hi")
             await ctx.send(f"{ctx.author.mention} asked: {ctx.command.args}")

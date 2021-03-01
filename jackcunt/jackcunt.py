@@ -28,7 +28,7 @@ class JackCunt(commands.Cog):
 
     async def _memcount_to_status(self):
         await self.bot.wait_until_ready()
-        guild = self.bot.get_guild(497097726400528394)
+        guild = self.bot.get_guild(765364635514699817)
         mc = len(guild.members)
         activity = discord.Activity(
             name=f" over {mc} members.", type=discord.ActivityType.watching

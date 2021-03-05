@@ -466,3 +466,4 @@ class Claw(commands.Cog):
                 await user.remove_roles(ctx.guild.get_role(780597986933473323), reason="Unclawed")
             await self.config.member(user).overrides.set({})
             await self.config.member(user).clawed.set(False)
+            await ctx.send(f"Done. {user.mention} has been returned.")

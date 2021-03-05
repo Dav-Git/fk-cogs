@@ -1,4 +1,5 @@
 import discord
+import asyncio
 from sys import stderr
 from redbot.core import commands, checks, Config, modlog
 from typing import Optional
@@ -415,6 +416,7 @@ class Claw(commands.Cog):
             reason=f"{user.name}#{user.discriminator} has been clawed.",
         )
         await self.config.member(user).channel.set(channel.id)
+        await asyncio.sleep(3)
         await channel.send(
             f"Hello {user.mention}, you have been pulled into the contact area, a member of staff will be with you shortly."
         )

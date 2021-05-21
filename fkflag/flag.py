@@ -77,6 +77,14 @@ class Flag(Cog):
         else:
             await ctx.send("This member has no flags!")
 
+    @commands.admin()
+    async def delflag(self, ctx, member: discord.Member, text: str):
+        """Deletes a flag. \n`text` needs to be the FULL flag text."""
+        async with self.config.guild(ctx.guild).flags() as flags:
+            for flag in flags:
+                await ctx.send(flag)
+                break
+
     async def _list_flags(self, member: discord.Member):
         """Returns a pretty embed of flags on a member"""
         done = False

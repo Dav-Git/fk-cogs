@@ -79,7 +79,7 @@ class Flag(Cog):
 
     @commands.admin()
     @commands.command()
-    async def delflag(self, ctx, member: discord.Member, text: str):
+    async def delflag(self, ctx, member: discord.Member, *, text: str):
         """Deletes a flag. \n`text` needs to be the FULL flag text."""
         async with self.config.guild(ctx.guild).flags() as allflags:
             flags = allflags[str(member.id)]

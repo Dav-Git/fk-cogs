@@ -81,42 +81,42 @@ class Flag(Cog):
     @commands.command()
     async def delflag(self, ctx, member: discord.Member, text: str):
         """Deletes a flag. \n`text` needs to be the FULL flag text."""
-        async with self.config.guild(ctx.guild).flags() as flags:
-            for uid in flags:
-                print(flags)
-                if uid == member.id:
-                    await ctx.send(f"Found flag {flags[uid]['reason']}")
-                    if flags[uid]["reason"] == text:
-                        del flags[uid]
-                        await ctx.guild.get_channel(360478963115491328).send(
-                            f"{ctx.author.mention} deleted a flag for {member.display_name}({member.id})."
+        async with self.config.guild(ctx.guild).flags() as allflags:
+            flags = allflags[member.id]
+            print(flags)
+            i = 0
+            for flag in flags:
+                await ctx.send(f"Found flag {flag}")
+                if flag["reason"] == text:
+                    del allflags[member.id][i]
+                    await ctx.guild.get_channel(360478963115491328).send(
+                        f"{ctx.author.mention} deleted a flag for {member.display_name}({member.id})."
+                    )
+                    embed = discord.Embed(title=f"Flag for {member.name}#{member.discriminator}")
+                    try:
+                        flag["date"]
+                    except KeyError:
+                        flag["date"] = "N/A"
+                    try:
+                        flag["author"]
+                    except KeyError:
+                        flag["author"] = "N/A"
+                    try:
+                        embed.add_field(
+                            name=f"\u200b\u200b",
+                            value=f"**Reason: {flag['reason']}**\nAuthor: {flag['author']}\nDate: {flag['date']}",
+                            inline=False,
                         )
-                        embed = discord.Embed(
-                            title=f"Flag for {member.name}#{member.discriminator}"
+                    except KeyError:
+                        embed.add_field(
+                            name=f"\u200b\u200b",
+                            value=f"**Reason: {flag['reason']}**\nAn error occurred while fetching metadata.",
+                            inline=True,
                         )
-                        try:
-                            flags[uid]["date"]
-                        except KeyError:
-                            flags[uid]["date"] = "N/A"
-                        try:
-                            flags[uid]["author"]
-                        except KeyError:
-                            flags[uid]["author"] = "N/A"
-                        try:
-                            embed.add_field(
-                                name=f"\u200b\u200b",
-                                value=f"**Reason: {flags[uid]['reason']}**\nAuthor: {flags[uid]['author']}\nDate: {flags[uid]['date']}",
-                                inline=False,
-                            )
-                        except KeyError:
-                            embed.add_field(
-                                name=f"\u200b\u200b",
-                                value=f"**Reason: {flags[uid]['reason']}**\nAn error occurred while fetching metadata.",
-                                inline=True,
-                            )
-                        await ctx.guild.get_channel(360478963115491328).send(embed=embed)
-                        await ctx.tick()
-                        return
+                    await ctx.guild.get_channel(360478963115491328).send(embed=embed)
+                    await ctx.tick()
+                    return
+                i += 1
         await ctx.send("Specified flag not found.")
 
     async def _list_flags(self, member: discord.Member):

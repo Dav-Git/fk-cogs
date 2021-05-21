@@ -114,7 +114,8 @@ class Flag(Cog):
                             )
                         await ctx.guild.get_channel(360478963115491328).send(embed=embed)
                         await ctx.tick()
-                        break
+                        return
+        await ctx.send("Specified flag not found.")
 
     async def _list_flags(self, member: discord.Member):
         """Returns a pretty embed of flags on a member"""

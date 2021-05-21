@@ -82,13 +82,13 @@ class Flag(Cog):
     async def delflag(self, ctx, member: discord.Member, text: str):
         """Deletes a flag. \n`text` needs to be the FULL flag text."""
         async with self.config.guild(ctx.guild).flags() as allflags:
-            flags = allflags[member.id]
+            flags = allflags[str(member.id)]
             print(flags)
             i = 0
             for flag in flags:
                 await ctx.send(f"Found flag {flag}")
                 if flag["reason"] == text:
-                    del allflags[member.id][i]
+                    del allflags[str(member.id)][i]
                     await ctx.guild.get_channel(360478963115491328).send(
                         f"{ctx.author.mention} deleted a flag for {member.display_name}({member.id})."
                     )

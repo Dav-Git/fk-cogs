@@ -83,10 +83,10 @@ class Flag(Cog):
         """Deletes a flag. \n`text` needs to be the FULL flag text."""
         async with self.config.guild(ctx.guild).flags() as allflags:
             flags = allflags[str(member.id)]
-            print(flags)
             i = 0
             for flag in flags:
                 await ctx.send(f"Found flag {flag}")
+                await ctx.send(text)
                 if flag["reason"] == text:
                     del allflags[str(member.id)][i]
                     await ctx.guild.get_channel(360478963115491328).send(

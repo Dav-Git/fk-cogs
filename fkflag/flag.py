@@ -83,7 +83,7 @@ class Flag(Cog):
         """Deletes a flag. \n`text` needs to be the FULL flag text."""
         async with self.config.guild(ctx.guild).flags() as flags:
             for uid in flags:
-                await ctx.send(flags)
+                print(flags)
                 if uid == member.id:
                     await ctx.send(f"Found flag {flags[uid]['reason']}")
                     if flags[uid]["reason"] == text:

@@ -82,9 +82,39 @@ class Flag(Cog):
     async def delflag(self, ctx, member: discord.Member, text: str):
         """Deletes a flag. \n`text` needs to be the FULL flag text."""
         async with self.config.guild(ctx.guild).flags() as flags:
-            for flag in flags:
-                await ctx.send(flag)
-                break
+            for uid in flags:
+                if uid == member.id:
+                    if flags[uid]["reason"] == text:
+                        del flags[uid]
+                        await ctx.guild.get_channel(360478963115491328).send(
+                            f"{ctx.author.mention} deleted a flag for {member.display_name}({member.id})."
+                        )
+                        embed = discord.Embed(
+                            title=f"Flag for {member.name}#{member.discriminator}"
+                        )
+                        try:
+                            flags[uid]["date"]
+                        except KeyError:
+                            flags[uid]["date"] = "N/A"
+                        try:
+                            flags[uid]["author"]
+                        except KeyError:
+                            flags[uid]["author"] = "N/A"
+                        try:
+                            embed.add_field(
+                                name=f"\u200b\u200b",
+                                value=f"**Reason: {flags[uid]['reason']}**\nAuthor: {flags[uid]['author']}\nDate: {flags[uid]['date']}",
+                                inline=False,
+                            )
+                        except KeyError:
+                            embed.add_field(
+                                name=f"\u200b\u200b",
+                                value=f"**Reason: {flags[uid]['reason']}**\nAn error occurred while fetching metadata.",
+                                inline=True,
+                            )
+                        await ctx.guild.get_channel(360478963115491328).send(embed=embed)
+                        await ctx.tick()
+                        break
 
     async def _list_flags(self, member: discord.Member):
         """Returns a pretty embed of flags on a member"""

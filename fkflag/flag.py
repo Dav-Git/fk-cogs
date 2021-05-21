@@ -84,6 +84,7 @@ class Flag(Cog):
         async with self.config.guild(ctx.guild).flags() as flags:
             for uid in flags:
                 if uid == member.id:
+                    await ctx.send(f"Found flag {flags[uid]['reason']}")
                     if flags[uid]["reason"] == text:
                         del flags[uid]
                         await ctx.guild.get_channel(360478963115491328).send(

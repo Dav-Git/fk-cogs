@@ -11,7 +11,7 @@ class Sentry(commands.Cog):
         self.bot = bot
 
     async def initialize(self):
-        self.connectSentry(await self.bot.get_shared_api_tokens("sentry").get("dsn", ""))
+        self.connectSentry(await self.bot.get_shared_api_tokens("sentry"))
 
     def cog_unload(self) -> None:
         self.closeSentry()
@@ -45,7 +45,7 @@ class Sentry(commands.Cog):
     @sentry.command(hidden=True)
     async def reinit(self, ctx):
         self.closeSentry()
-        self.connectSentry(await self.bot.get_shared_api_tokens("sentry").get("dsn", ""))
+        self.connectSentry(await self.bot.get_shared_api_tokens("sentry"))
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):

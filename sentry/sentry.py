@@ -7,8 +7,11 @@ from sentry_sdk import add_breadcrumb
 
 
 class Sentry(commands.Cog):
-    def __init__(self):
-        self.connectSentry()
+    def __init__(self, bot):
+        self.bot = bot
+
+    async def initialize(self):
+        self.connectSentry(await self.bot.get_shared_api_tokens("sentry"))
 
     def cog_unload(self) -> None:
         self.closeSentry()
@@ -18,9 +21,9 @@ class Sentry(commands.Cog):
         if client is not None:
             client.close()
 
-    def connectSentry(self):
+    def connectSentry(self, token):
         sentry_sdk.init(
-            "https://e0adf62b641d49f48f40141729efd2a4@o758120.ingest.sentry.io/5792397",
+            token,
             traces_sample_rate=1.0,
             shutdown_timeout=0.1,
             integrations=[
@@ -42,7 +45,7 @@ class Sentry(commands.Cog):
     @sentry.command(hidden=True)
     async def reinit(self, ctx):
         self.closeSentry()
-        self.connectSentry()
+        self.connectSentry(await self.bot.get_shared_api_tokens("sentry"))
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):

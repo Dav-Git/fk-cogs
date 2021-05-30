@@ -2,4 +2,6 @@ from .sentry import Sentry
 
 
 def setup(bot):
-    bot.add_cog(Sentry())
+    cog = Sentry(bot)
+    bot.add_cog(cog)
+    cog.initialize()

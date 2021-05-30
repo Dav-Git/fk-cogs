@@ -46,6 +46,7 @@ class Sentry(commands.Cog):
     async def reinit(self, ctx):
         self.closeSentry()
         self.connectSentry((await self.bot.get_shared_api_tokens("sentry")).get("dsn", ""))
+        await ctx.tick()
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):

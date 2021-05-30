@@ -1,7 +1,7 @@
 from .sentry import Sentry
 
 
-def setup(bot):
+async def setup(bot):
     cog = Sentry(bot)
     bot.add_cog(cog)
-    cog.initialize()
+    await cog.initialize()

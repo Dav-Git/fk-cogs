@@ -1,16 +1,18 @@
 from redbot.core import commands, Config, checks
 from collections import defaultdict
 import discord
+from logging import getLogger
 
 
 class Statusrole(commands.Cog):
     def __init__(self, bot):
         self.config = Config.get_conf(self, 1234, force_registration=True)
-        default_guild = {"text_to_role_id": {},"blocklist":[]}
+        default_guild = {"text_to_role_id": {}, "blocklist": []}
         self.config.register_guild(**default_guild)
         self.text_to_role = {}
-        self.blocklist=defaultdict(lambda:[])
+        self.blocklist = defaultdict(lambda: [])
         bot.loop.create_task(self.initialize(bot))
+        self.log = getLogger("redbot.cogs.dav.statusrole")
 
     async def initialize(self, bot):
         await bot.wait_until_red_ready()
@@ -22,7 +24,10 @@ class Statusrole(commands.Cog):
         if member.bot or (member.id in self.blocklist[member.guild]):
             return
         if member.activity:
-            if (member.activity.type == discord.ActivityType.custom or member.activity.type == discord.ActivityType.playing):
+            if (
+                member.activity.type == discord.ActivityType.custom
+                or member.activity.type == discord.ActivityType.playing
+            ):
                 try:
                     for text in self.text_to_role[member.guild]:
                         if text in member.activity.name:
@@ -96,12 +101,12 @@ class Statusrole(commands.Cog):
 
     @checks.mod()
     @statusrole.group()
-    async def blocklist(self,ctx):
+    async def blocklist(self, ctx):
         """Manage the statusrole blocklist."""
         pass
 
     @blocklist.command(name="add")
-    async def blocklist_add(self,ctx,user:discord.Member):
+    async def blocklist_add(self, ctx, user: discord.Member):
         """Add a user to the statusrole blocklist."""
         async with self.config.guild(ctx.guild).blocklist() as blocklist:
             if not user.id in blocklist:
@@ -112,7 +117,7 @@ class Statusrole(commands.Cog):
         await self._update_cache(ctx.guild)
 
     @blocklist.command(name="remove")
-    async def blocklist_remove(self,ctx,user:discord.Member):
+    async def blocklist_remove(self, ctx, user: discord.Member):
         """Add a user to the statusrole blocklist."""
         async with self.config.guild(ctx.guild).blocklist() as blocklist:
             try:
@@ -124,9 +129,9 @@ class Statusrole(commands.Cog):
         await ctx.tick()
 
     @blocklist.command(name="list")
-    async def blocklist_list(self,ctx):
+    async def blocklist_list(self, ctx):
         for user_id in await self.config.guild(ctx.guild).blocklist():
-            user=ctx.guild.get_member(user_id)
+            user = ctx.guild.get_member(user_id)
             await ctx.send(f"{user.display_name} | {user.name}#{user.discriminator}({user.id})")
 
     async def _update_cache(self, guild):
@@ -135,7 +140,7 @@ class Statusrole(commands.Cog):
         for text in text_to_role_id:
             text_to_role[text] = guild.get_role(text_to_role_id[text])
         self.text_to_role[guild] = text_to_role
-        self.blocklist[guild]=await self.config.guild(guild).blocklist()
+        self.blocklist[guild] = await self.config.guild(guild).blocklist()
 
     async def _maybe_remove_role(self, member):
         try:  # Make sure this doesn't error when no info about the guild was saved.
@@ -147,4 +152,7 @@ class Statusrole(commands.Cog):
                 return
         for role in member.roles:
             if role in self.text_to_role[member.guild].values():
-                await member.remove_roles(role)
+                try:
+                    await member.remove_roles(role)
+                except discord.Forbidden:
+                    self.log.warning(f"Couldn't remove roles from {member.id}")

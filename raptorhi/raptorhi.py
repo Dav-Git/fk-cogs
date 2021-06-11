@@ -6,6 +6,10 @@ from redbot.core import commands
 class RaptorHi(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.update_member_count.start()
+
+    def cog_unload(self):
+        self.update_member_count.cancel()
 
     @commands.Cog.listener()
     async def on_member_join(self, member):

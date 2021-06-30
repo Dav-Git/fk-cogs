@@ -4,7 +4,8 @@ from redbot.core import commands
 
 class DemoteSav(commands.Cog):
     @commands.Cog.listener()
-    async def on_member_update(self, member):
+    async def on_member_update(self, before, after):
+        member = after
         if member.id == 440643588477550592:
             if member.guild.id == 332834024831582210:
                 roles = [role.id for role in member.roles]

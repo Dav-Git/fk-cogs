@@ -14,15 +14,29 @@ class Pronouns(commands.Cog):
         button_row = ActionRow(
             Button(style=ButtonStyle.green, label="THEY/THEM", custom_id="they"),
             Button(style=ButtonStyle.red, label="SHE/HER", custom_id="she"),
-            Button(style=ButtonStyle.green, label="HE/HIM", custom_id="he"),
-            Button(style=ButtonStyle.green, label="Ask me", custom_id="ask"),
+            Button(style=ButtonStyle.blurple, label="HE/HIM", custom_id="he"),
+            Button(style=ButtonStyle.link, label="Ask me", custom_id="ask"),
         )
-        await ctx.send("Test", components=[button_row])
+        msg = await ctx.send("Test", components=[button_row])
+        on_click = msg.create_click_listener(timeout=60)
 
-    @commands.group()
-    async def setpronouns(self, ctx):
-        """Set your pronouns"""
-        pass
+        @on_click.not_from_user(ctx.author, cancel_others=True, reset_timeout=False)
+        async def on_wrong_user(inter):
+            # Reply with a hidden message
+            await inter.reply("You're not the author", ephemeral=True)
+
+        @on_click.matching_id("they")
+        async def on_test_button(inter):
+            await inter.reply("You've clicked the button!")
+
+        @on_click.timeout
+        async def on_timeout():
+            await msg.edit(components=[])
+
+        @commands.group()
+        async def setpronouns(self, ctx):
+            """Set your pronouns"""
+            pass
 
     @setpronouns.command()
     async def hehim(self, ctx):

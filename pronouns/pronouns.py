@@ -62,7 +62,7 @@ class Pronouns(commands.Cog):
 
         @on_click.timeout
         async def on_timeout():
-            await msg.edit(content="Set your preferred pronouns with `-pronoun`.", components=[])
+            await msg.edit(content="Set your pronouns with `-pronoun`.", components=[])
 
     @commands.group()
     async def setpronouns(self, ctx):

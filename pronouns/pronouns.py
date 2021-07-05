@@ -1,8 +1,24 @@
 from redbot.core import commands
 import discord
+from dislash import SlashClient, ActionRow, Button, ButtonStyle
 
 
 class Pronouns(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self.slash = SlashClient(bot)
+
+    @commands.admin()
+    @commands.command()
+    async def pronounmessage(self, ctx):
+        button_row = ActionRow(
+            Button(style=ButtonStyle.green, label="THEY/THEM", custom_id="they"),
+            Button(style=ButtonStyle.red, label="SHE/HER", custom_id="she"),
+            Button(style=ButtonStyle.green, label="HE/HIM", custom_id="he"),
+            Button(style=ButtonStyle.green, label="Ask me", custom_id="ask"),
+        )
+        await ctx.send("Test", components=[button_row])
+
     @commands.group()
     async def setpronouns(self, ctx):
         """Set your pronouns"""

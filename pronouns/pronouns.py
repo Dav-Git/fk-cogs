@@ -127,6 +127,6 @@ class Pronouns(commands.Cog):
     async def changenick(self, member, nick):
         if member.nick:
             if len(member.nick) < 21:
-                await ctx.author.edit(nick=f"{member.display_name}[{nick}]")
+                await member.edit(nick=f"{member.display_name}[{nick}]")
         else:
-            await ctx.author.edit(nick=f"{member.display_name}[{nick}]")
+            await member.edit(nick=f"{member.display_name}[{nick}]")

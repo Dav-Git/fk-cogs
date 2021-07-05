@@ -22,7 +22,7 @@ class Pronouns(commands.Cog):
 
         @on_click.matching_id("he")
         async def on_test_button(inter):
-            await inter.author.edit(nick=f"[HE/HIM]{ctx.author.display_name}")
+            await inter.author.edit(nick=f"{ctx.author.display_name}[HE/HIM]")
             await self.changerole(inter.author, 860282987416387635)
             await inter.reply(
                 "You've chosen the pronouns HE/HIM.\nFeel free to remove the prefix in your nickname if you don't like it.",
@@ -31,7 +31,7 @@ class Pronouns(commands.Cog):
 
         @on_click.matching_id("she")
         async def on_test_button(inter):
-            await inter.author.edit(nick=f"[SHE/HER]{ctx.author.display_name}")
+            await inter.author.edit(nick=f"{ctx.author.display_name}[SHE/HER]")
             await self.changerole(inter.author, 860283063304192041)
             await inter.reply(
                 "You've chosen the pronouns SHE/HER.\nFeel free to remove the prefix in your nickname if you don't like it.",
@@ -40,7 +40,7 @@ class Pronouns(commands.Cog):
 
         @on_click.matching_id("they")
         async def on_test_button(inter):
-            await inter.author.edit(nick=f"[THEY/THEM]{ctx.author.display_name}")
+            await inter.author.edit(nick=f"{ctx.author.display_name}[THEY/THEM]")
             await self.changerole(inter.author, 860283134595432450)
             await inter.reply(
                 "You've chosen the pronouns THEY/THEM.\nFeel free to remove the prefix in your nickname if you don't like it.",
@@ -51,7 +51,8 @@ class Pronouns(commands.Cog):
         async def on_test_button(inter):
             await self.changerole(inter.author, 860283159639490611)
             await inter.reply(
-                "You've chosen to ask our members to ask you about your pronouns.", ephemeral=True
+                "You've chosen to ask our members to ask you about your pronouns.\nWant to set custom pronouns? Use `-pronounset custom`.",
+                ephemeral=True,
             )
 
         @on_click.matching_id("clear")
@@ -71,28 +72,28 @@ class Pronouns(commands.Cog):
     @setpronouns.command()
     async def hehim(self, ctx):
         """Set your pronouns to he/him.\nYou may remove the prefix in your username if you don't want it."""
-        await ctx.author.edit(nick=f"[HE/HIM]{ctx.author.display_name}")
+        await ctx.author.edit(nick=f"{ctx.author.display_name}[HE/HIM]")
         await self.changerole(ctx.author, 860282987416387635)
         await ctx.tick()
 
     @setpronouns.command()
     async def sheher(self, ctx):
         """Set your pronouns to she/her.\nYou may remove the prefix in your username if you don't want it."""
-        await ctx.author.edit(nick=f"[SHE/HER]{ctx.author.display_name}")
+        await ctx.author.edit(nick=f"{ctx.author.display_name}[SHE/HER]")
         await self.changerole(ctx.author, 860283063304192041)
         await ctx.tick()
 
     @setpronouns.command()
     async def theythem(self, ctx):
         """Set your pronouns to they/them.\nYou may remove the prefix in your username if you don't want it."""
-        await ctx.author.edit(nick=f"[THEY/THEM]{ctx.author.display_name}")
+        await ctx.author.edit(nick=f"{ctx.author.display_name}[THEY/THEM]")
         await self.changerole(ctx.author, 860283134595432450)
         await ctx.tick()
 
     @setpronouns.command()
     async def custom(self, ctx, *, pronouns):
         """Set your pronouns to something we didn't offer as a default.\nWe recommend following the PRONOUN/POSSESSIVE format\nYou may remove the prefix in your username if you don't want it."""
-        await ctx.author.edit(nick=f"[{pronouns}]{ctx.author.display_name}")
+        await ctx.author.edit(nick=f"{ctx.author.display_name}[{pronouns}]")
         await self.changerole(ctx.author, 860283159639490611)
         await ctx.tick()
 
@@ -112,9 +113,9 @@ class Pronouns(commands.Cog):
         if roleid in memberroleids:
             return
         else:
-            for rid in pronounroleids:
-                if rid in memberroleids:
-                    await member.remove_roles(member.guild.get_role(rid))
+            # for rid in pronounroleids:
+            #    if rid in memberroleids:
+            #        await member.remove_roles(member.guild.get_role(rid))
             try:
                 await member.add_roles(member.guild.get_role(roleid))
             except:

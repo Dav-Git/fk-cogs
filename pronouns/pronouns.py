@@ -32,7 +32,7 @@ class Pronouns(commands.Cog):
     @setpronouns.command()
     async def custom(self, ctx, *, pronouns):
         """Set your pronouns to something we didn't offer as a default.\nWe recommend following the PRONOUN/POSSESSIVE format\nYou may remove the prefix in your username if you don't want it."""
-        await ctx.author.edit(nick=f"{pronouns}{ctx.author.display_name}")
+        await ctx.author.edit(nick=f"[{pronouns}]{ctx.author.display_name}")
         await self.changerole(ctx.author, 860283159639490611)
         await ctx.tick()
 

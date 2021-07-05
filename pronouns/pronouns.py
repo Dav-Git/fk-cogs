@@ -11,28 +11,28 @@ class Pronouns(commands.Cog):
     @setpronouns.command()
     async def hehim(self, ctx):
         """Set your pronouns to he/him.\nYou may remove the prefix in your username if you don't want it."""
-        await ctx.author.edit(nick=f"[HE/HIM]{ctx.author.nick}")
+        await ctx.author.edit(nick=f"[HE/HIM]{ctx.author.display_name}")
         await self.changerole(ctx.author, 860282987416387635)
         await ctx.tick()
 
     @setpronouns.command()
     async def sheher(self, ctx):
         """Set your pronouns to she/her.\nYou may remove the prefix in your username if you don't want it."""
-        await ctx.author.edit(nick=f"[SHE/HER]{ctx.author.nick}")
+        await ctx.author.edit(nick=f"[SHE/HER]{ctx.author.display_name}")
         await self.changerole(ctx.author, 860283063304192041)
         await ctx.tick()
 
     @setpronouns.command()
     async def theythem(self, ctx):
         """Set your pronouns to they/them.\nYou may remove the prefix in your username if you don't want it."""
-        await ctx.author.edit(nick=f"[THEY/THEM]{ctx.author.nick}")
+        await ctx.author.edit(nick=f"[THEY/THEM]{ctx.author.display_name}")
         await self.changerole(ctx.author, 860283134595432450)
         await ctx.tick()
 
     @setpronouns.command()
     async def custom(self, ctx, *, pronouns):
         """Set your pronouns to something we didn't offer as a default.\nWe recommend following the PRONOUN/POSSESSIVE format\nYou may remove the prefix in your username if you don't want it."""
-        await ctx.author.edit(nick=f"{pronouns}{ctx.author.nick}")
+        await ctx.author.edit(nick=f"{pronouns}{ctx.author.display_name}")
         await self.changerole(ctx.author, 860283159639490611)
         await ctx.tick()
 

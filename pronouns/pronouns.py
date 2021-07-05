@@ -33,10 +33,10 @@ class Pronouns(commands.Cog):
         async def on_timeout():
             await msg.edit(components=[])
 
-        @commands.group()
-        async def setpronouns(self, ctx):
-            """Set your pronouns"""
-            pass
+    @commands.group()
+    async def setpronouns(self, ctx):
+        """Set your pronouns"""
+        pass
 
     @setpronouns.command()
     async def hehim(self, ctx):

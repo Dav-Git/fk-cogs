@@ -11,9 +11,9 @@ class Pronouns(commands.Cog):
     @commands.command()
     async def pronouns(self, ctx):
         button_row = ActionRow(
-            Button(style=ButtonStyle.blurple, label="THEY/THEM", custom_id="they"),
-            Button(style=ButtonStyle.blurple, label="SHE/HER", custom_id="she"),
-            Button(style=ButtonStyle.blurple, label="HE/HIM", custom_id="he"),
+            Button(style=ButtonStyle.blurple, label="they/them", custom_id="they"),
+            Button(style=ButtonStyle.blurple, label="she/her", custom_id="she"),
+            Button(style=ButtonStyle.blurple, label="he/him", custom_id="he"),
             Button(style=ButtonStyle.grey, label="Ask me", custom_id="ask"),
             Button(style=ButtonStyle.red, label="Clear", custom_id="clear"),
         )
@@ -22,28 +22,28 @@ class Pronouns(commands.Cog):
 
         @on_click.matching_id("he")
         async def on_test_button(inter):
-            await self.changenick(inter.author, "HE/HIM")
+            await self.changenick(inter.author, "he/him")
             await self.changerole(inter.author, 860282987416387635)
             await inter.reply(
-                "You've chosen the pronouns HE/HIM.\nFeel free to remove the prefix in your nickname if you don't like it.",
+                "You've chosen the pronouns he/him.\nFeel free to remove the prefix in your nickname if you don't like it.",
                 ephemeral=True,
             )
 
         @on_click.matching_id("she")
         async def on_test_button(inter):
-            await self.changenick(inter.author, "SHE/HER")
+            await self.changenick(inter.author, "she/her")
             await self.changerole(inter.author, 860283063304192041)
             await inter.reply(
-                "You've chosen the pronouns SHE/HER.\nFeel free to remove the prefix in your nickname if you don't like it.",
+                "You've chosen the pronouns she/her.\nFeel free to remove the prefix in your nickname if you don't like it.",
                 ephemeral=True,
             )
 
         @on_click.matching_id("they")
         async def on_test_button(inter):
-            await self.changenick(inter.author, "THEY/THEM")
+            await self.changenick(inter.author, "they/them")
             await self.changerole(inter.author, 860283134595432450)
             await inter.reply(
-                "You've chosen the pronouns THEY/THEM.\nFeel free to remove the prefix in your nickname if you don't like it.",
+                "You've chosen the pronouns they/them.\nFeel free to remove the prefix in your nickname if you don't like it.",
                 ephemeral=True,
             )
 
@@ -72,21 +72,21 @@ class Pronouns(commands.Cog):
     @setpronouns.command()
     async def hehim(self, ctx):
         """Set your pronouns to he/him.\nYou may remove the prefix in your username if you don't want it."""
-        await self.changenick(ctx.author, "HE/HIM")
+        await self.changenick(ctx.author, "he/him")
         await self.changerole(ctx.author, 860282987416387635)
         await ctx.tick()
 
     @setpronouns.command()
     async def sheher(self, ctx):
         """Set your pronouns to she/her.\nYou may remove the prefix in your username if you don't want it."""
-        await self.changenick(ctx.author, "SHE/HER")
+        await self.changenick(ctx.author, "she/her")
         await self.changerole(ctx.author, 860283063304192041)
         await ctx.tick()
 
     @setpronouns.command()
     async def theythem(self, ctx):
         """Set your pronouns to they/them.\nYou may remove the prefix in your username if you don't want it."""
-        await self.changenick(ctx.author, "THEY/THEM")
+        await self.changenick(ctx.author, "they/them")
         await self.changerole(ctx.author, 860283134595432450)
         await ctx.tick()
 

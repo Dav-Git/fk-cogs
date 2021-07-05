@@ -20,17 +20,13 @@ class Pronouns(commands.Cog):
         msg = await ctx.send("Choose your preferred pronouns:", components=[button_row])
         on_click = msg.create_click_listener(timeout=120)
 
-        @on_click.not_from_user(ctx.author, cancel_others=True, reset_timeout=False)
-        async def on_wrong_user(inter):
-            # Reply with a hidden message
-            await inter.reply("You're not the author", ephemeral=True)
-
         @on_click.matching_id("he")
         async def on_test_button(inter):
             await inter.author.edit(nick=f"[HE/HIM]{ctx.author.display_name}")
             await self.changerole(inter.author, 860282987416387635)
             await inter.reply(
-                "You've chosen the pronouns HE/HIM.\nFeel free to remove the prefix in your nickname if you don't like it."
+                "You've chosen the pronouns HE/HIM.\nFeel free to remove the prefix in your nickname if you don't like it.",
+                ephemeral=True,
             )
 
         @on_click.matching_id("she")
@@ -38,7 +34,8 @@ class Pronouns(commands.Cog):
             await inter.author.edit(nick=f"[SHE/HER]{ctx.author.display_name}")
             await self.changerole(inter.author, 860283063304192041)
             await inter.reply(
-                "You've chosen the pronouns SHE/HER.\nFeel free to remove the prefix in your nickname if you don't like it."
+                "You've chosen the pronouns SHE/HER.\nFeel free to remove the prefix in your nickname if you don't like it.",
+                ephemeral=True,
             )
 
         @on_click.matching_id("they")
@@ -46,18 +43,21 @@ class Pronouns(commands.Cog):
             await inter.author.edit(nick=f"[THEY/THEM]{ctx.author.display_name}")
             await self.changerole(inter.author, 860283134595432450)
             await inter.reply(
-                "You've chosen the pronouns THEY/THEM.\nFeel free to remove the prefix in your nickname if you don't like it."
+                "You've chosen the pronouns THEY/THEM.\nFeel free to remove the prefix in your nickname if you don't like it.",
+                ephemeral=True,
             )
 
         @on_click.matching_id("ask")
         async def on_test_button(inter):
             await self.changerole(inter.author, 860283159639490611)
-            await inter.reply("You've chosen to ask our members to ask you about your pronouns.")
+            await inter.reply(
+                "You've chosen to ask our members to ask you about your pronouns.", ephemeral=True
+            )
 
         @on_click.matching_id("clear")
         async def on_test_button(inter):
             await self.changerole(inter.author, 00000000000000)
-            await inter.reply("We have removed your pronoun role.")
+            await inter.reply("We have removed your pronoun role.", ephemeral=True)
 
         @on_click.timeout
         async def on_timeout():
@@ -117,5 +117,5 @@ class Pronouns(commands.Cog):
                     await member.remove_roles(member.guild.get_role(rid))
             try:
                 await member.add_roles(member.guild.get_role(roleid))
-            except discord.DiscordException:
+            except:
                 pass

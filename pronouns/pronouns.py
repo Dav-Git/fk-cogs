@@ -112,6 +112,7 @@ class Pronouns(commands.Cog):
         ]
         if roleid == 0:
             await member.remove_roles([member.guild.get_role(r) for r in pronounroleids])
+            return
         if roleid in memberroleids:
             return
         else:

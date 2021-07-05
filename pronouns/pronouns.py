@@ -15,7 +15,7 @@ class Pronouns(commands.Cog):
             Button(style=ButtonStyle.green, label="THEY/THEM", custom_id="they"),
             Button(style=ButtonStyle.red, label="SHE/HER", custom_id="she"),
             Button(style=ButtonStyle.blurple, label="HE/HIM", custom_id="he"),
-            Button(style=ButtonStyle.link, label="Ask me", custom_id="ask"),
+            Button(style=ButtonStyle.grey, label="Ask me", custom_id="ask"),
         )
         msg = await ctx.send("Test", components=[button_row])
         on_click = msg.create_click_listener(timeout=60)

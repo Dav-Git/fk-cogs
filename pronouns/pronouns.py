@@ -8,7 +8,7 @@ class Pronouns(commands.Cog):
         self.bot = bot
         self.slash = SlashClient(bot)
 
-    @commands.command()
+    @commands.command(aliases=["pronoun"])
     async def pronouns(self, ctx):
         button_row = ActionRow(
             Button(style=ButtonStyle.blurple, label="they/them", custom_id="they"),
@@ -62,7 +62,7 @@ class Pronouns(commands.Cog):
 
         @on_click.timeout
         async def on_timeout():
-            await msg.edit(content="Set your pronouns with `-pronoun`.", components=[])
+            await msg.edit(content="Set your pronouns with `-pronouns`.", components=[])
 
     @commands.group()
     async def setpronouns(self, ctx):

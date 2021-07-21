@@ -3,24 +3,25 @@ import discord
 import asyncio
 
 
+def isStaff():
+    async def predicate(ctx) -> bool:
+        staffroles = [
+            450253903209168906,
+            530016413616963591,
+            332835206493110272,
+            332834961407213568,
+            344440746264231936,
+        ]
+        userroles = [r.id for r in ctx.author.roles]
+        if any(role in userroles for role in staffroles):
+            return True
+        else:
+            return False
+
+    return commands.check(predicate)
+
+
 class FKBday(commands.Cog):
-    async def isStaff():
-        async def predicate(ctx) -> bool:
-            staffroles = [
-                450253903209168906,
-                530016413616963591,
-                332835206493110272,
-                332834961407213568,
-                344440746264231936,
-            ]
-            userroles = [r.id for r in ctx.author.roles]
-            if any(role in userroles for role in staffroles):
-                return True
-            else:
-                return False
-
-        return commands.check(predicate)
-
     @isStaff()
     @commands.command(aliases=["birthday", "bd"])
     async def bday(self, ctx, *, user: discord.Member):

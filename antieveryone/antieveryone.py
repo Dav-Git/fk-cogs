@@ -5,7 +5,7 @@ class AntiEveryone(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if not message.author.bot:
-            if message.guild.id == 343116121760595971:
+            if message.guild.id == 332834024831582210:
                 if not message.guild.get_role(332834961407213568) in message.author.roles:
                     if "@everyone" in message.content:
                         await message.delete()

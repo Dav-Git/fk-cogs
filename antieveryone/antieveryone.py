@@ -9,6 +9,13 @@ class AntiEveryone(commands.Cog):
                 if not message.guild.get_role(332834961407213568) in message.author.roles:
                     if "@everyone" in message.content:
                         await message.delete()
+                        await message.channel.send(
+                            "https://tenor.com/view/discord-ping-everyone-gif-15090883"
+                        )
+                        await message.channel.send(f"Good job {message.author.mention}...")
                         await message.guild.get_channel(449944250507984896).send(
-                            f"https://tenor.com/view/discord-ping-everyone-gif-15090883\n{message.author}({message.author.id}) just tried to @everyone. This is the message they attempted to send:\n``{message.content}``"
+                            "https://tenor.com/view/discord-ping-everyone-gif-15090883"
+                        )
+                        await message.guild.get_channel(449944250507984896).send(
+                            f"{message.author}({message.author.id}) just tried to @everyone. This is the message they attempted to send:\n``{message.content}``"
                         )

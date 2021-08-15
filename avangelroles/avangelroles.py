@@ -9,10 +9,16 @@ class AvAngelRoles(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
+        cool_roles = [
+            876557447748263976,
+            876557447748263977,
+            866475525554962472,
+            866473144906022912,
+        ]
         before_ids = [r.id for r in before.roles]
         after_ids = [r.id for r in after.roles]
         if before_ids != after_ids:
-            if 866476884253605888 in after_ids or 866491067045511228 in after_ids:
+            if any(cool_role in after_ids for cool_role in cool_roles):
                 if 866475572250148864 in before_ids:
                     await after.remove_roles(after.guild.get_role(866475572250148864))
             else:

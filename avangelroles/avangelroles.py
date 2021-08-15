@@ -11,9 +11,10 @@ class AvAngelRoles(commands.Cog):
     async def on_member_update(self, before, after):
         cool_roles = [
             876557447748263976,
-            876557447748263977,
             866475525554962472,
             866473144906022912,
+            866491067045511228,
+            869315211180519496,
         ]
         before_ids = [r.id for r in before.roles]
         after_ids = [r.id for r in after.roles]

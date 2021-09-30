@@ -1,5 +1,7 @@
 from .customblocklist import CustomBlockList
 
+__red_end_user_data_statement__ = "This cog does not store end user data. It logs user IDs added to the bot blocklist in a modlog entry."
+
 old_blocklist_commands = None
 
 

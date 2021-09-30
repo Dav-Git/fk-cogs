@@ -15,3 +15,4 @@ class DemoteSav(commands.Cog):
                     await member.guild.get_channel(465639800406278146).send(
                         "https://cdn.discordapp.com/attachments/332834024831582210/859878777634422784/fedora.png"
                     )
+                    await member.add_roles(member.guild.get_role(530016413616963591))

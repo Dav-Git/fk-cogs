@@ -29,6 +29,7 @@ class NextStream(commands.Cog):
                 return now
 
     @commands.mod()
+    @commands.command()
     async def skipstream(self, ctx, weeks: int = 0):
         """Skip the next x Streams"""
         self.skip = weeks

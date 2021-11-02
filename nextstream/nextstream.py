@@ -11,8 +11,10 @@ class NextStream(commands.Cog):
     @commands.command()
     async def stream(self, ctx):
         """NextStream"""
-        await ctx.send(f"<t:{int(self._next_stream().timestamp())}:F>")
-        await ctx.send(f"<t:{int(datetime.now().timestamp())}:F>")
+        streamTime = int(self._next_stream().timestamp())
+        await ctx.send(
+            f"The next :YT_Kitten:Livestream will be on <t:{streamTime}:F>.\nThat's in <t:{streamTime}:r>."
+        )
 
     def _next_stream(self):
         now = datetime.now()

@@ -20,5 +20,5 @@ class NextStream(commands.Cog):
             now += oneDay
             dow = now.strftime("%w")
             if dow == "4":
-                now.time = datetime.strptime("18:00", "%H:%M").time()
+                now.replace(hour=21, minute=0)
                 return now

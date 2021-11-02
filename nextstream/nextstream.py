@@ -15,8 +15,9 @@ class NextStream(commands.Cog):
 
     def _next_stream(self):
         now = datetime.now()
+        oneDay = timedelta(days=1)
         while True:
-            now += timedelta(days=1)
+            now += oneDay
             dow = now.strftime("%w")
-            if dow == 4:
+            if dow == "4":
                 return now

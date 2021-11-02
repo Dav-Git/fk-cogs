@@ -11,7 +11,7 @@ class NextStream(commands.Cog):
     @commands.command()
     async def stream(self, ctx):
         """NextStream"""
-        await ctx.send(f"<t:{int(self._next_stream().timestamp())}:d>")
+        await ctx.send(f"<t:{int(self._next_stream().timestamp())}:f>")
 
     def _next_stream(self):
         now = datetime.now()
@@ -20,4 +20,5 @@ class NextStream(commands.Cog):
             now += oneDay
             dow = now.strftime("%w")
             if dow == "4":
+                now.time = datetime.strptime("18:00", "%H:%M").time()
                 return now

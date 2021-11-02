@@ -13,7 +13,7 @@ class NextStream(commands.Cog):
         """NextStream"""
         streamTime = int(self._next_stream().timestamp())
         await ctx.send(
-            f"The next :YT_Kitten:Livestream will be on <t:{streamTime}:F>.\nThat's in <t:{streamTime}:r>."
+            f"The next :YT_Kitten: Livestream will be on <t:{streamTime}:F>.\n:alarm_clock: That's in <t:{streamTime}:R>."
         )
 
     def _next_stream(self):

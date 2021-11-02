@@ -1,6 +1,5 @@
 from redbot.core import commands
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 
 class NextStream(commands.Cog):

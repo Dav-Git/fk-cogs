@@ -7,7 +7,6 @@ class NextStream(commands.Cog):
 
     def __init__(self):
         self.skip = 0
-        pass
 
     @commands.command()
     async def stream(self, ctx):
@@ -23,10 +22,10 @@ class NextStream(commands.Cog):
         if self.skip > 0:
             now = now + timedelta(weeks=self.skip)
         while True:
-            now += oneDay
             if now.strftime("%w") == "4":
                 now = now.replace(hour=21, minute=0)
                 return now
+            now += oneDay
 
     @commands.mod()
     @commands.command()

@@ -13,7 +13,7 @@ class NextStream(commands.Cog):
         """NextStream"""
         streamTime = int(self._next_stream().timestamp())
         await ctx.send(
-            f"The next <:YT_Kitten:545557741947584515> Livestream will be on <t:{streamTime}:F>.\n:alarm_clock: That's in <t:{streamTime}:R>."
+            f"The next <:YT_Kitten:545557741947584515> Livestream will be on <t:{streamTime}:F>.\n:alarm_clock: That's <t:{streamTime}:R>."
         )
 
     def _next_stream(self):
@@ -24,7 +24,8 @@ class NextStream(commands.Cog):
         while True:
             if now.strftime("%w") == "4":
                 now = now.replace(hour=21, minute=0)
-                return now
+                if now.hour <= 21:
+                    return now
             now += oneDay
 
     @commands.mod()

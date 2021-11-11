@@ -23,8 +23,8 @@ class NextStream(commands.Cog):
             now = now + timedelta(weeks=self.skip)
         while True:
             if now.strftime("%w") == "4":
-                now = now.replace(hour=21, minute=0)
-                if now.hour <= 21:
+                now = now.replace(hour=22, minute=0)
+                if now.hour <= 22:
                     return now
             now += oneDay
 

@@ -18,10 +18,11 @@ class RolePromotionChecker(commands.Cog):
         after_role_ids = [role.id for role in after.roles]
         for role_id in role_ids:
             if role_id in after_role_ids:
-                if any(
-                    exclude_role in role_ids[role_id]["exclude_roles"]
-                    for exclude_role in after_role_ids
-                ):
+                excluded = False
+                for rid in role_ids[role_id]["exclude_roles"]:
+                    if rid in after_role_ids:
+                        excluded = True
+                if excluded:
                     continue
                 else:
                     await after.remove_roles(after.guild.get_role(role_id))

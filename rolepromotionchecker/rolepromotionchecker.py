@@ -38,7 +38,7 @@ class RolePromotionChecker(commands.Cog):
         pass
 
     @rpc.command()
-    async def addrole(self, ctx, scan_role: discord.Role, *assign_roles: List[discord.Role]):
+    async def addrole(self, ctx, scan_role: discord.Role, *assign_roles: discord.Role):
         """Add a role to the list of roles that are scanned regularly and define which role should be assigned when the scanrole is found on a user."""
         await self.config.role(scan_role).assign_roles.set(assign_roles)
         await ctx.send(
@@ -46,9 +46,7 @@ class RolePromotionChecker(commands.Cog):
         )
 
     @rpc.command()
-    async def setexclusions(
-        self, ctx, scan_role: discord.Role, *exclude_roles: List[discord.Role]
-    ):
+    async def setexclusions(self, ctx, scan_role: discord.Role, *exclude_roles: discord.Role):
         """Add a role to the list of roles that exclude a user from the scan.
         Leave Empty, to remove all exclusions from the scanrole."""
         await self.config.role(scan_role).exclude_roles.set(exclude_roles)

@@ -30,6 +30,10 @@ class FKBday(commands.Cog):
         default_guild = {"bdays": {}}
         self.config.register_guild(**default_guild)
         self.bot = bot
+        self.bdayremover.start()
+
+    def cog_unload(self):
+        self.bdayremover.cancel()
 
     @tasks.loop(hours=1)
     async def bdayremover(self):

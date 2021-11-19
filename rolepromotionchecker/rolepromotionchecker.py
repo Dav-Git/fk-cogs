@@ -26,7 +26,7 @@ class RolePromotionChecker(commands.Cog):
                 else:
                     await after.remove_roles(after.guild.get_role(role_id))
                     await after.add_roles(
-                        [after.guild.get_role(r_id) for r_id in role_ids[role_id]["assign_roles"]]
+                        *[after.guild.get_role(r_id) for r_id in role_ids[role_id]["assign_roles"]]
                     )
             else:
                 continue

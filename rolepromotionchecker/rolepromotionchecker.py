@@ -19,8 +19,8 @@ class RolePromotionChecker(commands.Cog):
         for role_id in role_ids:
             if role_id in after_role_ids:
                 if any(
-                    exclude_role in after_role_ids
-                    for exclude_role in role_ids[role_id]["exclude_roles"]
+                    exclude_role in role_ids[role_id]["exclude_roles"]
+                    for exclude_role in after_role_ids
                 ):
                     continue
                 else:

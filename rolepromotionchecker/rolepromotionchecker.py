@@ -53,3 +53,11 @@ class RolePromotionChecker(commands.Cog):
         await ctx.send(
             f"Members with the roles {[r.mention for r in exclude_roles]} will be excluded when scanning {scan_role.mention}"
         )
+
+    @rpc.command()
+    async def delrole(self, ctx, scan_role: discord.Role):
+        """Remove a role from the list of roles that are scanned regularly."""
+        await self.config.role(scan_role).clear()
+        await ctx.send(
+            f"Removed {scan_role.name} from the list of roles that are scanned regularly."
+        )

@@ -61,3 +61,18 @@ class RolePromotionChecker(commands.Cog):
         await ctx.send(
             f"Removed {scan_role.name} from the list of roles that are scanned regularly."
         )
+
+    @rpc.command()
+    async def showroles(self, ctx):
+        """Show the list of roles that are scanned regularly."""
+        scan_role_ids = await self.config.all_roles()
+        guild_role_ids = [r.id for r in ctx.guild.roles]
+        guild_roles = {rid: r for rid, r in zip(guild_role_ids, ctx.guild.roles)}
+        scan_role_ids_in_guild = []
+        for rid in guild_roles:
+            if rid in scan_role_ids:
+                scan_role_ids_in_guild.append(rid)
+        for id in scan_role_ids_in_guild:
+            await ctx.send(
+                f"{guild_roles[id].mention} is scanned regularly.\nThe roles {[guild_roles[r_id].mention for r_id in scan_role_ids[id]['assign_roles']]} will be assigned.\nThe roles {[guild_roles[r_id].mention for r_id in scan_role_ids[id]['exclude_roles']]} will be excluded."
+            )

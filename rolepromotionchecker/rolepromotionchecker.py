@@ -13,11 +13,11 @@ class RolePromotionChecker(commands.Cog):
         self.config.register_role(**default_role)
 
     @commands.Cog.listener()
-    async def on_member_update(self, before, after):
+    async def on_member_update(self, before, after):  # pylance: disable=unused-argument
         role_ids = await self.config.all_roles()
         after_role_ids = [role.id for role in after.roles]
         for role_id in role_ids:
-            if role_id in after_role_ids:
+            if role_id in after_role_ids and len(after_role_ids) > 2:
                 if any(
                     exclude_role in role_ids[role_id]["exclude_roles"]
                     for exclude_role in after_role_ids

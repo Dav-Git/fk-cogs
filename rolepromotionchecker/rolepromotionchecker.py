@@ -35,7 +35,6 @@ class RolePromotionChecker(commands.Cog):
     @commands.group()
     async def rpc(self, ctx):
         """RolePromotionChecker commands"""
-        pass
 
     @rpc.command()
     async def addrole(self, ctx, scan_role: discord.Role, *assign_roles: discord.Role):

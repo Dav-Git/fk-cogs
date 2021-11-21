@@ -18,6 +18,10 @@ class RoleAssignedChecker(commands.Cog):
         """Things that happen on cog unload"""
         self.check_task.cancel()
 
+    async def initialize(self):
+        """Initialize the cog"""
+        self.check_task()
+
     @tasks.loop(minutes=5)
     async def check_task(self):  # pylance: disable=unused-argument
         guilds_data = await self.config.all_guilds()

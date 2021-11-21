@@ -1,4 +1,3 @@
-from typing import List
 import discord
 from redbot.core import commands, Config
 

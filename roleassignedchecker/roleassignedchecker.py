@@ -21,7 +21,7 @@ class RoleAssignedChecker(commands.Cog):
         """Initialize the cog"""
         self.check_task()
 
-    @tasks.loop(minutes=5)
+    @tasks.loop(minutes=1)
     async def check_task(self):  # pylance: disable=unused-argument
         guilds_data = await self.config.all_guilds()
         for guild_id in guilds_data:
@@ -50,9 +50,9 @@ class RoleAssignedChecker(commands.Cog):
 
     @rac.command()
     async def setrole(self, ctx, role: discord.Role):
-        """Set the role to check for"""
+        """Set the role to check for and assign"""
         await self.config.guild(ctx.guild).assign_role.set(role.id)
-        await ctx.send(f"Role {role.mention} will be checked")
+        await ctx.send(f"Role {role.mention} will be checked and assigned")
 
     @rac.command()
     async def setexclusions(self, ctx, *exclude_roles: discord.Role):
@@ -68,7 +68,7 @@ class RoleAssignedChecker(commands.Cog):
         """Show the current RoleAssignedChecker setup"""
         data = await self.config.guild(ctx.guild).all()
         await ctx.send(
-            f"RoleAssignedChecker is set to check for role {ctx.guild.get_role(data['assign_role']).mention}"
+            f"RoleAssignedChecker is set to check for role {ctx.guild.get_role(data['assign_role']).mention} and assign it if it is not found."
         )
         await ctx.send(
             f"Members with the roles {[ctx.guild.get_role(r).mention for r in data['exclude_roles']]} will be excluded when scanning."

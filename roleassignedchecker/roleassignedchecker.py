@@ -19,7 +19,7 @@ class RoleAssignedChecker(commands.Cog):
 
     async def initialize(self):
         """Initialize the cog"""
-        self.check_task()
+        await self.check_task()
 
     @tasks.loop(minutes=1)
     async def check_task(self):  # pylance: disable=unused-argument

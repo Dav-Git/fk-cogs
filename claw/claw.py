@@ -408,7 +408,7 @@ class Claw(commands.Cog):
         channel = await ctx.guild.create_text_channel(
             name=f"contact-{user.name}",
             overwrites=nc_override,
-            category=ctx.guild.get_channel(360775964470280193),
+            category=ctx.guild.get_channel(924327536522063902),
             reason=f"{user.name}#{user.discriminator} has been clawed.",
         )
         await self.config.member(user).channel.set(channel.id)

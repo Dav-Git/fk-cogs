@@ -28,6 +28,8 @@ class Claw(commands.Cog):
                     member.guild.get_role(780597986933473323), reason="Re-Clawed"
                 )
                 for channel in member.guild.channels:
+                    if channel.id == 478954069189459998:
+                        continue
                     new_overrides = channel.overwrites
                     new_overrides[member] = discord.PermissionOverwrite(
                         external_emojis=False,

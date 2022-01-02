@@ -145,6 +145,14 @@ class FKCom(commands.Cog):
         )
         await ctx.tick()
 
+    @commands.mod()
+    @commands.command()
+    async def faq(self, ctx, member: Optional[discord.Member] = None):
+        """Get a link to the FAQ."""
+        await ctx.send(
+            f"{member.mention if member else ''} Hey there, this question has already been answered in our faqs channel. Please have a look in that channel for your answer, thanks."
+        )
+
     @commands.command(name="commands")
     async def user_helper(self, ctx):
         """See all bot commands using -help"""

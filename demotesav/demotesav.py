@@ -9,10 +9,10 @@ class DemoteSav(commands.Cog):
         if member.id == 440643588477550592:
             if member.guild.id == 332834024831582210:
                 roles = [role.id for role in member.roles]
-                if 530016413616963591 in roles:
+                if 332835206493110272 in roles:
                     pass
                 else:
                     await member.guild.get_channel(465639800406278146).send(
                         "https://cdn.discordapp.com/attachments/332834024831582210/859878777634422784/fedora.png"
                     )
-                    await member.add_roles(member.guild.get_role(530016413616963591))
+                    await member.add_roles(member.guild.get_role(332835206493110272))

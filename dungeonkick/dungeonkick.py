@@ -1,3 +1,4 @@
+from datetime import datetime
 import discord
 from redbot.core import commands
 from discord.ext import tasks
@@ -17,5 +18,10 @@ class DungeonKick(commands.Cog):
     @tasks.loop(hours=24)
     async def _kick_dungeon_members(self):
         await self.bot.wait_until_red_ready()
+        m: discord.Member
         for m in self.bot.get_guild(332834024831582210).get_role(718099883692785747).members:
-            await m.kick(reason="Member got lost in the dungeon...")
+            time = m.joined_at.timestamp()
+            if time > (datetime.now().timestamp() - (86400 * 30)):
+                await m.kick(
+                    reason=f"Member got lost in the dungeon...\nJoined at: <t:{time}:f> (<t:{time}:R>)"
+                )

@@ -479,7 +479,7 @@ class Claw(commands.Cog):
 
     @commands.command()
     @checks.mod()
-    async def softclaw(self, ctx: discord.Context, user: discord.Member):
+    async def softclaw(self, ctx: commands.Context, user: discord.Member):
         nc_override = {
             ctx.guild.default_role: discord.PermissionOverwrite(
                 external_emojis=False,

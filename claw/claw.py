@@ -434,39 +434,193 @@ class Claw(commands.Cog):
     @commands.command(name="return")
     @commands.max_concurrency(1, commands.BucketType.default, wait=False)
     @checks.mod()
-    async def return_member(self, ctx, user: discord.Member):
+    async def return_member(self, ctx: commands.Context, user: discord.Member):
         """Return a member out of #contact-claws."""
-        await ctx.send(
-            "Don't panic. This will take a while. Sit back and relax as your channels are coming back."
-        )
-        async with ctx.typing():
-            settings = await self.config.member(user).overrides()
-            for channel in ctx.guild.channels:
-                if (
-                    channel == ctx.guild.public_updates_channel
-                    or channel == ctx.guild.rules_channel
-                ):
-                    continue
-                new_overrides = channel.overwrites
+        if ctx.channel.name.startswith("help-"):
+            await ctx.channel.set_permissions(user, reason="Soft-claw return", overwrite=None)
+            await ctx.send(f"{user.display_name} has been removed from this channel.")
+        else:
+            await ctx.send(
+                "Don't panic. This will take a while. Sit back and relax as your channels are coming back."
+            )
+            async with ctx.typing():
+                settings = await self.config.member(user).overrides()
+                for channel in ctx.guild.channels:
+                    if (
+                        channel == ctx.guild.public_updates_channel
+                        or channel == ctx.guild.rules_channel
+                    ):
+                        continue
+                    new_overrides = channel.overwrites
+                    try:
+                        del new_overrides[user]
+                    except KeyError:
+                        pass
+                    try:
+                        new_overrides[user] = discord.PermissionOverwrite(**settings[channel.id])
+                    except KeyError:
+                        pass
+                    await channel.edit(overwrites=new_overrides)
                 try:
-                    del new_overrides[user]
+                    if self.mute_cache[user.id]:
+                        del self.mute_cache[user.id]
+                    else:
+                        del self.mute_cache[user.id]
+                        await user.remove_roles(
+                            ctx.guild.get_role(780597986933473323), reason="Unclawed"
+                        )
                 except KeyError:
-                    pass
-                try:
-                    new_overrides[user] = discord.PermissionOverwrite(**settings[channel.id])
-                except KeyError:
-                    pass
-                await channel.edit(overwrites=new_overrides)
-            try:
-                if self.mute_cache[user.id]:
-                    del self.mute_cache[user.id]
-                else:
-                    del self.mute_cache[user.id]
                     await user.remove_roles(
                         ctx.guild.get_role(780597986933473323), reason="Unclawed"
                     )
-            except KeyError:
-                await user.remove_roles(ctx.guild.get_role(780597986933473323), reason="Unclawed")
-            await self.config.member(user).overrides.set({})
-            await self.config.member(user).clawed.set(False)
-            await ctx.send(f"Done. {user.mention} has been returned.")
+                await self.config.member(user).overrides.set({})
+                await self.config.member(user).clawed.set(False)
+                await ctx.send(f"Done. {user.mention} has been returned.")
+
+    @commands.command()
+    @checks.mod()
+    async def softclaw(self, ctx: discord.Context, user: discord.Member):
+        nc_override = {
+            ctx.guild.default_role: discord.PermissionOverwrite(
+                external_emojis=False,
+                read_message_history=False,
+                view_guild_insights=False,
+                priority_speaker=False,
+                manage_guild=False,
+                send_tts_messages=False,
+                manage_messages=False,
+                connect=False,
+                attach_files=False,
+                send_messages=False,
+                administrator=False,
+                speak=False,
+                manage_webhooks=False,
+                read_messages=False,
+                change_nickname=False,
+                create_instant_invite=False,
+                use_voice_activation=False,
+                add_reactions=False,
+                move_members=False,
+                manage_emojis=False,
+                stream=False,
+                embed_links=False,
+                view_audit_log=False,
+                manage_nicknames=False,
+                kick_members=False,
+                deafen_members=False,
+                manage_roles=False,
+                mention_everyone=False,
+                ban_members=False,
+                mute_members=False,
+                manage_channels=False,
+            ),
+            ctx.guild.get_role(332835206493110272): discord.PermissionOverwrite(
+                external_emojis=True,
+                read_message_history=True,
+                view_guild_insights=False,
+                priority_speaker=False,
+                manage_guild=False,
+                send_tts_messages=False,
+                manage_messages=True,
+                connect=False,
+                attach_files=True,
+                send_messages=True,
+                administrator=False,
+                speak=False,
+                manage_webhooks=False,
+                read_messages=True,
+                change_nickname=False,
+                create_instant_invite=False,
+                use_voice_activation=False,
+                add_reactions=True,
+                move_members=False,
+                manage_emojis=False,
+                stream=False,
+                embed_links=True,
+                view_audit_log=False,
+                manage_nicknames=False,
+                kick_members=False,
+                deafen_members=False,
+                manage_roles=False,
+                mention_everyone=False,
+                ban_members=False,
+                mute_members=False,
+                manage_channels=False,
+            ),
+            ctx.guild.get_role(530016413616963591): discord.PermissionOverwrite(
+                external_emojis=True,
+                read_message_history=True,
+                view_guild_insights=False,
+                priority_speaker=False,
+                manage_guild=False,
+                send_tts_messages=False,
+                manage_messages=True,
+                connect=False,
+                attach_files=True,
+                send_messages=True,
+                administrator=False,
+                speak=False,
+                manage_webhooks=False,
+                read_messages=True,
+                change_nickname=False,
+                create_instant_invite=False,
+                use_voice_activation=False,
+                add_reactions=True,
+                move_members=False,
+                manage_emojis=False,
+                stream=False,
+                embed_links=True,
+                view_audit_log=False,
+                manage_nicknames=False,
+                kick_members=False,
+                deafen_members=False,
+                manage_roles=False,
+                mention_everyone=False,
+                ban_members=False,
+                mute_members=False,
+                manage_channels=False,
+            ),
+            user: discord.PermissionOverwrite(
+                external_emojis=True,
+                read_message_history=True,
+                view_guild_insights=False,
+                priority_speaker=False,
+                manage_guild=False,
+                send_tts_messages=False,
+                manage_messages=False,
+                connect=False,
+                attach_files=True,
+                send_messages=True,
+                administrator=False,
+                speak=False,
+                manage_webhooks=False,
+                read_messages=True,
+                change_nickname=False,
+                create_instant_invite=False,
+                use_voice_activation=False,
+                add_reactions=True,
+                move_members=False,
+                manage_emojis=False,
+                stream=False,
+                embed_links=True,
+                view_audit_log=False,
+                manage_nicknames=False,
+                kick_members=False,
+                deafen_members=False,
+                manage_roles=False,
+                mention_everyone=False,
+                ban_members=False,
+                mute_members=False,
+                manage_channels=False,
+            ),
+        }
+        channel = await ctx.guild.create_text_channel(
+            name=f"help-{user.name}",
+            overwrites=nc_override,
+            category=ctx.guild.get_channel(924327536522063902),
+            reason=f"{user.name}#{user.discriminator} has been soft-clawed.",
+        )
+        await asyncio.sleep(3)
+        await channel.send(
+            f"Hello {user.mention}, this channel has been created for you by a member of the Staff team."
+        )

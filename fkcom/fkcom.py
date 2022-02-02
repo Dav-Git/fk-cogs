@@ -162,35 +162,22 @@ class FKCom(commands.Cog):
     @checks.mod()
     async def moderation(self, ctx):
         """Quick reference to moderation commands."""
-        text = """```AsciiDoc
-[Moderation commands]\n
--check <User>                          | Check flags, warnings and userinfo for a user.
--lvlinfo <User> | -rank <User>         | Get info about a current user's rank.
--forcenick <User> [Reason]             | Force-change a user's nickname.
--flag <User> <Reason>                  | Flag a user (staff notes).
--joinflag <UserID> <text>              | Add a text which is shown when a user (re-)joins the server.
--warn <User> <Reason>                  | Warn a user.
--mute <User> [duration] [Reason]       | Mute a user. Provide a duration to make it a tempmute. 
--channelmute <User> [duration] [Reason]| Mute a user in a channel.
--voicemute <User> [Reason]             | Mute a user in a voicechannel.
--voiceban                              | Ban a user from all voicechannels.
--activemutes                           | See all curently active mutes.
--claw <User> <Reason>                  | Put a user into the #contact-claws channel. Requires descriptive reason.
--return <User>                         | Return a user from the #contact-claws channel.
-
-
-[Quick-access messages]\n
--admin                             | Get an admin to help you.
--bot                               | Run this if someone asks us to put a bot in.
--rp [User]                         | Run this if someone asks a ARP or otherwise RP related question.
-
-
-[Other]\n
--bug <Title> [Priority 1-3] <Text>         | Something is broken? Report it here. Staff only.
--enhancement <Title> [Priority 1-3] <Text> | You have an idea on how to do something better? Put it here. Staff only.
--feature <Title> [Priority 1-3] <Text>     | You have a new feature idea? This is your command. Staff only.
- ! IMPORTANT: If your title consists of more than one word make sure to wrap it in quotes. "This title"
-              The default priority is 1/low.
--blocklist add <User>                       | Block a user from interacting with the bot. Permission only.
-```"""
-        await ctx.send(text)
+        em = discord.Embed(title="Moderation Commands",description="Listed below is a quickhand list of common commands, their uses, and special requirements (if applicable).")
+em.add_field(inline=False,name="**-check [UID]**",value="Checks a given user's warns, mutes, kicks, bans, flags and userinfo.")
+em.add_field(inline=False,name="**-freezenick [UID] [Nickname] [Reason]**",value="Freezes the nickname of the user to a selected name.")
+em.add_field(inline=False,name="**-flag [UID] [Reason]**",value="Logs a flag onto a user. Useful for things that aren't warn worthy but should still be noted (think of a notepad for each user).")
+em.add_field(inline=False,name="**-joinflag [UID] [Reason]**",value="Adds a flag onto a user that will be displayed when they rejoin the server.")
+em.add_field(inline=False,name="**-warn [UID] [Points - Optional, Default 1] [Reason]**",value="Issues a warning to the user. Will send a DM to them if they can receive DMs.")
+em.add_field(inline=False,name="**-mute [UID] [Duration] [Reason]**",value="Mutes a user for a given time frame. If no duration is noted, the mute will permanent.")
+em.add_field(inline=False,name="**-claw [UID] [Reason]**",value="Brings the user into a private channel that only staff are able to see. This is for moderation use cases and will remove all other channels from view.")
+em.add_field(inline=False,name="**-softclaw [UID]**",value="Brings the user into a private channel that only staff are able to see. This is for lighter use cases such as providing help, does not remove all other channels from view.")
+em.add_field(inline=False,name="**-return [UID]**",value="Returns a user out of a claw or softclaw.")
+em.add_field(inline=False,name="**-rp [UID - Optional]**",value="Create an automated message that redirects a user to the ask-rp-info channel.")
+em.add_field(inline=False,name="**-faq [UID - Optional]**",value="Creates an automated message that redirects a user to the faqs channel.")
+em.add_field(inline=False,name="**-admin**",value="Summons an admin to the channel.")
+em.add_field(inline=False,name="**-mod**",value="Summons a mod to the channel.")
+em.add_field(inline=False,name="**-bug [Title - Put in Quotes] [Priority 1 (low) - 3 (high)] [Text]**",value="Creates a bug report on our GitHub page that Dan and Dav will investigate (eventually).")
+em.add_field(inline=False,name="**-feature [Title - Put in Quotes] [Text]**",value="Creates a feature request on the GitHub that Dav and Dan might eventually look at (this is the same formatting for -enhancement).")
+em.add_field(inline=False,name="**-blocklist add [UID]**",value="Blocks a user from being able to use the bot.")
+em.color=0x923EDB
+await ctx.send(embed=em)

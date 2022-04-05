@@ -72,9 +72,7 @@ class FKCom(commands.Cog):
         """Get a moderator to help you."""
         modrolestr = ctx.guild.get_role(775359048342044713).mention
         await ctx.send(
-            "A {} or {} has been requested.".format(
-                ctx.guild.get_role(530016413616963591).mention,
-                # haha 69 big funny sav
+            "A {} has been requested.".format(
                 ctx.guild.get_role(332835206493110272).mention,
             )
         )

@@ -2,7 +2,7 @@ from redbot.core import commands
 import discord
 
 
-def is_amy():
+def is_alex():
     async def predicate(ctx):
         return ctx.author.id == 716270669725171754
 
@@ -18,7 +18,8 @@ class RaceMock(commands.Cog):
     async def red_delete_data_for_user(self, **kwargs):
         pass
 
-    @is_amy()
+    @is_alex()
+    @commands.is_owner()
     @commands.command()
     async def racemock(self, ctx, member: discord.Member):
         """Allow amy to force people to race"""

@@ -19,7 +19,6 @@ class RaceMock(commands.Cog):
         pass
 
     @is_alex()
-    @commands.is_owner()
     @commands.command()
     async def racemock(self, ctx, member: discord.Member):
         """Allow amy to force people to race"""

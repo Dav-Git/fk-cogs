@@ -25,11 +25,16 @@ class RaceMock(commands.Cog):
 
         race = ctx.bot.get_cog("Race")
         if race.active:
-            race.players.append(member)
-            await ctx.send(f"Amy forced {member.display_name} to race.")
-        elif member in race.players:
-            await ctx.send(
-                f"{member.display_name} is already racing. Don't force them to race twice you meanie."
-            )
+            if member in race.players[ctx.guild.id]:
+                return await ctx.send(
+                    f"{member.display_name} is already racing. Don't force them to race twice you meanie."
+                )
+            elif len(race.players[ctx.guild.id]) >= 14:
+                return await ctx.send(
+                    "Yo yo yo, only 14 people fit on the track. You can't squish them to fit more..."
+                )
+            else:
+                race.players[ctx.guild.id].append(member)
+                await ctx.send(f"Alex forced {member.display_name} to race.")
         else:
             await ctx.send(f"There is no race ongoing. Start one first.")

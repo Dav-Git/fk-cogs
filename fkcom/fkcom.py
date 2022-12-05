@@ -148,7 +148,7 @@ class FKCom(commands.Cog):
     async def faq(self, ctx, member: Optional[discord.Member] = None):
         """Get a link to the FAQ."""
         await ctx.send(
-            f"{member.mention if member else ''} Hey there, this question has already been answered in our faqs channel. Please have a look in that channel for your answer, thanks."
+            f"{member.mention if member else ''} Hey there, this question has already been answered in our {ctx.guild.get_channel(661012030081204257).mention} channel. Please have a look in that channel for your answer, thanks."
         )
 
     @commands.command(name="commands")
@@ -238,3 +238,12 @@ class FKCom(commands.Cog):
         )
         em.color = 0x923EDB
         await ctx.send(embed=em)
+
+    @commands.mod()
+    @commands.command()
+    async def rules(self, ctx, member: Optional[discord.Member] = None):
+        """Send the rules channel to someone."""
+        # Thanks Dan
+        await ctx.send(
+            f"{member.mention if member else ''} Please take a look at the {ctx.guild.get_channel(478954069189459998).mention} channel. Please keep in mind some channels have rules specific to the channel so remember to check the pins!"
+        )

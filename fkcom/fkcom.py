@@ -219,6 +219,11 @@ class FKCom(commands.Cog):
             name="**-faq [UID - Optional]**",
             value="Creates an automated message that redirects a user to the faqs channel.",
         )
+        em.add_field(
+            inline=False,
+            name="**-rules [UID - Optional]**",
+            value="Creates an automated message that redirects a user to the rules channel.",
+        )
         em.add_field(inline=False, name="**-admin**", value="Summons an admin to the channel.")
         em.add_field(inline=False, name="**-mod**", value="Summons a mod to the channel.")
         em.add_field(
@@ -247,3 +252,15 @@ class FKCom(commands.Cog):
         await ctx.send(
             f"{member.mention if member else ''} Please take a look at the {ctx.guild.get_channel(478954069189459998).mention} channel. Please keep in mind some channels have rules specific to the channel so remember to check the pins!"
         )
+
+    @commands.mod()
+    @commands.command()
+    async def bd(self, ctx, member: discord.Member):
+        """Toggle the bday role on a member."""
+        role = ctx.guild.get_role(657943577065947157)
+        if role in member.roles:
+            await member.remove_roles(role)
+            await ctx.tick()
+        else:
+            await member.add_roles(role)
+            await ctx.tick()

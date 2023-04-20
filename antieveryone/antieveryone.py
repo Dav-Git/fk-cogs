@@ -4,9 +4,11 @@ from redbot.core import commands
 class AntiEveryone(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.author.id == 160527441520099328: # Don't block Rach. Oopsie
+            return
         if not message.author.bot:
             if message.guild.id == 332834024831582210:
-                if not message.guild.get_role(332834961407213568) in message.author.roles:
+                if not message.guild.get_role(332834961407213568) in message.author.roles: #Admin Abooz
                     if "@everyone" in message.content:
                         await message.delete()
                         await message.channel.send(

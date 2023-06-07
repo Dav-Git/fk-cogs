@@ -3,5 +3,5 @@ from .fkpingsafe import FkPingSafe
 __red_end_user_data_statement__ = "This cog does not store end user data."
 
 
-def setup(bot):
-    bot.add_cog(FkPingSafe())
+async def setup(bot):
+    await bot.add_cog(FkPingSafe())

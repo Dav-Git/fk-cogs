@@ -1,0 +1,18 @@
+{
+  "author": [
+    "TurnrDev",
+    "Dav"
+  ],
+  "description": "Create and view your GitHub issues",
+  "short": "Create and view your GitHub issues",
+  "min_bot_version": "3.4.0",
+  "requirements": [
+    "discord-ext-alternatives>=2020.6.16",
+    "PyGithub==1.53"
+  ],
+  "tags": [
+    "GitHub"
+  ],
+  "name": "GitHub Issue Manager",
+  "end_user_data_statement": "This cog does not persistently store data about users."
+}

@@ -27,18 +27,18 @@ class BotCredits(commands.Cog):
         embed.add_field(
             name="Red-DiscordBot",
             value=f"{self.bot.user.name} is an instance of [Red bot](https://github.com/Cog-Creators/Red-DiscordBot), "
-            "created by [Twentysix](https://github.com/Twentysix26), and maintained by an"
+            "created by [Twentysix](https://github.com/Twentysix26), and maintained by an "
             "[awesome community](https://github.com/Cog-Creators/Red-DiscordBot/graphs/contributors).",
             inline=False,
         )
         embed.add_field(
             name="Hosting",
-            value="This instance is maintained by Dav#6998.",
+            value="This instance is maintained by Dav.",
             inline=False,
         )
         embed.add_field(
             name="Art",
-            value="The avatar used for this bot has been made by Spookynewf#8008",
+            value="The avatar used for this bot has been made by Spookynewf",
             inline=False,
         )
         used_repos = {c.repo_name for c in await repo_cog.installed_cogs()}

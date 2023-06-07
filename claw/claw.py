@@ -1,6 +1,5 @@
 import discord
 import asyncio
-from sys import stderr
 from redbot.core import commands, checks, Config, modlog
 from typing import Optional
 

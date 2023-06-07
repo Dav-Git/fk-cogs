@@ -1,0 +1,9 @@
+{
+    "author": [
+        "Dav"
+    ],
+    "install_msg": "If you didn't commission a cog you probably shouldn't install this.\nYou are on your own.\n\n__**You have been warned.**__",
+    "name": "fk-cogs",
+    "short": "Custom Cogs made by Dav",
+    "description": "Specialized cogs for RED DiscordBot made by Dav for Dav"
+}

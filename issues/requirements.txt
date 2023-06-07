@@ -1,0 +1,3 @@
+-r ../requirements.txt
+discord-ext-alternatives>=2020.6.16
+PyGithub==1.53

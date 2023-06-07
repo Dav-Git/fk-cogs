@@ -11,7 +11,7 @@ async def setup(bot):
     bot.remove_command("blocklist")
     old_blocklist_commands = group
     cog = CustomBlockList(bot)
-    bot.add_cog(cog)
+    await bot.add_cog(cog)
     await cog.initialize(bot)
 
 

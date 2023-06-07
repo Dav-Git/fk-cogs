@@ -1,5 +1,5 @@
 from .truepurge import TruePurge
 
 
-def setup(bot):
-    bot.add_cog(TruePurge())
+async def setup(bot):
+    await bot.add_cog(TruePurge())

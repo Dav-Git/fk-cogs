@@ -1,5 +1,5 @@
 from .muldoonmention import MuldoonMention
 
 
-def setup(bot):
-    bot.add_cog(MuldoonMention(bot))
+async def setup(bot):
+    await bot.add_cog(MuldoonMention(bot))

@@ -20,7 +20,7 @@ class FKBanAppeal(commands.Cog):
         self,
         ctx: commands.Context,
         user: Union[discord.Member, commands.RawUserIdConverter],
-        days: Optional[int] = None,
+        days: Optional[int] = 0,
         *,
         reason: str = None,
     ):

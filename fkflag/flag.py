@@ -46,7 +46,7 @@ class Flag(Cog):
         flag = self._flag_template()
 
         flag["reason"] = reason
-        flag["author"] = f"{ctx.author.name}#{ctx.author.discriminator}"
+        flag["author"] = str(ctx.author)
         flag["date"] = datetime.utcnow().strftime("%a, %d %b %Y")
 
         async with self.config.guild(guild).flags() as flags:
@@ -93,7 +93,7 @@ class Flag(Cog):
                     await ctx.guild.get_channel(360478963115491328).send(
                         f"{ctx.author.mention} deleted a flag for {member.display_name}({member.id})."
                     )
-                    embed = discord.Embed(title=f"Flag for {member.name}#{member.discriminator}")
+                    embed = discord.Embed(title=f"Flag for {member}")
                     try:
                         flag["date"]
                     except KeyError:

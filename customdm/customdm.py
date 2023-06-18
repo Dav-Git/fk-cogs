@@ -15,7 +15,7 @@ class CustomDM(commands.Cog):
         try:
             await user.send(text)
             await ctx.guild.get_channel(717915738739965952).send(
-                f"Outbound message from {ctx.author.mention} to {user.name}#{user.discriminator}({user.id}):\n{text}"
+                f"Outbound message from {ctx.author.mention} to {user}({user.id}):\n{text}"
             )
             if ctx.message.attachments:
                 for e in ctx.message.attachments:
@@ -29,7 +29,7 @@ class CustomDM(commands.Cog):
         if message.guild is not None:
             return
         if message.author == self.bot.user:
-            msg = f"Sent PM to {message.channel} (`{message.channel.id}`)"
+            msg = f"Sent PM to {message.channel.recipient} (`{message.channel.recipient.id if message.channel.recipient else 'Unknown'}`)"
             if message.embeds:
                 embed = discord.Embed.from_dict(
                     {**message.embeds[0].to_dict(), "timestamp": str(message.created_at)}
@@ -39,7 +39,7 @@ class CustomDM(commands.Cog):
                 )
         else:
             await self.bot.get_guild(332834024831582210).get_channel(717915738739965952).send(
-                f"Incoming message from {message.author.name}#{message.author.discriminator}({message.author.id}):\n{message.content}"
+                f"Incoming message from {message.author}({message.author.id}):\n{message.content}"
             )
             if message.attachments:
                 for e in message.attachments:

@@ -29,7 +29,7 @@ class CustomDM(commands.Cog):
         if message.guild is not None:
             return
         if message.author == self.bot.user:
-            recipient = await self.bot.fetch_channel(message.channel.id).recipient
+            recipient = (await self.bot.fetch_channel(message.channel.id)).recipient
             msg = f"Sent PM to {recipient} (`{recipient.id if recipient else 'Unknown'}`)"
             if message.embeds:
                 embed = discord.Embed.from_dict(

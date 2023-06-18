@@ -29,7 +29,8 @@ class CustomDM(commands.Cog):
         if message.guild is not None:
             return
         if message.author == self.bot.user:
-            msg = f"Sent PM to {message.channel.recipient} (`{message.channel.recipient.id if message.channel.recipient else 'Unknown'}`)"
+            recipient = await self.bot.fetch_channel(message.channel.id).recipient
+            msg = f"Sent PM to {recipient} (`{recipient.id if recipient else 'Unknown'}`)"
             if message.embeds:
                 embed = discord.Embed.from_dict(
                     {**message.embeds[0].to_dict(), "timestamp": str(message.created_at)}

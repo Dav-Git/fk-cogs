@@ -173,8 +173,10 @@ class Flag(Cog):
 
             for flag in flags_to_remove:
                 flags.remove(flag)
-
-            embed.set_thumbnail(url=member.avatar_url)
+            if member.avatar:
+                embed.set_thumbnail(url=member.avatar.url)
+            else:
+                embed.set_thumbnail(url=member.default_avatar.url)
             embedlist.append(embed)
 
         return embedlist

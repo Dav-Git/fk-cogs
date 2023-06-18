@@ -15,7 +15,7 @@ async def setup(bot):
     await cog.initialize(bot)
 
 
-def teardown(bot):
+async def teardown(bot):
     if old_blocklist_commands is None:
         return
     bot.add_command(old_blocklist_commands)

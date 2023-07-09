@@ -255,7 +255,7 @@ class FKCom(commands.Cog):
     @commands.command()
     async def fakemod(self, ctx):
         """A list of troll moderation commands."""
-        em = discord.Embed(title="Moderation Commands",description=":AdminAbooz:")
+        em = discord.Embed(title="Moderation Commands",description="Is only joke")
         em.add_field(
             inline=False,
             name="**-bam [User] [Reason]**",

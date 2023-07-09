@@ -252,6 +252,36 @@ class FKCom(commands.Cog):
         em.color=0x923EDB
         await ctx.send(embed=em)
 
+    @commands.command()
+    async def fakemod(self, ctx):
+        """A list of troll moderation commands."""
+        em = discord.Embed(title="Moderation Commands",description=":AdminAbooz:")
+        em.add_field(
+            inline=False,
+            name="**-bam [User] [Reason]**",
+            value="Bammity bam bam!"
+        )
+        em.add_field(
+            inline=False,
+            name="**-kik [User] [Reason]**",
+            value="Kik 'em to the moon!"
+        )
+        em.add_field(
+            inline=False,
+            name="**-myut [User] [Reason]**",
+            value="Myut the noot."
+        )
+        em.add_field(
+            inline=False,
+            name="**-worn [User] [Reason]**",
+            value="Worn them to the warth."
+        )
+        em.set_footer(
+            text="Our Laywer has advised us to denote that 'This is soley a joke for the meme-ery and should not be taken seriously.'\nAnd our Admin Overlords have requested 'Please do not abuse this - especially if someone has asked you to stop.'"
+        )
+        em.color=0x29D6A8
+        await ctx.send(embed=em)
+    
     @commands.mod()
     @commands.command()
     async def rules(self, ctx, member: Optional[discord.Member] = None):

@@ -162,88 +162,126 @@ class FKCom(commands.Cog):
         """Quick reference to moderation commands."""
         em = discord.Embed(
             title="Moderation Commands",
-            description="Listed below is a quickhand list of common commands, their uses, and special requirements (if applicable).",
+            description="Listed below is a quickhand list of common commands, their uses, and special requirements (if applicable)."
         )
         em.add_field(
             inline=False,
             name="**-check [UID]**",
-            value="Checks a given user's warns, mutes, kicks, bans, flags and userinfo.",
-        )
-        em.add_field(
-            inline=False,
-            name="**-freezenick [UID] [Nickname] [Reason]**",
-            value="Freezes the nickname of the user to a selected name.",
-        )
-        em.add_field(
-            inline=False,
-            name="**-flag [UID] [Reason]**",
-            value="Logs a flag onto a user. Useful for things that aren't warn worthy but should still be noted (think of a notepad for each user).",
-        )
-        em.add_field(
-            inline=False,
-            name="**-joinflag [UID] [Reason]**",
-            value="Adds a flag onto a user that will be displayed when they rejoin the server.",
+            value="Checks a given user's warns, mutes, kicks, bans, flags and userinfo."
         )
         em.add_field(
             inline=False,
             name="**-warn [UID] [Points - Optional, Default 1] [Reason]**",
-            value="Issues a warning to the user. Will send a DM to them if they can receive DMs.",
+            value="Issues a warning to the user. Will send a DM to them if they can receive DMs."
         )
         em.add_field(
             inline=False,
             name="**-mute [UID] [Duration] [Reason]**",
-            value="Mutes a user for a given time frame. If no duration is noted, the mute will permanent.",
+            value="Mutes a user for a given time frame. If no duration is noted, the mute will permanent."
+        )
+        em.add_field(
+            inline=False,
+            name="**-freezenick [UID] [Nickname] [Reason]**",
+            value="Freezes the nickname of the user to a selected name."
+        )
+        em.add_field(
+            inline=False,
+            name="**-flag [UID] [Reason]**",
+            value="Logs a flag onto a user. Useful for things that aren't warn worthy but should still be noted (think of a notepad for each user)."
+        )
+        em.add_field(
+            inline=False,
+            name="**-joinflag [UID] [Reason]**",
+            value="Adds a flag onto a user that will be displayed when they rejoin the server."
         )
         em.add_field(
             inline=False,
             name="**-claw [UID] [Reason]**",
-            value="Brings the user into a private channel that only staff are able to see. This is for moderation use cases and will remove all other channels from view.",
+            value="Brings the user into a private channel that only staff are able to see. This is for moderation use cases and will remove all other channels from view."
         )
         em.add_field(
             inline=False,
             name="**-softclaw [UID]**",
-            value="Brings the user into a private channel that only staff are able to see. This is for lighter use cases such as providing help, does not remove all other channels from view.",
+            value="Brings the user into a private channel that only staff are able to see. This is for lighter use cases such as providing help, does not remove all other channels from view."
         )
         em.add_field(
             inline=False,
             name="**-return [UID]**",
-            value="Returns a user out of a claw or softclaw.",
-        )
-        em.add_field(
-            inline=False,
-            name="**-rp [UID - Optional]**",
-            value="Create an automated message that redirects a user to the ask-rp-info channel.",
-        )
-        em.add_field(
-            inline=False,
-            name="**-faq [UID - Optional]**",
-            value="Creates an automated message that redirects a user to the faqs channel.",
-        )
-        em.add_field(
-            inline=False,
-            name="**-rules [UID - Optional]**",
-            value="Creates an automated message that redirects a user to the rules channel.",
-        )
-        em.add_field(inline=False, name="**-admin**", value="Summons an admin to the channel.")
-        em.add_field(inline=False, name="**-mod**", value="Summons a mod to the channel.")
-        em.add_field(
-            inline=False,
-            name="**-bug [Title - Put in Quotes] [Priority 1 (low) - 3 (high)] [Text]**",
-            value="Creates a bug report on our GitHub page that Dan and Dav will investigate (eventually).",
-        )
-        em.add_field(
-            inline=False,
-            name="**-feature [Title - Put in Quotes] [Text]**",
-            value="Creates a feature request on the GitHub that Dav and Dan might eventually look at (this is the same formatting for -enhancement).",
+            value="Returns a user out of a claw or softclaw."
         )
         em.add_field(
             inline=False,
             name="**-blocklist add [UID]**",
-            value="Blocks a user from being able to use the bot.",
+            value="Blocks a user from being able to use the bot."
         )
-        em.color = 0x923EDB
+        em.add_field(
+            inline=False,
+            name="**-faq [UID - Optional]**",
+            value="Creates an automated message that redirects a user to the faqs channel."
+        )
+        em.add_field(
+            inline=False,
+            name="**-rp [UID - Optional]**",
+            value="Create an automated message that redirects a user to the ask-rp-info channel."
+        )
+        em.add_field(
+            inline=False,
+            name="**-bd [UID]**",
+            value="Toggles the birthday role on a user."
+        )
+        em.add_field(
+            inline=False,
+            name="**-admin**",
+            value="Summons an admin to the channel."
+        )
+        em.add_field(
+            inline=False,
+            name="**-mod**",
+            value="Summons a mod to the channel."
+        )
+        em.add_field(
+            inline=False,
+            name="**-bug [Title - Put in Quotes] [Priority 1 (low) - 3 (high)] [Text]**",
+            value="Creates a bug report on our GitHub page that Dan and Dav will investigate (eventually)."
+        )
+        em.add_field(
+            inline=False,
+            name="**-feature [Title - Put in Quotes] [Text]**",
+            value="Creates a feature request on the GitHub that Dav and Dan might eventually look at (this is the same formatting for -enhancement)."
+        )
+        em.color=0x923EDB
         await ctx.send(embed=em)
 
+    @commands.command()
+    async def fakemod(self, ctx):
+        """A list of troll moderation commands."""
+        em = discord.Embed(title="Moderation Commands",description="Is only joke")
+        em.add_field(
+            inline=False,
+            name="**-bam [User] [Reason]**",
+            value="Bammity bam bam!"
+        )
+        em.add_field(
+            inline=False,
+            name="**-kik [User] [Reason]**",
+            value="Kik 'em to the moon!"
+        )
+        em.add_field(
+            inline=False,
+            name="**-myut [User] [Reason]**",
+            value="Myut the noot."
+        )
+        em.add_field(
+            inline=False,
+            name="**-worn [User] [Reason]**",
+            value="Worn them to the warth."
+        )
+        em.set_footer(
+            text="Our Laywer has advised us to denote that 'This is soley a joke for the meme-ery and should not be taken seriously.'\nAnd our Admin Overlords have requested 'Please do not abuse this - especially if someone has asked you to stop.'"
+        )
+        em.color=0x29D6A8
+        await ctx.send(embed=em)
+    
     @commands.mod()
     @commands.command()
     async def rules(self, ctx, member: Optional[discord.Member] = None):

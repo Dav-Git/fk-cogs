@@ -37,9 +37,12 @@ class FKBanAppeal(commands.Cog):
         If days is not a number, it's treated as the first word of the reason.
         Minimum 0 days, maximum 7. If not specified, the defaultdays setting will be used instead.
         """
+        if isinstance(user, int):
+            user = self.bot.get_user(user) or discord.Object(id=user)
         try:
             await user.send(f"Think this ban was unjust or created by mistake? \nAppeal here: https://forms.gle/YziDsrQtiJtmHoQP6")
         except discord.Forbidden:
             message = await ctx.send("Dear moderator.\nSadly, I couldn't deliver the appeals link to this user.\nYou may want to attempt to send the link manually after consultation with (other) admins.")
             await message.delete(delay=30)
-        await self.mod_cog.ban_user(user,ctx,days,reason,True)
+        _,message = await self.mod_cog.ban_user(user,ctx,days,reason,True)
+        await ctx.send(message)

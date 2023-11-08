@@ -254,6 +254,11 @@ class FKCom(commands.Cog):
             name="**-feature [Title - Put in Quotes] [Text]**",
             value="Creates a feature request on the GitHub that Dav and Dan might eventually look at (this is the same formatting for -enhancement)."
         )
+        em.add_field(
+            inline=False,
+            name="**-mlentries [Member]**",
+            value="Get the number of ModLog entries a member has."
+        )
         em.color=0x923EDB
         await ctx.send(embed=em)
 

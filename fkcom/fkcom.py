@@ -166,6 +166,11 @@ class FKCom(commands.Cog):
         )
         em.add_field(
             inline=False,
+            name="**-alt**",
+            value="Manage a user's alt accounts."
+        )
+        em.add_field(
+            inline=False,
             name="**-check [UID]**",
             value="Checks a given user's warns, mutes, kicks, bans, flags and userinfo."
         )
@@ -302,3 +307,16 @@ class FKCom(commands.Cog):
         else:
             await member.add_roles(role)
             await ctx.tick()
+
+    @commands.mod()
+    @commands.command()
+    async def mlentriestd(self,ctx):
+        """How many ModLog entries does TesterDan have?"""
+        await ctx.send(f"Tester Dan has {len(await modlog.get_cases_for_member(bot=ctx.bot,guild=ctx.guild,member_id=481802382251130906))} ModLog entries.")
+
+    @commands.mod()
+    @commands.command()
+    async def mlentries(self,ctx,member: discord.Member):
+        """How many ModLog entries does a member have?"""
+        await ctx.send(f"{member} has {len(await modlog.get_cases_for_member(bot=ctx.bot,guild=ctx.guild,member_id=member.id))} ModLog entries.")
+        

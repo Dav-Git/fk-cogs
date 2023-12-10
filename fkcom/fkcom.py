@@ -156,7 +156,7 @@ class FKCom(commands.Cog):
         """See all bot commands using -help"""
         await ctx.send("Use ``-help`` to see all bot commands.")
 
-    @commands.command(aliases=["modreffull"])
+    @commands.command()
     @checks.mod()
     async def modfull(self, ctx):
         """A more expanded list of commonly used moderation commands."""
@@ -282,7 +282,7 @@ class FKCom(commands.Cog):
         em.color=0x923EDB
         await ctx.send(embed=em)
 
-@commands.command(aliases=["modrefshort"])
+@commands.command()
     @checks.mod()
     async def modshort(self, ctx):
         """A condensed list of commonly used moderation commands."""

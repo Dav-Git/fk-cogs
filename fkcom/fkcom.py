@@ -156,23 +156,33 @@ class FKCom(commands.Cog):
         """See all bot commands using -help"""
         await ctx.send("Use ``-help`` to see all bot commands.")
 
-    @commands.command(aliases=["issuereport"])
+    @commands.command(aliases=["modreffull"])
     @checks.mod()
-    async def moderation(self, ctx):
-        """Quick reference to moderation commands."""
+    async def modfull(self, ctx):
+        """A more expanded list of commonly used moderation commands."""
         em = discord.Embed(
             title="Moderation Commands",
             description="Listed below is a quickhand list of common commands, their uses, and special requirements (if applicable)."
         )
         em.add_field(
             inline=False,
-            name="**-alt**",
-            value="Manage a user's alt accounts."
+            name="**__Moderation__**",
+            value=""
         )
         em.add_field(
             inline=False,
             name="**-check [UID]**",
             value="Checks a given user's warns, mutes, kicks, bans, flags and userinfo."
+        )
+        em.add_field(
+            inline=False,
+            name="**-userinfo [UID]**",
+            value="Shows the user's info sheet (beginning of a check command)."
+        )
+        em.add_field(
+            inline=False,
+            name="**-flag [UID] [Reason]**",
+            value="Logs a flag onto a user. Useful for things that aren't warn worthy but should still be noted (think of a notepad for each user)."
         )
         em.add_field(
             inline=False,
@@ -186,18 +196,33 @@ class FKCom(commands.Cog):
         )
         em.add_field(
             inline=False,
+            name="**-alt mark [Main UID] [Alt UID]**",
+            value="Notes that a member has an alt account - this will show up in checks."
+        )
+        em.add_field(
+            inline=False,
             name="**-freezenick [UID] [Nickname] [Reason]**",
             value="Freezes the nickname of the user to a selected name."
         )
         em.add_field(
             inline=False,
-            name="**-flag [UID] [Reason]**",
-            value="Logs a flag onto a user. Useful for things that aren't warn worthy but should still be noted (think of a notepad for each user)."
+            name="**-joinflag [UID] [Reason]**",
+            value="Adds a flag onto a user that will be displayed when they rejoin the server."
         )
         em.add_field(
             inline=False,
-            name="**-joinflag [UID] [Reason]**",
-            value="Adds a flag onto a user that will be displayed when they rejoin the server."
+            name="**-mlentries <UID>**",
+            value="Counts how many modlog entries a certain member has within the server."
+        )
+        em.add_field(
+            inline=False,
+            name="**-pingsafe**",
+            value="Toggles Staff pingsafe role. Can also use `-ps`"
+        )
+        em.add_field(
+            inline=False,
+            name="**__Private Channels__**",
+            value=""
         )
         em.add_field(
             inline=False,
@@ -216,8 +241,18 @@ class FKCom(commands.Cog):
         )
         em.add_field(
             inline=False,
-            name="**-blocklist add [UID]**",
-            value="Blocks a user from being able to use the bot."
+            name="**__Member Assist__**",
+            value=""
+        )
+        em.add_field(
+            inline=False,
+            name="**-bd [UID]**",
+            value="Toggles the birthday role on a member."
+        )
+        em.add_field(
+            inline=False,
+            name="**-mc [UID]**",
+            value="Adds the Music-Controller role to a member."
         )
         em.add_field(
             inline=False,
@@ -231,18 +266,8 @@ class FKCom(commands.Cog):
         )
         em.add_field(
             inline=False,
-            name="**-bd [UID]**",
-            value="Toggles the birthday role on a user."
-        )
-        em.add_field(
-            inline=False,
-            name="**-admin**",
-            value="Summons an admin to the channel."
-        )
-        em.add_field(
-            inline=False,
-            name="**-mod**",
-            value="Summons a mod to the channel."
+            name="**__DTT Reporting__**",
+            value=""
         )
         em.add_field(
             inline=False,
@@ -251,13 +276,68 @@ class FKCom(commands.Cog):
         )
         em.add_field(
             inline=False,
-            name="**-feature [Title - Put in Quotes] [Text]**",
-            value="Creates a feature request on the GitHub that Dav and Dan might eventually look at (this is the same formatting for -enhancement)."
+            name="**-enhancement [Title - Put in Quotes] [Text]**",
+            value="Use this format with 'feature' if you are attempting to suggest a new feature. Creates a ehnancement/feature request on the GitHub that Dav and Dan might eventually look at."
+        )
+        em.color=0x923EDB
+        await ctx.send(embed=em)
+
+@commands.command(aliases=["modrefshort"])
+    @checks.mod()
+    async def modshort(self, ctx):
+        """A condensed list of commonly used moderation commands."""
+        em = discord.Embed(
+            title="Quick Moderation Commands",
+            description="This is a condensed list of important commands that moderators and admins will use on a regular basis."
         )
         em.add_field(
             inline=False,
-            name="**-mlentries [Member]**",
-            value="Get the number of ModLog entries a member has."
+            name="**-check [UID]**",
+            value="Checks a given user's warns, mutes, kicks, bans, flags and userinfo."
+        )
+        em.add_field(
+            inline=False,
+            name="**-flag [UID] [Reason]**",
+            value="Logs a flag onto a user. Useful for things that aren't warn worthy but should still be noted (think of a notepad for each user)."
+        )
+        em.add_field(
+            inline=False,
+            name="**-warn [UID] [Points - Optional, Default 1] [Reason]**",
+            value="Issues a warning to the user. Will send a DM to them if they can receive DMs."
+        )
+        em.add_field(
+            inline=False,
+            name="**-mute [UID] [Duration] [Reason]**",
+            value="Mutes a user for a given time frame. If no duration is noted, the mute will permanent.")
+        em.add_field(
+            inline=False,
+            name="**-claw [UID] [Reason]**",
+            value="Brings the user into a private channel that only staff are able to see. This is for moderation use cases and will remove all other channels from view."
+        )
+        em.add_field(
+            inline=False,
+            name="**-return [UID]**",
+            value="Returns a user out of a claw or softclaw."
+        )
+        em.add_field(
+            inline=False,
+            name="**-bd [UID]**",
+            value="Toggles the birthday role on a member."
+        )
+        em.add_field(
+            inline=False,
+            name="**-faq [UID - Optional]**",
+            value="Creates an automated message that redirects a user to the faqs channel."
+        )
+        em.add_field(
+            inline=False,
+            name="**-rp [UID - Optional]**",
+            value="Create an automated message that redirects a user to the ask-rp-info channel."
+        )
+        em.add_field(
+            inline=False,
+            name="**-bug [Title - Put in Quotes] [Priority 1 (low) - 3 (high)] [Text]**",
+            value="Creates a bug report on our GitHub page that Dan and Dav will investigate (eventually)."
         )
         em.color=0x923EDB
         await ctx.send(embed=em)

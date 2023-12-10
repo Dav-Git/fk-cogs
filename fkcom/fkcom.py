@@ -282,66 +282,6 @@ class FKCom(commands.Cog):
         em.color=0x923EDB
         await ctx.send(embed=em)
 
-@commands.command()
-    @checks.mod()
-    async def modshort(self, ctx):
-        """A condensed list of commonly used moderation commands."""
-        em = discord.Embed(
-            title="Quick Moderation Commands",
-            description="This is a condensed list of important commands that moderators and admins will use on a regular basis."
-        )
-        em.add_field(
-            inline=False,
-            name="**-check [UID]**",
-            value="Checks a given user's warns, mutes, kicks, bans, flags and userinfo."
-        )
-        em.add_field(
-            inline=False,
-            name="**-flag [UID] [Reason]**",
-            value="Logs a flag onto a user. Useful for things that aren't warn worthy but should still be noted (think of a notepad for each user)."
-        )
-        em.add_field(
-            inline=False,
-            name="**-warn [UID] [Points - Optional, Default 1] [Reason]**",
-            value="Issues a warning to the user. Will send a DM to them if they can receive DMs."
-        )
-        em.add_field(
-            inline=False,
-            name="**-mute [UID] [Duration] [Reason]**",
-            value="Mutes a user for a given time frame. If no duration is noted, the mute will permanent.")
-        em.add_field(
-            inline=False,
-            name="**-claw [UID] [Reason]**",
-            value="Brings the user into a private channel that only staff are able to see. This is for moderation use cases and will remove all other channels from view."
-        )
-        em.add_field(
-            inline=False,
-            name="**-return [UID]**",
-            value="Returns a user out of a claw or softclaw."
-        )
-        em.add_field(
-            inline=False,
-            name="**-bd [UID]**",
-            value="Toggles the birthday role on a member."
-        )
-        em.add_field(
-            inline=False,
-            name="**-faq [UID - Optional]**",
-            value="Creates an automated message that redirects a user to the faqs channel."
-        )
-        em.add_field(
-            inline=False,
-            name="**-rp [UID - Optional]**",
-            value="Create an automated message that redirects a user to the ask-rp-info channel."
-        )
-        em.add_field(
-            inline=False,
-            name="**-bug [Title - Put in Quotes] [Priority 1 (low) - 3 (high)] [Text]**",
-            value="Creates a bug report on our GitHub page that Dan and Dav will investigate (eventually)."
-        )
-        em.color=0x923EDB
-        await ctx.send(embed=em)
-
     @commands.command()
     async def fakemod(self, ctx):
         """A list of troll moderation commands."""

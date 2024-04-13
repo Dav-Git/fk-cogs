@@ -64,22 +64,21 @@ class FKCom(commands.Cog):
         await ctx.send(
             """{}\nWe sadly cannot provide detailed and dedicated support for mental health issues. If you or someone you know is struggling mentally, please look at the following links for guidance and support.
 
-                **United Kingdom**
-                *Mind's Recommended Resources*
-                - <https://www.mind.org.uk/information-support/types-of-mental-health-problems/suicidal-feelings/useful-contacts/>
-                - <https://www.mind.org.uk/information-support/types-of-mental-health-problems/depression/useful-contacts/>
+**United Kingdom**
+*Mind's Recommended Resources*
+- <https://www.mind.org.uk/information-support/types-of-mental-health-problems/suicidal-feelings/useful-contacts/>
+- <https://www.mind.org.uk/information-support/types-of-mental-health-problems/depression/useful-contacts/>
 
-                **United States**
-                *Mental Health America*
-                - <https://www.mhanational.org/resources/988>
-                *CDC*
-                - <https://www.cdc.gov/suicide/index.html>
-                *National Institute of Mental Health*
-                - <https://www.nimh.nih.gov/health/find-help>
+**United States**
+*Mental Health America*
+- <https://www.mhanational.org/resources/988>
+*CDC*
+- <https://www.cdc.gov/suicide/index.html>
+*National Institute of Mental Health*
+- <https://www.nimh.nih.gov/health/find-help>
 
-                **International**
-                *International Association for Suicide Prevention*
-                - <https://www.iasp.info/suicidalthoughts/>""".format(
+**International**
+- <https://www.iasp.info/suicidalthoughts/>""".format(
                 user.mention if user != None else "\u200b"
             )
         )

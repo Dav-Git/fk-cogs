@@ -154,6 +154,11 @@ class FKCom(commands.Cog):
         )
         em.add_field(
             inline=False,
+            name="**-punish [Sublevel] [UID] [Reason]**",
+            value="Assigns a role to a member who abuses certain privileges (such as revoking self-promotion). Note: Manual removal can only be done by Admins."
+        )
+        em.add_field(
+            inline=False,
             name="**-mlentries <UID>**",
             value="Counts how many modlog entries a certain member has within the server."
         )

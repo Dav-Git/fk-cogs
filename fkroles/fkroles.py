@@ -1,6 +1,6 @@
 from typing import Optional
 import discord
-from redbot.core import checks, commands, modlog
+from redbot.core import commands, modlog
 
 class FKRoles(commands.Cog):
 
@@ -46,12 +46,13 @@ class FKRoles(commands.Cog):
         ]
         await modlog.register_casetypes(new_types)
 
-    @checks.mod()
+    @commands.mod()
     @commands.group()
     async def punish (self,ctx):
         """Punish the user by assinging restrictive roles"""
-        await ctx.send("# Overview: \n\n1. nsp: No Self Promotion\n2. nss: No Scenario Suggestions\n3. ncc: No Creative Channels\n4.")
-        await ctx.send("https://tenor.com/view/spank-gif-18116954")
+        pass
+        #await ctx.send("# Overview: \n\n1. nsp: No Self Promotion\n2. nss: No Scenario Suggestions\n3. ncc: No Creative Channels\n4. nem No Embeds\n5. nsb: No Soundboard")
+        #await ctx.send("https://tenor.com/view/spank-gif-18116954")
 
     @punish.command(aliases=["noselfpromotion"])
     async def nsp(self, ctx, member: discord.Member, *, reason: Optional[str]):

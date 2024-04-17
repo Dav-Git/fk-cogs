@@ -43,7 +43,7 @@ class FKRoles(commands.Cog):
             {
                 "name": "nsb",
                 "default_setting": True,
-                "image": "<CatPolice:639970673728421908>",
+                "image": "\N{SPEAKER WITH CANCELLATION STROKE}",
                 "case_str": "NSB",
             }
         ]

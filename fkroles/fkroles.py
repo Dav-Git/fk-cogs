@@ -91,8 +91,8 @@ class FKRoles(commands.Cog):
             ctx.bot,
             ctx.guild,
             ctx.message.created_at,
-            role.name,
             case_str,
+            member,
             ctx.author,
             reason if reason else None,
         )    

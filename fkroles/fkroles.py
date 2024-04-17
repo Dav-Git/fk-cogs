@@ -82,7 +82,7 @@ class FKRoles(commands.Cog):
         """Assign NSB to a member. This role is used to deny soundboard perms."""
 
 
-    async def do_the_thing(self,role: discord.Role, member:discord.Member,case_str:str, ctx: discord.Context, reason:str)->None:
+    async def do_the_thing(self,role: discord.Role, member:discord.Member,case_str:str, ctx, reason:str)->None:
         """Does the thing."""
         await member.add_roles(role)
         await modlog.create_case(

@@ -82,6 +82,7 @@ class FKRoles(commands.Cog):
     @punish.command(aliases=["nosoundboard"])
     async def nsb(self,ctx, member: discord.Member, *, reason:Optional[str]):
         """This role is used to deny soundboard perms."""
+        await self.do_the_thing(ctx.guild.get_role(1069294686243651665), member, "nsb", ctx, reason)
 
 
     async def do_the_thing(self,role: discord.Role, member:discord.Member,case_str:str, ctx, reason:str)->None:

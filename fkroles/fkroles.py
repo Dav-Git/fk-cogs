@@ -96,7 +96,7 @@ class FKRoles(commands.Cog):
         )    
 
     @commands.mod()
-    @commands.command(aliases=["birthday"])
+    @commands.command()
     async def bd(self, ctx, member: discord.Member):
         """Toggle the bday role on a member."""
         role = ctx.guild.get_role(657943577065947157)

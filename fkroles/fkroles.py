@@ -53,36 +53,35 @@ class FKRoles(commands.Cog):
     @commands.group()
     async def punish (self,ctx):
         """Punish the user by assinging restrictive roles"""
-        await ctx.send("# Overview: \n\n1. nsp: No Self Promotion\n2. nss: No Scenario Suggestions\n3. ncc: No Creative Channels\n4. nem No Embeds\n5. nsb: No Soundboard")
         await ctx.send("https://tenor.com/view/spank-gif-18116954")
 
     @punish.command(aliases=["noselfpromotion"])
     async def nsp(self, ctx, member: discord.Member, *, reason: Optional[str]):
-        """Assign NSP to a member.\n\nThis role is used to block access to #self-promotion ."""
+        """This role is used to block access to #self-promotion ."""
         await self.do_the_thing(ctx.guild.get_role(699776108970770542), member, "nsp", ctx, reason)
         await ctx.tick()
 
     @punish.command(aliases=["noscenariosuggestions"])
     async def nss(self, ctx, member: discord.Member, *, reason: Optional[str]):
-        """Assign NSS to a member.\n\nThis role is used to block access to #scenario-suggestions ."""
+        """This role is used to block access to #scenario-suggestions ."""
         await self.do_the_thing(ctx.guild.get_role(672402596098736128), member, "nss", ctx, reason)
         await ctx.tick()
 
     @punish.command(aliases=["nocreativechannels"])
     async def ncc(self, ctx, member: discord.Member, *, reason: Optional[str]):
-        """Assign NCC to a member.\n\nThis role is used to block access to creative channels."""
+        """This role is used to block access to creative channels."""
         await self.do_the_thing(ctx.guild.get_role(507595253814001664), member, "ncc", ctx, reason)
         await ctx.tick()
 
     @punish.command(aliases=["noembeds"])
     async def nem(self,ctx, member: discord.Member,* , reason: Optional[str]):
-        """Assing NEM to a member. This role is used to block embeds from the user."""
+        """This role is used to block embeds from the user."""
         await self.do_the_thing(ctx.guild.get_role(1228617211866906706), member, "nem", ctx, reason)
         await ctx.tick()
 
     @punish.command(aliases=["nosoundboard"])
     async def nsb(self,ctx, member: discord.Member, *, reason:Optional[str]):
-        """Assign NSB to a member. This role is used to deny soundboard perms."""
+        """This role is used to deny soundboard perms."""
 
 
     async def do_the_thing(self,role: discord.Role, member:discord.Member,case_str:str, ctx, reason:str)->None:

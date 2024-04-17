@@ -12,9 +12,6 @@ class FKCom(commands.Cog):
         self.bot = bot
         self.uwu_image_task.start()
 
-    async def initialize(self):
-        await self.reg_ct()
-
     @tasks.loop(minutes=2, count=1)
     async def uwu_image_task(self):
         await self.bot.wait_until_red_ready()
@@ -22,29 +19,7 @@ class FKCom(commands.Cog):
             "https://imgur.com/a/lPYyplA"
         )
 
-    @staticmethod
-    async def reg_ct():
-        new_types = [
-            {
-                "name": "nsp",
-                "default_setting": True,
-                "image": "<a:bonk_newspaper_bean:736744548138745866>",
-                "case_str": "NSP",
-            },
-            {
-                "name": "nss",
-                "default_setting": True,
-                "image": "\N{OPEN BOOK}",
-                "case_str": "NSS",
-            },
-            {
-                "name": "ncc",
-                "default_setting": True,
-                "image": "\N{ARTIST PALETTE}",
-                "case_str": "NCC",
-            },
-        ]
-        await modlog.register_casetypes(new_types)
+    
 
     @commands.command()
     async def rp(self, ctx, user: Optional[discord.User], channel: Optional[discord.TextChannel]):
@@ -94,54 +69,6 @@ class FKCom(commands.Cog):
             "An {} has been requested in {}.".format(adminrolestr, ctx.channel.mention),
             allowed_mentions=discord.AllowedMentions(roles=True),
         )
-
-    @checks.admin()
-    @commands.command()
-    async def nsp(self, ctx, member: discord.Member, *, reason: Optional[str]):
-        """Assign NSP to a member.\n\nThis role is used to block access to #self-promotion ."""
-        await member.add_roles(ctx.guild.get_role(699776108970770542))
-        await modlog.create_case(
-            ctx.bot,
-            ctx.guild,
-            ctx.message.created_at,
-            "nsp",
-            member,
-            ctx.author,
-            reason if reason else None,
-        )
-        await ctx.tick()
-
-    @checks.admin()
-    @commands.command()
-    async def nss(self, ctx, member: discord.Member, *, reason: Optional[str]):
-        """Assign NSS to a member.\n\nThis role is used to block access to #scenario-suggestions ."""
-        await member.add_roles(ctx.guild.get_role(672402596098736128))
-        await modlog.create_case(
-            ctx.bot,
-            ctx.guild,
-            ctx.message.created_at,
-            "nss",
-            member,
-            ctx.author,
-            reason if reason else None,
-        )
-        await ctx.tick()
-
-    @checks.admin()
-    @commands.command()
-    async def ncc(self, ctx, member: discord.Member, *, reason: Optional[str]):
-        """Assign NCC to a member.\n\nThis role is used to block access to creative channels."""
-        await member.add_roles(ctx.guild.get_role(507595253814001664))
-        await modlog.create_case(
-            ctx.bot,
-            ctx.guild,
-            ctx.message.created_at,
-            "ncc",
-            member,
-            ctx.author,
-            reason if reason else None,
-        )
-        await ctx.tick()
 
     @commands.mod()
     @commands.command()
@@ -290,15 +217,3 @@ class FKCom(commands.Cog):
         await ctx.send(
             f"{member.mention if member else ''} Please take a look at the {ctx.guild.get_channel(478954069189459998).mention} channel. Please keep in mind some channels have rules specific to the channel so remember to check the pins!"
         )
-
-    @commands.mod()
-    @commands.command()
-    async def bd(self, ctx, member: discord.Member):
-        """Toggle the bday role on a member."""
-        role = ctx.guild.get_role(657943577065947157)
-        if role in member.roles:
-            await member.remove_roles(role)
-            await ctx.tick()
-        else:
-            await member.add_roles(role)
-            await ctx.tick()

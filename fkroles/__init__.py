@@ -1,8 +1,8 @@
-from .fkcom import FKCom
+from .fkroles import FkRoles
 
 __red_end_user_data_statement__ = "This cog does not store end user data."
 
-
 async def setup(bot):
-    cog = FKCom(bot)
-    await bot.add_cog(cog)
+    cog = FkRoles(bot)
+    await cog.initialize()
+    bot.add_cog(cog)

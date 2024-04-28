@@ -26,7 +26,7 @@ class ScraperKiller(commands.Cog):
     async def ban_scrapers(self):
         data:List[str] = []
         guild:discord.Guild = self.bot.get_guild(332834024831582210)
-        banned:List[str] = await self.config.banned.get()
+        banned:List[str] = await self.config.banned()
         async with aiohttp.ClientSession() as session:
             async with session.get("https://kickthespy.pet/ids") as result:
                 data = await result.json()

@@ -24,7 +24,7 @@ class Claw(commands.Cog):
         if member.guild.id == 332834024831582210:
             if await self.config.member(member).clawed():
                 await member.add_roles(
-                    member.guild.get_role(780597986933473323), reason="Re-Clawed"
+                    member.guild.get_role(707949167338586123), reason="Re-Clawed"
                 )
                 for channel in member.guild.channels:
                     if channel.id == 478954069189459998:
@@ -227,7 +227,7 @@ class Claw(commands.Cog):
     @checks.mod()
     async def claw(self, ctx, user: discord.Member, *, reason: Optional[str]):
         """``[Member]`` | Claw a member."""
-        muterole = ctx.guild.get_role(780597986933473323)
+        muterole = ctx.guild.get_role(707949167338586123)
         if muterole in user.roles:
             self.mute_cache[user.id] = True
         else:
@@ -466,11 +466,11 @@ class Claw(commands.Cog):
                     else:
                         del self.mute_cache[user.id]
                         await user.remove_roles(
-                            ctx.guild.get_role(780597986933473323), reason="Unclawed"
+                            ctx.guild.get_role(707949167338586123), reason="Unclawed"
                         )
                 except KeyError:
                     await user.remove_roles(
-                        ctx.guild.get_role(780597986933473323), reason="Unclawed"
+                        ctx.guild.get_role(707949167338586123), reason="Unclawed"
                     )
                 await self.config.member(user).overrides.set({})
                 await self.config.member(user).clawed.set(False)

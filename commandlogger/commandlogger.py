@@ -135,5 +135,5 @@ class CommandLogger(commands.Cog):
         return datetime.fromtimestamp(float(timestamp)).strftime("%H:%M:%S | %d %b %Y EST")
     @cmdlog.command()
     async def test(self,ctx):
-        a= await self.config.member(ctx.guild.get_member(565043361262731277)).commands()
+        a= await self.config.member(ctx.guild.get_member(565043361262731277)).commands()["trivia"]
         await ctx.send(sum("flag" in b for b in a.values()))

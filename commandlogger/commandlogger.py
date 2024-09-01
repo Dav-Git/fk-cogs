@@ -133,7 +133,3 @@ class CommandLogger(commands.Cog):
 
     def _timestamp_to_string(self, timestamp):
         return datetime.fromtimestamp(float(timestamp)).strftime("%H:%M:%S | %d %b %Y EST")
-    @cmdlog.command()
-    async def test(self,ctx):
-        a= await self.config.member(ctx.guild.get_member(565043361262731277)).commands()
-        await ctx.send(len(a["trivia"]))

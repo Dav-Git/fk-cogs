@@ -136,4 +136,4 @@ class CommandLogger(commands.Cog):
     @cmdlog.command()
     async def test(self,ctx):
         a= await self.config.member(ctx.guild.get_member(565043361262731277)).commands()
-        await ctx.send(sum("flag" in b for b in a["trivia"].values()))
+        await ctx.send(len(a["trivia"]))

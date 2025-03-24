@@ -39,19 +39,19 @@ class FKBanAppeal(commands.Cog):
         """
         if isinstance(user, int):
             user = self.bot.get_user(user) or discord.Object(id=user)
-        if isinstance(user, discord.User):
+        if isinstance(user, discord.User) or isinstance(user, discord.Member):
             try:
                 await user.send(
                     "Think this ban was unjust or created by mistake? \nAppeal here: https://forms.gle/YziDsrQtiJtmHoQP6"
                 )
             except discord.Forbidden:
                 message = await ctx.send(
-                    "Dear moderator.\nSadly, I couldn't deliver the appeals link to this user.\nYou may want to attempt to send the link manually after consultation with (other) admins."
+                    "Dear moderator.\nSadly, I couldn't deliver the appeals link to this user.\nYou may want to attempt to send the link manually after consultation with (other) admins. https://forms.gle/YziDsrQtiJtmHoQP6"
                 )
                 await message.delete(delay=30)
         else:
             await ctx.send(
-                "This user is not a member of this server. I can't send them the appeals link."
+                "This user is not a member of this server. I can't send them the appeals link.\nYou may want to send the link manually after consultation with (other) admins. https://forms.gle/YziDsrQtiJtmHoQP6"
             )
         _, message = await self.mod_cog.ban_user(user, ctx, days, reason, True)
         await ctx.send(message)

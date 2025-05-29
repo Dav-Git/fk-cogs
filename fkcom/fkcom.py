@@ -154,6 +154,11 @@ class FKCom(commands.Cog):
         )
         em.add_field(
             inline=False,
+            name="**-flaglist [UID]**",
+            value="Shows the flags that a user has (final part of a check command)."
+        )
+        em.add_field(
+            inline=False,
             name="**-punish [Sublevel] [UID] [Reason]**",
             value="Assigns a role to a member who abuses certain privileges (such as revoking self-promotion). Note: Manual removal can only be done by Admins."
         )

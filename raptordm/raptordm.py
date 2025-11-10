@@ -2,7 +2,7 @@ import discord
 from redbot.core import commands, checks
 
 
-class CustomDM(commands.Cog):
+class RaptorDM(commands.Cog):
     async def red_delete_data_for_user(self, *, requester, user_id):
         pass  # This cog stores no EUD
 

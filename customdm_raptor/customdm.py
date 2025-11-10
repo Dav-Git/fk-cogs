@@ -14,13 +14,13 @@ class CustomDM(commands.Cog):
     async def send_pm(self, ctx, user: discord.User, *, text: str):
         try:
             await user.send(text)
-            await ctx.guild.get_channel(800708255194021918).send(
+            await ctx.guild.get_channel(717915738739965952).send(
                 f"Outbound message from {ctx.author.mention} to {user}({user.id}):\n{text}"
             )
             if ctx.message.attachments:
                 for e in ctx.message.attachments:
                     await user.send(file=(await e.to_file()))
-                    await ctx.guild.get_channel(800708255194021918).send(file=(await e.to_file()))
+                    await ctx.guild.get_channel(717915738739965952).send(file=(await e.to_file()))
         except discord.Forbidden:
             await ctx.send("Message couldn't be delivered.")
 
@@ -35,15 +35,15 @@ class CustomDM(commands.Cog):
                 embed = discord.Embed.from_dict(
                     {**message.embeds[0].to_dict(), "timestamp": str(message.created_at)}
                 )
-                await self.bot.get_guild(749863506228150383).get_channel(800708255194021918).send(
+                await self.bot.get_guild(332834024831582210).get_channel(717915738739965952).send(
                     msg, embed=embed
                 )
         else:
-            await self.bot.get_guild(749863506228150383).get_channel(800708255194021918).send(
+            await self.bot.get_guild(332834024831582210).get_channel(717915738739965952).send(
                 f"Incoming message from {message.author}({message.author.id}):\n{message.content}"
             )
             if message.attachments:
                 for e in message.attachments:
-                    await self.bot.get_guild(749863506228150383).get_channel(
-                        800708255194021918
+                    await self.bot.get_guild(332834024831582210).get_channel(
+                        717915738739965952
                     ).send(file=(await e.to_file()))

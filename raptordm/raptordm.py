@@ -1,5 +1,6 @@
 import discord
 from redbot.core import commands, checks
+import logging
 
 
 class RaptorDM(commands.Cog):
@@ -8,6 +9,7 @@ class RaptorDM(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.logger = logging.getLogger("red.fkcogs.raptordm")
 
     @commands.command(name="message")
     @checks.admin()
@@ -29,7 +31,11 @@ class RaptorDM(commands.Cog):
         if message.guild is not None:
             return
         if message.author == self.bot.user:
-            recipient = (await self.bot.fetch_channel(message.channel.id)).recipient
+            recipient = None
+            try:
+                recipient = (await self.bot.fetch_channel(message.channel.id)).recipient
+            except AttributeError:
+                self.logger.exception(f"Could not fetch recipient for message. {message.channel.id}, {message.content}")
             msg = f"Sent PM to {recipient} (`{recipient.id if recipient else 'Unknown'}`)"
             if message.embeds:
                 embed = discord.Embed.from_dict(

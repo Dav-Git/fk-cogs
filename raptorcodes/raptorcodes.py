@@ -1,4 +1,4 @@
-from redbot.core import commmands, Config
+from redbot.core import commands, Config
 from redbot.core.utils.chat_formatting import pagify
 from typing import List
 import discord

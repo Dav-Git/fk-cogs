@@ -32,7 +32,7 @@ class RaptorCodes(commands.Cog):
             await ctx.send(page)
 
     @codes.group()
-    async def add():
+    async def add(self, ctx):
         """Add giveaway codes"""
         pass
 

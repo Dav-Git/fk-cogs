@@ -3,6 +3,7 @@ from redbot.core.utils.chat_formatting import pagify
 from typing import List
 import discord
 
+
 class RaptorCodes(commands.Cog):
 
     def __init__(self, bot):
@@ -26,7 +27,7 @@ class RaptorCodes(commands.Cog):
         if not codes:
             await ctx.send("No giveaway codes available.")
             return
-        message:str ="# Current giveaway codes:\n" + "\n".join(codes)
+        message: str = "# Current giveaway codes:\n" + "\n".join(codes)
         for page in pagify(message):
             await ctx.send(page)
 
@@ -36,15 +37,15 @@ class RaptorCodes(commands.Cog):
         pass
 
     @add.command()
-    async def top(self,ctx, codes: List[str]):
+    async def top(self, ctx, codes: List[str]):
         """Add codes to the top of the list"""
         current_codes = await self.config.codes()
         new_codes = codes + current_codes
         await self.config.codes.set(new_codes)
-        await ctx.send(f"Added {len(codes)} codes to the top of the list.")"
+        await ctx.send(f"Added {len(codes)} codes to the top of the list.")
 
     @add.command()
-    async def bottom(self,ctx, codes: List[str]):
+    async def bottom(self, ctx, codes: List[str]):
         """Add codes to the bottom of the list"""
         current_codes = await self.config.codes()
         new_codes = current_codes + codes
@@ -67,7 +68,7 @@ class RaptorCodes(commands.Cog):
             await ctx.send(f"Removed code: {code}")
         else:
             await ctx.send(f"Code not found: {code}")
-    
+
     @codes.command()
     async def send(self, ctx, amount: int, member: discord.Member):
         """Send a number of giveaway codes to a member via DM"""
@@ -80,7 +81,9 @@ class RaptorCodes(commands.Cog):
         await self.config.codes.set(remaining_codes)
 
         try:
-            await member.send("Here is your prize from the SeaRaptor giveaway:\n"+ "\n".join(codes_to_send))
+            await member.send(
+                "Here is your prize from the SeaRaptor giveaway:\n" + "\n".join(codes_to_send)
+            )
             await ctx.send(f"Sent {amount} codes to {member.mention}.")
         except discord.Forbidden:
             await ctx.send(f"Could not send DM to {member.mention}.")

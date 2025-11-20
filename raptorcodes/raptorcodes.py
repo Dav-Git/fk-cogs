@@ -38,16 +38,18 @@ class RaptorCodes(commands.Cog):
         pass
 
     @add.command()
-    async def top(self, ctx, codes: List[str]):
+    async def top(self, ctx, codes: str):
         """Add codes to the top of the list"""
+        codes = codes.split(",")
         current_codes = await self.config.codes()
         new_codes = codes + current_codes
         await self.config.codes.set(new_codes)
         await ctx.send(f"Added {len(codes)} codes to the top of the list.")
 
     @add.command()
-    async def bottom(self, ctx, codes: List[str]):
+    async def bottom(self, ctx, codes: str):
         """Add codes to the bottom of the list"""
+        codes = codes.split(",")
         current_codes = await self.config.codes()
         new_codes = current_codes + codes
         await self.config.codes.set(new_codes)

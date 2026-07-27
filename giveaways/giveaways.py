@@ -136,6 +136,43 @@ class Giveaways(commands.Cog):
             await self.config.codes.set(current_codes[amount:])
             return codes_to_send
 
+    async def _warn_insufficient_codes(
+        self, giveaway: Giveaway, missing_count: int, *, winner: Optional[discord.Member] = None
+    ):
+        error_guild = self.bot.get_guild(ERROR_GUILD_ID)
+        if error_guild is None:
+            log.error(
+                "Failed to report giveaway code shortage for giveaway %s: error guild not found.",
+                giveaway.messageid,
+            )
+            return
+
+        error_channel = error_guild.get_channel(ERROR_CHANNEL_ID)
+        if error_channel is None:
+            with contextlib.suppress(discord.HTTPException, discord.Forbidden):
+                error_channel = await error_guild.fetch_channel(ERROR_CHANNEL_ID)
+
+        if error_channel is None:
+            log.error(
+                "Failed to report giveaway code shortage for giveaway %s: error channel not found.",
+                giveaway.messageid,
+            )
+            return
+
+        if winner is None:
+            message = (
+                f"Error: giveaway '{giveaway.prize}' on guild {giveaway.guildid} does not have enough codes to fully supply all winners. "
+                f"Required per winner: {giveaway.kwargs.get('code_amount', 1) or 1} | Missing total codes: {missing_count}"
+            )
+        else:
+            message = (
+                f"Error: giveaway '{giveaway.prize}' could not fully supply codes to winner {winner.name}. "
+                f"Discord ID: {winner.id} | Missing codes: {missing_count} | Code amount per winner: {giveaway.kwargs.get('code_amount', 1) or 1}"
+            )
+
+        with contextlib.suppress(discord.HTTPException, discord.Forbidden):
+            await error_channel.send(message)
+
     async def _send_code_error(self, winner: discord.Member, code: str):
         error_guild = self.bot.get_guild(ERROR_GUILD_ID)
         if error_guild is None:
@@ -163,13 +200,31 @@ class Giveaways(commands.Cog):
         with contextlib.suppress(discord.HTTPException, discord.Forbidden):
             await error_channel.send(message)
 
-    async def _send_winner_codes(self, guild: discord.Guild, winner: discord.Member, amount: int):
+    async def _send_winner_codes(
+        self, giveaway: Giveaway, guild: discord.Guild, winner: discord.Member, amount: int
+    ):
         codes = await self._pop_codes(amount)
+        missing_count = amount - len(codes)
+        if missing_count > 0:
+            await self._warn_insufficient_codes(giveaway, missing_count, winner=winner)
         for code in codes:
             try:
                 await winner.send(f"You won a giveaway in {guild.name}. Your code: {code}")
             except (discord.Forbidden, discord.HTTPException):
                 await self._send_code_error(winner, code)
+        if missing_count > 0:
+            with contextlib.suppress(discord.Forbidden, discord.HTTPException):
+                await winner.send(
+                    f"You won a giveaway in {guild.name}, but there were not enough codes to send your full prize. Please contact the moderators."
+                )
+
+    async def _warn_on_giveaway_start(self, giveaway: Giveaway):
+        code_amount = giveaway.kwargs.get("code_amount", 1) or 1
+        winner_count = giveaway.kwargs.get("winners", 1) or 1
+        required_codes = code_amount * winner_count
+        current_codes = await self._get_codes()
+        if len(current_codes) < required_codes:
+            await self._warn_insufficient_codes(giveaway, required_codes - len(current_codes))
 
     async def draw_winner(self, giveaway: Giveaway):
         guild = self.bot.get_guild(giveaway.guildid)
@@ -249,7 +304,7 @@ class Giveaways(commands.Cog):
             code_amount = giveaway.kwargs.get("code_amount", 1) or 1
             if code_amount > 0:
                 for winner in winner_objs:
-                    await self._send_winner_codes(guild, winner, code_amount)
+                    await self._send_winner_codes(giveaway, guild, winner, code_amount)
         gw = await self.config.custom(
             GIVEAWAY_KEY, giveaway.guildid, str(giveaway.messageid)
         ).all()
@@ -380,6 +435,7 @@ class Giveaways(commands.Cog):
         giveaway_dict = deepcopy(giveaway_obj.__dict__)
         giveaway_dict["endtime"] = giveaway_dict["endtime"].isoformat()
         await self.config.custom(GIVEAWAY_KEY, str(ctx.guild.id), str(msg.id)).set(giveaway_dict)
+        await self._warn_on_giveaway_start(giveaway_obj)
 
     @giveaway.command()
     @commands.has_permissions(manage_guild=True)
@@ -509,6 +565,7 @@ class Giveaways(commands.Cog):
         giveaway_dict["endtime"] = giveaway_dict["endtime"].isoformat()
         del giveaway_dict["kwargs"]["colour"]
         await self.config.custom(GIVEAWAY_KEY, str(ctx.guild.id), str(msg.id)).set(giveaway_dict)
+        await self._warn_on_giveaway_start(giveaway_obj)
 
     @giveaway.command()
     @commands.has_permissions(manage_guild=True)

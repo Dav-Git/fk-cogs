@@ -1,0 +1,1 @@
+This cog was forked from [Flare-Cogs](https://github.com/flaree/Flare-Cogs) and modified to suit our specific purposes. The code is made available per the MIT license without any support or warranty.

@@ -1,0 +1,20 @@
+{
+    "author": [
+        "flare(flare#0001), Dav"
+    ],
+    "install_msg": "Giveaway cog modified for distribution of game codes.",
+    "name": "Giveaways",
+    "disabled": false,
+    "short": "Giveaway cog with features such duration or end timing, multipliers, role only acces, bank integration etc.",
+    "description": "Giveaway cog with features such duration or end timing, multipliers, role only acces, bank integration etc.",
+    "tags": [
+        "giveaway",
+        "giveaways",
+        "raffle"
+    ],
+    "requirements": [
+        "dateparser"
+    ],
+    "min_bot_version": "3.5.0",
+    "hidden": false
+}
